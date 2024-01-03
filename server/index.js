@@ -20,17 +20,12 @@ app.use(cors({
     origin: 'http://localhost:5173',
 }));
 
-// Testing request
-// app.get('/test', (req, res) => {
-//     res.json('Test ok!');
-// });
-
 // Implementing the above imported routes
 app.use(tempRoutes);
 
 // Running the express application
 mongoose
-    .connect('mongodb+srv://aditya:FaN34I0sUEp6Wtl9@cluster0.ksz4zpz.mongodb.net/?retryWrites=true&w=majority')
+    .connect(process.env.MONGO_URL)
     .then((result) => {
         app.listen(8000);
     })

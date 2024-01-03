@@ -11,6 +11,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
 
+function App() {
   return (
     <>
       <Routes>
@@ -25,4 +26,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

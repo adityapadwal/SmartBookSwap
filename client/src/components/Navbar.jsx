@@ -1,14 +1,20 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { Button, Tabs } from "@mui/material";
-import { Link } from "react-router-dom";
+import * as React from 'react';
+import { Link } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Tabs, Tab, Drawer, List, ListItem, ListItemText } from '@mui/material';
 
 export default function DenseAppBar() {
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
 
+  // State variables
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [selectedTab, setSelectedTab] = React.useState(0);
+
+  // Event handlers
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -31,10 +37,14 @@ export default function DenseAppBar() {
           <Typography variant="h6" color="inherit" component="div">
             BookShareHub
           </Typography>
-          <Tabs sx={{ marginLeft: "auto", marginTop: 1 }}>
-            <Button variant="contained" component={Link} to="/authForm">
-              Login
-            </Button>
+          <Tabs
+            value={selectedTab} // Set the value prop to the selectedTab state
+            onChange={(event, newValue) => setSelectedTab(newValue)} // Update the selectedTab state
+            textColor="inherit"
+            sx={{ marginLeft: 'auto', marginTop: 1 }}
+          >
+            <Tab label={<Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link>} />
+            <Tab label={<Link to="/signup" style={{ textDecoration: 'none', color: 'inherit' }}>SignUp</Link>} sx={{ marginLeft: 2 }} />
           </Tabs>
         </Toolbar>
       </AppBar>

@@ -1,3 +1,6 @@
+// Importing dotenv for the API Keys
+require("dotenv").config(); 
+
 // Importing all the modules
 const express = require('express'); // express framework
 const cors = require('cors'); // enabling CORS

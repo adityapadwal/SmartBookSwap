@@ -1,3 +1,4 @@
+// AuthForm.jsx
 import React, { useState } from "react";
 import {
   Box,
@@ -28,8 +29,7 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
   };
 
   const isEmailValid = (email) => {
-    // For a simple example, checking for the presence of '@'
-    return email.includes("@");
+    return email.includes("@gmail.com");
   };
 
   const isFormValid = () => {
@@ -43,7 +43,7 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ inputs, signup: isAdmin ? false : isSignup });
+    console.log(inputs);
   };
 
   const handleSwitchPage = () => {
@@ -52,14 +52,13 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
 
   const handleForgotPassword = () => {
     // Implement logic to navigate to the "Forgot Password" page
-    // This could be using React Router or any other navigation method
     console.log("Navigate to Forgot Password page");
   };
 
   const formWidth = isSmallScreen ? "90%" : 350; // Choose a common width for both login and signup
 
   return (
-    <Dialog PaperProps={{ style: { borderRadius: 13 } }} open={true}>
+    <Dialog PaperProps={{ style: { borderRadius: 13, marginTop: "5.5rem" } }} open={true}>
       <Typography variant="h5" textAlign="center" sx={{ my: isSmallScreen ? 2 : 3, marginBottom: 0 }}>
         {isSignup ? "Signup" : "Login"}
       </Typography>
@@ -71,16 +70,18 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
           width={formWidth}
           margin="auto"
         >
-          {!isAdmin && isSignup && (
-            <TextField
-              value={inputs.name}
-              onChange={handleChange}
-              margin="normal"
-              variant="standard"
-              type="text"
-              name="name"
-              label="Name"
-            />
+          {isSignup && (
+            <>
+              <TextField
+                value={inputs.name}
+                onChange={handleChange}
+                margin="normal"
+                variant="standard"
+                type="text"
+                name="name"
+                label="Name"
+              />
+            </>
           )}
 
           <TextField
@@ -127,7 +128,37 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
           >
             {isSignup ? "Signup" : "Login"}
           </Button>
-          {!isAdmin && !isSignup && (
+          {isSignup && (
+            <>
+              <Typography
+                component="p"
+                variant="body2"
+                color="text.secondary"
+                sx={{ mt: 1, textAlign: "center" }}
+              >
+                Have an account?{" "}
+                <Button
+                  onClick={handleSwitchPage}
+                  color="primary"
+                  sx={{
+                    fontSize: "0.8rem",
+                    textTransform: "none",
+                    "&:focus": {
+                      border: "none",
+                      outline: "none",
+                    },
+                    "&:active": {
+                      border: "none",
+                      outline: "none",
+                    },
+                  }}
+                >
+                  Login
+                </Button>
+              </Typography>
+            </>
+          )}
+          {!isSignup && (
             <>
               <Typography
                 component="p"
@@ -160,7 +191,7 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
                 color="text.secondary"
                 sx={{ mt: 1, textAlign: "center" }}
               >
-                Don’t have an account?{""}
+                Don’t have an account?{" "}
                 <Button
                   onClick={handleSwitchPage}
                   color="primary"

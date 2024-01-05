@@ -1,16 +1,19 @@
-// AuthForm.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import {
   Box,
   Button,
   Dialog,
+  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
-const AuthForm = ({ onSubmit, isAdmin }) => {
+const AuthForm = () => {
+  const navigate = useNavigate(); 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -33,7 +36,6 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
   };
 
   const isFormValid = () => {
-    // Check if all inputs are entered and email is valid
     return (
       inputs.email.trim() !== "" &&
       inputs.password.trim() !== "" &&
@@ -51,15 +53,23 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
   };
 
   const handleForgotPassword = () => {
-    // Implement logic to navigate to the "Forgot Password" page
     console.log("Navigate to Forgot Password page");
   };
 
-  const formWidth = isSmallScreen ? "90%" : 350; // Choose a common width for both login and signup
+  const handleClose = () => {
+    navigate("/"); 
+  };
+
+  const formWidth = isSmallScreen ? "90%" : 350;
 
   return (
-    <Dialog PaperProps={{ style: { borderRadius: 13, marginTop: "5.5rem" } }} open={true}>
-      <Typography variant="h5" textAlign="center" sx={{ my: isSmallScreen ? 2 : 3, marginBottom: 0 }}>
+    <Dialog PaperProps={{ style: { borderRadius: 13, marginTop: "6rem" } }} open={true}>
+      <Box sx={{ ml: "auto", p: 1 }}>
+        <IconButton onClick={handleClose}>
+          <CloseRoundedIcon />
+        </IconButton>
+      </Box>
+      <Typography variant="h5" textAlign="center">
         {isSignup ? "Signup" : "Login"}
       </Typography>
       <form onSubmit={handleSubmit}>

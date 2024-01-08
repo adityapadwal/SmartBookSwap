@@ -29,7 +29,7 @@ export default function DenseAppBar() {
             textColor="inherit"
             sx={{ marginLeft: 'auto', marginTop: 1 }}
           >
-            <Tab label={<Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link>} />
+            <Tab label={<Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>Login / Register</Link>} />
           </Tabs>
         </Toolbar>
       </AppBar>

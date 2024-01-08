@@ -9,6 +9,7 @@ const mongoose = require("mongoose"); // ODM
 
 // Importing routes
 const tempRoutes = require('./routes/temp');
+const authRoutes = require("./routes/auth.js");
 
 // Creating an instance of the express application
 const app = express();
@@ -25,6 +26,7 @@ app.use(cors({
 
 // Implementing the above imported routes
 app.use(tempRoutes);
+app.use(authRoutes);
 
 // Running the express application
 mongoose

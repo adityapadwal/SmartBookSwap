@@ -25,43 +25,43 @@ const LoginPage = () => {
     const [email, setEmail] = useState(""); // form input
     const [password, setPassword] = useState(""); // form input
     const [redirect, setRedirect] = useState(false); // redirect to '/' after successful login
-    const {setUser} = useContext(UserContext);
+    const [errorMessage, setErrorMessage] = useState(""); // handling error msgs
+    const { setUser } = useContext(UserContext);
 
     const isEmailValid = (email) => {
         return email.includes("@gmail.com");
     };
-
     const isFormValid = () => {
         return (email.trim() !== "" && password.trim() !== "" && isEmailValid(email));
     };
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Login:", { email, password });
+        setErrorMessage("");
         try {
-            const {data} = await axios.post('/login', {
-                email, 
+            const { data } = await axios.post('/login', {
+                email,
                 password
             });
-            console.log("Server sent the following, ", data);
             setUser(data);
-            alert("Login Successful!");
             setRedirect(true);
-        } catch (event) {
-            alert("Login Failed!");
+        } catch (error) {
+            if (error.response) {
+                setErrorMessage(`Login Failed: ${error.response.data}`);
+            } else {
+                setErrorMessage("Login Failed. Please check your internet connection.");
+            }
         }
     };
 
     const handleSwitchPage = () => {
         navigate("/register");
     };
-
     const handleClose = () => {
         navigate("/");
     };
-
-    if(redirect) {
-        return <Navigate to={'/'} /> 
+    if (redirect) {
+        return <Navigate to={'/'} />
     }
 
     const formWidth = isSmallScreen ? "90%" : 350;
@@ -106,6 +106,27 @@ const LoginPage = () => {
                         name="password"
                         label="Password"
                     />
+
+                    {errorMessage && (
+                        <Typography
+                            variant="body2"
+                            color="error"
+                            sx={{
+                                mt: 1,
+                                textAlign: "center",
+                                backgroundColor: "#FFEBEE",
+                                border: "1px solid #FFCDD2",
+                                borderRadius: "8px",
+                                padding: "8px",
+                                "&:hover": {
+                                    backgroundColor: "#FFCDD2",
+                                },
+                            }}
+                        >
+                            {errorMessage}
+                        </Typography>
+                    )}
+
                     <Button
                         disabled={!isFormValid()}
                         sx={{
@@ -131,6 +152,31 @@ const LoginPage = () => {
                     >
                         Login
                     </Button>
+                    <Typography
+                        component="p"
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ mt: 1, textAlign: "center" }}
+                    >
+                        <Button
+
+                            color="primary"
+                            sx={{
+                                fontSize: "0.8rem",
+                                textTransform: "none",
+                                "&:focus": {
+                                    border: "none",
+                                    outline: "none",
+                                },
+                                "&:active": {
+                                    border: "none",
+                                    outline: "none",
+                                },
+                            }}
+                        >
+                            Forgot your password?
+                        </Button>
+                    </Typography>
                     <Typography
                         component="p"
                         variant="body2"

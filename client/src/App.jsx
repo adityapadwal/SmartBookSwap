@@ -4,7 +4,6 @@ import Layout from './components/Layout';
 import IndexPage from './components/IndexPage'
 import TempPage from './components/TempPage';
 import { Route, Routes } from 'react-router-dom';
-// import AuthForm from './components/AuthForm';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import ProfilePage from './components/ProfilePage';

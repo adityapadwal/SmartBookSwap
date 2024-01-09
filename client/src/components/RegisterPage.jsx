@@ -21,6 +21,8 @@ const RegisterPage = () => {
     const [name, setName] = useState(""); // form input
     const [email, setEmail] = useState(""); // form input
     const [password, setPassword] = useState(""); // form input
+    const [confirmPassword, setConfirmPassword] = useState(""); // form input
+    const [errorMessage, setErrorMessage] = useState(""); // handling error msgs
     const [redirect, setRedirect] = useState(false); // redirecting to login after successful registration
 
     const isEmailValid = (email) => {
@@ -36,19 +38,26 @@ const RegisterPage = () => {
         );
     };
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            if (password !== confirmPassword) {
+                setErrorMessage("Passwords do not match");
+                return;
+            }
+
             await axios.post('/register', {
-                name, 
-                email, 
+                name,
+                email,
                 password
             });
-            
-            alert('Registration Successful! Now you can log in!');
             setRedirect(true);
-        } catch (event) {
-            alert("Registration Failed! Please try again later!");
+        } catch (error) {
+            if (error.response) {
+                setErrorMessage(`Registration Failed: ${error.response.data}`);
+            } else {
+                setErrorMessage("Registration Failed. Please try again later!");
+            }
         }
     };
 
@@ -60,7 +69,7 @@ const RegisterPage = () => {
         navigate("/");
     };
 
-    if(redirect) {
+    if (redirect) {
         return <Navigate to={'/login'} />
     }
 
@@ -116,6 +125,37 @@ const RegisterPage = () => {
                         name="password"
                         label="Password"
                     />
+
+                    <TextField
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        margin="normal"
+                        variant="standard"
+                        type="password"
+                        name="confirmPassword"
+                        label="Confirm Password"
+                    />
+
+                    {errorMessage && (
+                        <Typography
+                            variant="body2"
+                            color="error"
+                            sx={{
+                                mt: 1,
+                                textAlign: "center",
+                                backgroundColor: "#FFEBEE",
+                                border: "1px solid #FFCDD2",
+                                borderRadius: "8px",
+                                padding: "8px",
+                                "&:hover": {
+                                    backgroundColor: "#FFCDD2",
+                                },
+                            }}
+                        >
+                            {errorMessage}
+                        </Typography>
+                    )}
+
                     <Button
                         disabled={!isFormValid()}
                         sx={{

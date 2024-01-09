@@ -5,7 +5,7 @@ const User = require('../models/User.js');
 const bcrypt = require('bcryptjs');
 const bcryptSalt = bcrypt.genSaltSync(10);
 
-// Importing the jwt model
+// Importing the jwt module
 const jwt = require('jsonwebtoken');
 
 // Importing the jwt secret token 
@@ -53,4 +53,9 @@ exports.postLogin = async(req, res) => {
     } else {
         res.status(422).json('User not found');
     }
+};
+
+exports.postLogout = (req, res) => {
+    // resetting the cookie
+    res.cookie('token', '').json(true);
 };

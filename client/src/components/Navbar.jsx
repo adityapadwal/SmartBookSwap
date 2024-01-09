@@ -5,11 +5,14 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Tabs, Tab, Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { useContext } from 'react';
+import { UserContext } from './UserContext';
 
 export default function DenseAppBar() {
 
   // State variables
   const [selectedTab, setSelectedTab] = React.useState(0);
+  const { user } = useContext(UserContext);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -20,7 +23,7 @@ export default function DenseAppBar() {
         }}
       >
         <Toolbar>
-          <Typography variant="h6" color="inherit" component="div">
+          <Typography variant="h6" color="inherit" component={Link} to="/" style={{ textDecoration: 'none', underline: 'none' }}>
             BookShareHub
           </Typography>
           <Tabs
@@ -29,7 +32,17 @@ export default function DenseAppBar() {
             textColor="inherit"
             sx={{ marginLeft: 'auto', marginTop: 1 }}
           >
-            <Tab label={<Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>Login / Register</Link>} />
+            <Tab
+              label={
+                user
+                  ? <Link to="/account" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    Profile
+                  </Link>
+                  : <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    Login / Register
+                  </Link>
+              }
+            />
           </Tabs>
         </Toolbar>
       </AppBar>

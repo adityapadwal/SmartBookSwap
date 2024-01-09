@@ -10,6 +10,7 @@ const router = express.Router();
 // All routes 
 router.post("/register", authController.postRegister);
 router.post("/login", authController.postLogin);
+router.post("/logout", authController.postLogout);
 
 // exporting the routes
 module.exports = router;

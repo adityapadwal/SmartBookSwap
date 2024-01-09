@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
     Box,
@@ -12,6 +12,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import axios from "axios";
+import { UserContext } from "./UserContext";
 
 const LoginPage = () => {
 
@@ -24,6 +25,7 @@ const LoginPage = () => {
     const [email, setEmail] = useState(""); // form input
     const [password, setPassword] = useState(""); // form input
     const [redirect, setRedirect] = useState(false); // redirect to '/' after successful login
+    const {setUser} = useContext(UserContext);
 
     const isEmailValid = (email) => {
         return email.includes("@gmail.com");
@@ -37,11 +39,12 @@ const LoginPage = () => {
         e.preventDefault();
         console.log("Login:", { email, password });
         try {
-            const data = await axios.post('/login', {
+            const {data} = await axios.post('/login', {
                 email, 
                 password
             });
             console.log("Server sent the following, ", data);
+            setUser(data);
             alert("Login Successful!");
             setRedirect(true);
         } catch (event) {

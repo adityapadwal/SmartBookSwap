@@ -139,7 +139,7 @@ const RegisterPage = () => {
                         type="submit"
                         fullWidth
                     >
-                        Signup
+                        Register
                     </Button>
                     <Typography
                         component="p"

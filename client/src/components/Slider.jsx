@@ -7,7 +7,7 @@ const Slider = () => {
     {
       title: "Medical",
       popular: ["MBBS", "BHMS", "Pharmacy", "Dental"],
-      link: "",
+      link: "/medical",
     },
     {
       title: "Engineering",
@@ -99,7 +99,7 @@ const Slider = () => {
                 <Button
                   variant="outlined"
                   color="primary"
-                  href={item.link}
+                  href={`http://localhost:5173${item.link}`}
                   style={{
                     marginTop: "30px",
                     color: itemIndex % 2 === 0 ? "white" : "black",

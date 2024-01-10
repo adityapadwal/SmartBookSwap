@@ -15,7 +15,7 @@ export default function DenseAppBar() {
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [menuAnchor, setMenuAnchor] = React.useState(null);
   const [profileAnchor, setProfileAnchor] = React.useState(null);
-  const [isLoggedin, setIsLoggedin] = React.useState(true);
+  const [isLoggedin, setIsLoggedin] = React.useState(false);
 
   const handleMenuOpen = (event) => {
     setMenuAnchor(event.currentTarget);
@@ -138,19 +138,9 @@ export default function DenseAppBar() {
                 label={
                   <Link
                     to="/login"
-                    style={{ textDecoration: "none", color: "inherit" }}
+                    style={{ textDecoration: "none", color: "inherit", textTransform: "capitalize", fontSize: "17px" }}
                   >
-                    Login
-                  </Link>
-                }
-              />
-              <Tab
-                label={
-                  <Link
-                    to="/signup"
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    Signup
+                    Login / Register
                   </Link>
                 }
               />

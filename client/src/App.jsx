@@ -4,7 +4,6 @@ import Layout from './components/Layout';
 import IndexPage from './components/IndexPage'
 import TempPage from './components/TempPage';
 import { Route, Routes } from 'react-router-dom';
-import AuthForm from './components/AuthForm';
 
 // configuring axios
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -18,8 +17,7 @@ function App() {
 
           <Route index element={< IndexPage/>}/>
           <Route path='/temp' element={< TempPage/>}/> {/* Only for testing */}
-          <Route path='/login' element={< AuthForm/>}/>
-          
+         
         </Route>
       </Routes>
     </>

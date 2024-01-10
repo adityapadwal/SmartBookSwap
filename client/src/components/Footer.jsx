@@ -115,28 +115,6 @@ const Footer = () => {
           </Box>
         </Grid>
         <Divider style={{ width: "100%", backgroundColor: "white" }} />
-        <Typography
-          variant="body2"
-          color="white"
-          style={{
-            marginBottom: "5px",
-            marginLeft: "33rem",
-            fontSize: "20px",
-          }}
-        >
-          Copyright 2016-23 ©{" "}
-          <RouterLink
-            to="/"
-            style={{
-              textDecoration: "none",
-              color: "white",
-              textDecoration: "underline",
-            }}
-          >
-            SmartBookSwap
-          </RouterLink>{" "}
-          All Rights Reserved
-        </Typography>
       </Grid>
     </Box>
   );

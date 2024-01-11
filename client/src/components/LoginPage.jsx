@@ -54,6 +54,10 @@ const LoginPage = () => {
         }
     };
 
+    const handleForgotPassword = () => {
+        navigate("/reset-password");
+    };
+
     const handleSwitchPage = () => {
         navigate("/register");
     };
@@ -95,6 +99,7 @@ const LoginPage = () => {
                         type="email"
                         name="email"
                         label="Email"
+                        required
                     />
 
                     <TextField
@@ -105,6 +110,7 @@ const LoginPage = () => {
                         type="password"
                         name="password"
                         label="Password"
+                        required
                     />
 
                     {errorMessage && (
@@ -159,7 +165,7 @@ const LoginPage = () => {
                         sx={{ mt: 1, textAlign: "center" }}
                     >
                         <Button
-
+                            onClick={handleForgotPassword}
                             color="primary"
                             sx={{
                                 fontSize: "0.8rem",

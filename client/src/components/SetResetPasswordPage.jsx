@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import {
     Box,
     Button,
@@ -13,17 +13,19 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import axios from "axios";
 
-const RegisterPage = () => {
+const SetResetPasswordPage = () => {
     const navigate = useNavigate();
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const [name, setName] = useState(""); // form input
     const [email, setEmail] = useState(""); // form input
-    const [password, setPassword] = useState(""); // form input
-    const [confirmPassword, setConfirmPassword] = useState(""); // form input
+    const [newPassword, setNewPassword] = useState(""); // form input
+    const [confirmNewPassword, setConfirmNewPassword] = useState(""); // form input
     const [errorMessage, setErrorMessage] = useState(""); // handling error msgs
-    const [redirect, setRedirect] = useState(false); // redirecting to login after successful registration
+    const [redirect, setRedirect] = useState(false); // redirecting to login after successful password reset
+
+    // Use useParams to capture resetToken from the URL
+    const { token } = useParams();
 
     const isEmailValid = (email) => {
         return email.includes("@gmail.com");
@@ -31,9 +33,9 @@ const RegisterPage = () => {
 
     const isFormValid = () => {
         return (
-            name.trim() !== "" &&
             email.trim() !== "" &&
-            password.trim() !== "" &&
+            newPassword.trim() !== "" &&
+            confirmNewPassword.trim() !== "" &&
             isEmailValid(email)
         );
     };
@@ -41,18 +43,20 @@ const RegisterPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMessage("");
+
         try {
-            if (password !== confirmPassword) {
-                setErrorMessage("Passwords do not match");
+            if(newPassword !== confirmNewPassword) {
+                setErrorMessage("Passswords do not match");
                 return;
             }
 
-            await axios.post('/register', {
-                name,
-                email,
-                password
+            await axios.post(`/reset-password/${token}`, {
+                email, 
+                newPassword,
             });
+            alert('Password updated successfully!');
             setRedirect(true);
+
         } catch (error) {
             if (error.response) {
                 setErrorMessage(`Registration Failed: ${error.response.data}`);
@@ -87,7 +91,7 @@ const RegisterPage = () => {
                 </IconButton>
             </Box>
             <Typography variant="h5" textAlign="center">
-                Register
+                Reset Password
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Box
@@ -97,16 +101,6 @@ const RegisterPage = () => {
                     width={formWidth}
                     margin="auto"
                 >
-                    <TextField
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        margin="normal"
-                        variant="standard"
-                        type="text"
-                        name="name"
-                        label="Name"
-                        required
-                    />
 
                     <TextField
                         value={email}
@@ -120,24 +114,24 @@ const RegisterPage = () => {
                     />
 
                     <TextField
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
                         margin="normal"
                         variant="standard"
                         type="password"
-                        name="password"
-                        label="Password"
+                        name="newPassword"
+                        label="New password"
                         required
                     />
 
                     <TextField
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        value={confirmNewPassword}
+                        onChange={(e) => setConfirmNewPassword(e.target.value)}
                         margin="normal"
                         variant="standard"
                         type="password"
-                        name="confirmPassword"
-                        label="Confirm Password"
+                        name="confirmNewPassword"
+                        label="Confirm new Password"
                         required
                     />
 
@@ -184,7 +178,7 @@ const RegisterPage = () => {
                         type="submit"
                         fullWidth
                     >
-                        Register
+                        Reset Password
                     </Button>
                     <Typography
                         component="p"
@@ -192,7 +186,7 @@ const RegisterPage = () => {
                         color="text.secondary"
                         sx={{ mt: 1, textAlign: "center" }}
                     >
-                        Have an account?{" "}
+                        Remeber Password?{" "}
                         <Button
                             onClick={handleSwitchPage}
                             color="primary"
@@ -218,4 +212,4 @@ const RegisterPage = () => {
     );
 };
 
-export default RegisterPage;
+export default SetResetPasswordPage;

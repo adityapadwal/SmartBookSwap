@@ -68,15 +68,16 @@ const LoginPage = () => {
         return <Navigate to={'/'} />
     }
 
-    const formWidth = isSmallScreen ? "90%" : 350;
-
     return (
         <Dialog
             PaperProps={{ style: { borderRadius: 13, marginTop: "6rem" } }}
             open={true}
         >
-            <Box sx={{ ml: "auto", p: 1 }}>
-                <IconButton onClick={handleClose}>
+            <Box 
+                sx={{ p: 1 }}
+                width={isSmallScreen ? "300px" : "400px"}
+            >
+                <IconButton onClick={handleClose} sx={{ ml: 'auto' }}>
                     <CloseRoundedIcon />
                 </IconButton>
             </Box>
@@ -85,10 +86,9 @@ const LoginPage = () => {
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Box
-                    p={3}
+                    p={isSmallScreen ? 2 : 3}
                     display="flex"
                     flexDirection="column"
-                    width={formWidth}
                     margin="auto"
                 >
                     <TextField

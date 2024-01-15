@@ -74,14 +74,15 @@ const RegisterPage = () => {
         return <Navigate to={'/login'} />
     }
 
-    const formWidth = isSmallScreen ? "90%" : 350;
-
     return (
         <Dialog
             PaperProps={{ style: { borderRadius: 13, marginTop: "6rem" } }}
             open={true}
         >
-            <Box sx={{ ml: "auto", p: 1 }}>
+            <Box 
+                sx={{ p: 1 }}
+                width={isSmallScreen ? "300px" : "400px"}
+            >
                 <IconButton onClick={handleClose}>
                     <CloseRoundedIcon />
                 </IconButton>
@@ -91,10 +92,9 @@ const RegisterPage = () => {
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Box
-                    p={3}
+                    p={isSmallScreen ? 2 : 3}
                     display="flex"
                     flexDirection="column"
-                    width={formWidth}
                     margin="auto"
                 >
                     <TextField
@@ -188,7 +188,6 @@ const RegisterPage = () => {
                     </Button>
                     <Typography
                         component="p"
-                        variant="body2"
                         color="text.secondary"
                         sx={{ mt: 1, textAlign: "center" }}
                     >

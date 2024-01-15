@@ -13,7 +13,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import axios from "axios";
 
-const SetResetPasswordPage = () => {
+const NewPasswordPage = () => {
     const navigate = useNavigate();
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -78,14 +78,15 @@ const SetResetPasswordPage = () => {
         return <Navigate to={'/login'} />
     }
 
-    const formWidth = isSmallScreen ? "90%" : 350;
-
     return (
         <Dialog
             PaperProps={{ style: { borderRadius: 13, marginTop: "6rem" } }}
             open={true}
         >
-            <Box sx={{ ml: "auto", p: 1 }}>
+            <Box 
+                sx={{ p: 1 }}
+                width={isSmallScreen ? "300px" : "400px"}
+            >
                 <IconButton onClick={handleClose}>
                     <CloseRoundedIcon />
                 </IconButton>
@@ -95,10 +96,9 @@ const SetResetPasswordPage = () => {
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Box
-                    p={3}
+                    p={isSmallScreen ? 2 : 3}
                     display="flex"
                     flexDirection="column"
-                    width={formWidth}
                     margin="auto"
                 >
 
@@ -212,4 +212,4 @@ const SetResetPasswordPage = () => {
     );
 };
 
-export default SetResetPasswordPage;
+export default NewPasswordPage;

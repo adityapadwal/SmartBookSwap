@@ -8,8 +8,8 @@ import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import ProfilePage from './components/ProfilePage';
 import ResetPasswordPage from './components/ResetPasswordPage';
+import NewPasswordPage from './components/NewPasswordPage';
 import { UserContextProvider } from './components/UserContext';
-import SetResetPasswordPage from './components/SetResetPasswordPage';
 
 // configuring axios
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -28,7 +28,7 @@ function App() {
             <Route path='/register' element={< RegisterPage/>}/>
             <Route path='/account' element={< ProfilePage/>}/>
             <Route path='/reset-password' element={<ResetPasswordPage/>}/>
-            <Route path='/reset-password/:token' element={<SetResetPasswordPage/>}/>
+            <Route path='/reset-password/:token' element={<NewPasswordPage/>}/>
           </Route>
         </Routes>
       </UserContextProvider>

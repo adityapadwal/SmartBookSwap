@@ -54,7 +54,7 @@ const NewPasswordPage = () => {
                 email, 
                 newPassword,
             });
-            alert('Password updated successfully!');
+            alert('Password updated successfully. Login with new credentials');
             setRedirect(true);
 
         } catch (error) {

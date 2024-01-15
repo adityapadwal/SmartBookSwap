@@ -53,11 +53,12 @@ const RegisterPage = () => {
                 password
             });
             setRedirect(true);
+            alert("User Registered, Now Login");
         } catch (error) {
             if (error.response) {
                 setErrorMessage(`Registration Failed: ${error.response.data}`);
             } else {
-                setErrorMessage("Registration Failed. Please try again later!");
+                setErrorMessage("User registration failed. Please try again later!");
             }
         }
     };

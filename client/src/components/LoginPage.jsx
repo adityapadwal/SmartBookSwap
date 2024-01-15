@@ -44,6 +44,7 @@ const LoginPage = () => {
                 password
             });
             setUser(data);
+            alert("User login successful");
             setRedirect(true);
         } catch (error) {
             if (error.response) {

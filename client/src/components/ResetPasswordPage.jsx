@@ -17,6 +17,7 @@ const ResetPasswordPage = () => {
             const { data } = await axios.post('/reset-password', {
                 email 
             });
+            alert("Reset Password email sent, redirecting to Login");
             setRedirect(true);
         } catch (error) {
             if(error.response) {

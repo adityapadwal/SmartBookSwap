@@ -37,9 +37,9 @@ exports.postRegister = async (req, res) => {
     });
 
     res.json(userDoc);
-    console.log("User registered Successfully!");
+    // console.log("User registered Successfully!");
   } catch (error) {
-    console.error("Error in registering user:", error);
+    // console.error("Error in registering user:", error);
     res.status(500).json({ error: "Registration failed" }); // Send generic error response
   }
 };
@@ -120,7 +120,7 @@ exports.postResetPassword = async (req, res) => {
     (async () => {
       try {
         await sgMail.send(msg);
-        console.log("Mail Sent!");
+        // console.log("Mail Sent!");
         res.json(true);
       } catch (error) {
         // failure in sending email
@@ -136,17 +136,17 @@ exports.postResetPassword = async (req, res) => {
 exports.postNewPassword = async(req, res) => {
     // getting data from the client
     const {email, newPassword} = req.body;
-    console.log(email, newPassword);
+    // console.log(email, newPassword);
 
     // finding user in the database
     const userDoc = await User.findOne({ email });
     if(userDoc) {
         const token = req.params.token; // Get token from URL parameter
-        console.log('Token from URL:', token);
-        console.log('Token from database:', userDoc.resetToken);
+        // console.log('Token from URL:', token);
+        // console.log('Token from database:', userDoc.resetToken);
         if(token === userDoc.resetToken) {
-          console.log('New Password:', newPassword);
-          console.log('Old Password:', userDoc.password);
+          // console.log('New Password:', newPassword);
+          // console.log('Old Password:', userDoc.password);
           
             if(!(bcrypt.compareSync(newPassword, userDoc.password))) {
                 const hashedPassword = bcrypt.hashSync(newPassword, bcryptSalt);

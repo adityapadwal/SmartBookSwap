@@ -1,23 +1,34 @@
-import * as React from "react";
-import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { Tabs, Tab, Menu, MenuItem, Popover } from "@mui/material";
+import React, { useState } from "react";
+import { Link, useNavigate, Navigate} from "react-router-dom";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  Tabs,
+  Tab,
+  Menu,
+  MenuItem,
+  IconButton,
+  Popover,
+} from "@mui/material";
+
 import ArrowDropDownSharpIcon from "@mui/icons-material/ArrowDropDownSharp";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import AutoStoriesRoundedIcon from "@mui/icons-material/AutoStoriesRounded";
+import PostBookForm from "./PostBookForm";
 
 export default function DenseAppBar() {
+
   // state variables
   const [selectedTab, setSelectedTab] = useState(0); // keeps track of currently selected tab in profile section ?.
   const [serviceTabIndex, setServiceTabIndex] = useState(0); // keeps track of currently selected tab in our services section 
   const [menuAnchor, setMenuAnchor] = useState(null); // our services menu
   const [profileAnchor, setProfileAnchor] = useState(null); // profile pop over
   const [isLoggedin, setIsLoggedin] = useState(false); // user login status
+
+  const navigate = useNavigate();
 
   // manage opening/clicking of our services menu
   const handleMenuOpen = (event) => {
@@ -39,6 +50,18 @@ export default function DenseAppBar() {
 
   // handles selection of items in menu
   const handleMenuSelect = (index) => {
+    setSelectedTab(index);
+    handleMenuClose();
+
+    if (index === 2 || index === 3) {
+      navigate("/post-book");
+    }
+  };
+
+  const handleProfileMenuSelect = (action) => {
+    // Handle actions like navigating to the profile page or signing out
+    console.log(`Selected profile action: ${action}`);
+    handleProfileClose();
     console.log(index);
   };
 

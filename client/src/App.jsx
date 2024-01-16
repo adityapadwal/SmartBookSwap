@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import IndexPage from './components/IndexPage'
 import TempPage from './components/TempPage';
 import { Route, Routes } from 'react-router-dom';
+import PostBookForm from './components/PostBookForm';
 
 // configuring axios
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -15,7 +16,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />} >
 
-          <Route index element={< IndexPage/>}/>
+          <Route index element={<IndexPage/>}/>
+          <Route path='/post-book' element={<PostBookForm/>} />
           <Route path='/temp' element={< TempPage/>}/> {/* Only for testing */}
          
         </Route>

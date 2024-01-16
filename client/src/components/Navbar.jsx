@@ -1,21 +1,31 @@
-import * as React from "react";
-import { Link } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { Tabs, Tab, Menu, MenuItem, IconButton, Popover } from "@mui/material";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  Tabs,
+  Tab,
+  Menu,
+  MenuItem,
+  IconButton,
+  Popover,
+} from "@mui/material";
 import ArrowDropDownSharpIcon from "@mui/icons-material/ArrowDropDownSharp";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import AutoStoriesRoundedIcon from "@mui/icons-material/AutoStoriesRounded";
+import PostBookForm from "./PostBookForm";
 
 export default function DenseAppBar() {
   // State variables
-  const [selectedTab, setSelectedTab] = React.useState(0);
-  const [menuAnchor, setMenuAnchor] = React.useState(null);
-  const [profileAnchor, setProfileAnchor] = React.useState(null);
-  const [isLoggedin, setIsLoggedin] = React.useState(false);
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [menuAnchor, setMenuAnchor] = useState(null);
+  const [profileAnchor, setProfileAnchor] = useState(null);
+  const [isLoggedin, setIsLoggedin] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleMenuOpen = (event) => {
     setMenuAnchor(event.currentTarget);
@@ -36,6 +46,10 @@ export default function DenseAppBar() {
   const handleMenuSelect = (index) => {
     setSelectedTab(index);
     handleMenuClose();
+
+    if (index === 2 || index === 3) {
+      navigate("/post-book");
+    }
   };
 
   const handleProfileMenuSelect = (action) => {
@@ -138,7 +152,12 @@ export default function DenseAppBar() {
                 label={
                   <Link
                     to="/login"
-                    style={{ textDecoration: "none", color: "inherit", textTransform: "capitalize", fontSize: "17px" }}
+                    style={{
+                      textDecoration: "none",
+                      color: "inherit",
+                      textTransform: "capitalize",
+                      fontSize: "17px",
+                    }}
                   >
                     Login / Register
                   </Link>

@@ -10,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import BookItem from "./BookItem";
-import Slider from "./Slider";
 import Footer from "./Footer";
 
 const IndexPage = () => {
@@ -120,31 +119,63 @@ const IndexPage = () => {
     <Box>
       <Box
         display="flex"
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="space-between"
-        height="100vh"
+        flexDirection={{ xs: "column", sm: "column", md: "row" }}
+        alignItems={{ xs: "stretch", sm: "stretch", md: "center" }}
+        justifyContent={{
+          xs: "flex-start",
+          sm: "flex-start",
+          md: "space-between",
+        }}
+        height={{ xs: "auto", sm: "auto", md: "100vh" }}
+        padding={5}
       >
-        {/* First Box to the left - Title and Description of website*/}
-        <Box width={800} padding={6} textAlign="left">
+        {/* Left Box */}
+        <Box
+          width={{ xs: "100%", sm: "100%", md: "50%" }}
+          textAlign="left"
+          marginTop={{ xs: "64px", md: 0 }}
+        >
+          {/* Adjust marginTop based on the height of your navbar */}
           <Typography
             variant="h4"
             gutterBottom
             fontWeight="bold"
             marginBottom="2rem"
+            sx={{
+              fontSize: {
+                xs: "20px",
+                sm: "22px",
+                md: "22px",
+                lg: "30px",
+              },
+            }}
           >
             Affordable Learning, Sustainable Living!
           </Typography>
           <Typography
             paragraph
-            fontSize="1.5rem"
+            sx={{
+              fontSize: {
+                xs: "16px",
+                sm: "18px",
+                md: "18px",
+                lg: "22px",
+              },
+            }}
             fontWeight={"450"}
             fontStyle={"italic"}
           >
             Welcome to SmartBookSwap – Your Smarter Way to Access Essential
-            Educational Resources!{" "}
+            Educational Resources!
           </Typography>
-          <Typography fontSize="1.3rem" marginBottom="2rem">
+          <Typography sx={{
+              fontSize: {
+                xs: "14px",
+                sm: "16px",
+                md: "16px",
+                lg: "18px",
+              },
+            }} marginBottom="2rem">
             Say goodbye to the hassle of traditional bookshops and brokers –
             here, you can easily Buy, Sell, or Donate essential study materials
             at affordable rates from your peers or nearby sellers.
@@ -154,15 +185,16 @@ const IndexPage = () => {
           </Button>
         </Box>
 
-        {/* Second Box to the right - Search Form */}
+        {/* Right Box */}
         <Box
-          width={400}
-          height={350}
+          width={{ xs: "90%", sm: "94%", md: "35%" }}
+          height={{ xs: "auto", sm: "auto", md: "350px" }}
           padding={3}
           border="1px solid #ccc"
           borderRadius={3}
           boxShadow={2}
-          marginRight={6}
+          marginTop={{ xs: "40px", sm: "40px", md: "0" }}
+          marginBottom={{ xs: "16px", sm: "16px", md: 0 }}
         >
           <Typography variant="h6" gutterBottom>
             Search Books Here!
@@ -180,9 +212,9 @@ const IndexPage = () => {
               <MenuItem value="school">School</MenuItem>
               <MenuItem value="engineering">Engineering</MenuItem>
               <MenuItem value="science&arts">Science & Arts</MenuItem>
-              <MenuItem value="internatinalExams">Internatinal Exams</MenuItem>
+              <MenuItem value="internatinalExams">International Exams</MenuItem>
               <MenuItem value="hsc">Higher Secondary Education</MenuItem>
-              <MenuItem value="ssc">Seconadry School</MenuItem>
+              <MenuItem value="ssc">Secondary School</MenuItem>
               <MenuItem value="other">Other</MenuItem>
             </Select>
           </FormControl>
@@ -203,16 +235,21 @@ const IndexPage = () => {
         </Box>
       </Box>
 
-      {/* Slider */}
-      <Slider />
-
       {/* Cards for Books */}
-      <Box marginTop={15}>
+      <Box >
         <Typography
-          marginLeft="20px"
+          marginLeft="40px"
           variant="h4"
           fontWeight="bold"
           gutterBottom
+          sx={{
+            fontSize: {
+              xs: "20px",
+              sm: "22px",
+              md: "22px",
+              lg: "30px",
+            },
+          }}
         >
           Your Gateway to Knowledge: Featured Books Await!
         </Typography>

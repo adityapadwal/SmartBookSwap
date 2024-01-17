@@ -9,7 +9,6 @@ import {
   Tab,
   Menu,
   MenuItem,
-  IconButton,
   Popover,
 } from "@mui/material";
 
@@ -17,12 +16,11 @@ import ArrowDropDownSharpIcon from "@mui/icons-material/ArrowDropDownSharp";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import AutoStoriesRoundedIcon from "@mui/icons-material/AutoStoriesRounded";
-import PostBookForm from "./PostBookForm";
 
 export default function DenseAppBar() {
 
   // state variables
-  const [selectedTab, setSelectedTab] = useState(0); // keeps track of currently selected tab in profile section ?.
+  const [selectedTab, setSelectedTab] = useState(0); // keeps track of currently selected tab in profile section.
   const [serviceTabIndex, setServiceTabIndex] = useState(0); // keeps track of currently selected tab in our services section 
   const [menuAnchor, setMenuAnchor] = useState(null); // our services menu
   const [profileAnchor, setProfileAnchor] = useState(null); // profile pop over
@@ -34,6 +32,7 @@ export default function DenseAppBar() {
   const handleMenuOpen = (event) => {
     setMenuAnchor(event.currentTarget);
   };
+  
   // manage closing of our services menu
   const handleMenuClose = () => {
     setMenuAnchor(null);
@@ -43,6 +42,7 @@ export default function DenseAppBar() {
   const handleProfileClick = (event) => {
     setProfileAnchor(event.currentTarget);
   };
+
   // manage closing of profile icon
   const handleProfileClose = () => {
     setProfileAnchor(null);
@@ -52,10 +52,6 @@ export default function DenseAppBar() {
   const handleMenuSelect = (index) => {
     setSelectedTab(index);
     handleMenuClose();
-
-    if (index === 2 || index === 3) {
-      navigate("/post-book");
-    }
   };
 
   const handleProfileMenuSelect = (action) => {
@@ -180,23 +176,23 @@ export default function DenseAppBar() {
             <Link to={'/buy-book'} style={{ textDecoration: "none", color: "inherit"}}> 
               <MenuItem
                 sx={{ "&:hover": { backgroundColor: "#e3e3e3" } }}
-                onClick={() => handleMenuSelect(1)}
+                onClick={() => handleMenuSelect()}
               >
                 Buy Book
               </MenuItem>
             </Link>
-            <Link to={'/sell-book'} style={{ textDecoration: "none", color: "inherit"}}>
+            <Link to={'/post-book'} style={{ textDecoration: "none", color: "inherit"}}>
               <MenuItem
                 sx={{ "&:hover": { backgroundColor: "#e3e3e3" } }}
-                onClick={() => handleMenuSelect(2)}
+                onClick={() => handleMenuSelect()}
               >
                 Sell Book
               </MenuItem>
             </Link>
-            <Link to={'/donate-book'} style={{ textDecoration: "none", color: "inherit"}}>
+            <Link to={'/post-book'} style={{ textDecoration: "none", color: "inherit"}}>
               <MenuItem
                 sx={{ "&:hover": { backgroundColor: "#e3e3e3" } }}
-                onClick={() => handleMenuSelect(3)}
+                onClick={() => handleMenuSelect()}
               >
                 Donate Book
               </MenuItem>

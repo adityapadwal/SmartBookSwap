@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import BookItem from "./BookItem";
 import Footer from "./Footer";
+import { Link } from "react-router-dom";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 const IndexPage = () => {
   const books = [
@@ -115,25 +117,28 @@ const IndexPage = () => {
     },
   ];
 
+  // Initialize state for selected category
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   return (
     <Box>
       <Box
         display="flex"
         flexDirection={{ xs: "column", sm: "column", md: "row" }}
-        alignItems={{ xs: "stretch", sm: "stretch", md: "center" }}
+        alignItems={{ xs: "center", sm: "center", md: "center" }}
         justifyContent={{
-          xs: "flex-start",
-          sm: "flex-start",
+          xs: "center",
+          sm: "center",
           md: "space-between",
         }}
-        height={{ xs: "auto", sm: "auto", md: "100vh" }}
+        height={{ xs: "auto", sm: "auto", md: "auto" }}
         padding={5}
       >
-        {/* Left Box */}
+        {/* Left Box - Title and Description */}
         <Box
           width={{ xs: "100%", sm: "100%", md: "50%" }}
           textAlign="left"
-          marginTop={{ xs: "64px", md: 0 }}
+          marginTop={{ xs: 0, md: 0 }}
         >
           {/* Adjust marginTop based on the height of your navbar */}
           <Typography
@@ -168,32 +173,35 @@ const IndexPage = () => {
             Welcome to SmartBookSwap – Your Smarter Way to Access Essential
             Educational Resources!
           </Typography>
-          <Typography sx={{
+          <Typography
+            sx={{
               fontSize: {
                 xs: "14px",
                 sm: "16px",
                 md: "16px",
                 lg: "18px",
               },
-            }} marginBottom="2rem">
+            }}
+            marginBottom="2rem"
+          >
             Say goodbye to the hassle of traditional bookshops and brokers –
             here, you can easily Buy, Sell, or Donate essential study materials
             at affordable rates from your peers or nearby sellers.
           </Typography>
-          <Button variant="contained" color="primary">
+          <Button component={Link} to={`/`} variant="contained" color="primary">
             Know More
           </Button>
         </Box>
 
-        {/* Right Box */}
+        {/* Right Box - Seach Form */}
         <Box
-          width={{ xs: "90%", sm: "94%", md: "35%" }}
+          width={{ xs: "90%", sm: "92%", md: "30%" }}
           height={{ xs: "auto", sm: "auto", md: "350px" }}
           padding={3}
           border="1px solid #ccc"
           borderRadius={3}
           boxShadow={2}
-          marginTop={{ xs: "40px", sm: "40px", md: "0" }}
+          marginTop={{ xs: "40px", sm: "40px", md: 0 }}
           marginBottom={{ xs: "16px", sm: "16px", md: 0 }}
         >
           <Typography variant="h6" gutterBottom>
@@ -201,13 +209,22 @@ const IndexPage = () => {
           </Typography>
           <TextField
             label="Title"
-            fullWidth
+            sx={{ width: "100%" }}
             margin="normal"
             variant="outlined"
           />
-          <FormControl fullWidth variant="outlined" margin="normal">
+          <FormControl
+            sx={{ width: "100%" }}
+            variant="outlined"
+            margin="normal"
+          >
             <InputLabel id="category-label">Category</InputLabel>
-            <Select labelId="category-label" label="Category">
+            <Select
+              labelId="category-label"
+              label="Category"
+              value={selectedCategory}
+              onChange={(event) => setSelectedCategory(event.target.value)}
+            >
               <MenuItem value="medical">Medical</MenuItem>
               <MenuItem value="school">School</MenuItem>
               <MenuItem value="engineering">Engineering</MenuItem>
@@ -218,17 +235,19 @@ const IndexPage = () => {
               <MenuItem value="other">Other</MenuItem>
             </Select>
           </FormControl>
+
           <TextField
             label="Location"
-            fullWidth
+            sx={{ width: "100%" }}
             margin="normal"
             variant="outlined"
           />
           <Button
             variant="contained"
             color="primary"
-            fullWidth
-            style={{ marginTop: "16px" }}
+            style={{ marginTop: "16px", width: "100%" }}
+            component={Link}
+            to={`/`}
           >
             Search
           </Button>
@@ -236,9 +255,9 @@ const IndexPage = () => {
       </Box>
 
       {/* Cards for Books */}
-      <Box >
+      <Box>
         <Typography
-          marginLeft="40px"
+          marginLeft="35px"
           variant="h4"
           fontWeight="bold"
           gutterBottom
@@ -257,22 +276,24 @@ const IndexPage = () => {
           margin={"auto"}
           display="flex"
           flexWrap="wrap"
-          justifyContent="space-evenly"
+          justifyContent="center"
+          alignItems="center"
           padding={"13px"}
         >
           {books &&
             books
-              .slice(0, 10)
+              .slice(0, 8)
               .map((book, index) => (
-                <BookItem
-                  key={index}
-                  image={book.image}
-                  category={book.category}
-                  name={book.name}
-                  location={book.location}
-                  price={book.price}
-                  type={book.type}
-                />
+                <Box key={index} >
+                  <BookItem
+                    image={book.image}
+                    category={book.category}
+                    name={book.name}
+                    location={book.location}
+                    price={book.price}
+                    type={book.type}
+                  />
+                </Box>
               ))}
         </Box>
       </Box>

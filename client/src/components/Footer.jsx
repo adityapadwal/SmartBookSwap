@@ -99,7 +99,7 @@ const Footer = () => {
           </Typography>
           <ul style={{ listStyleType: "none", padding: 0 }}>
             <li>
-              <Link to="/home" style={{ textDecoration: "none" }}>
+              <Link to="/" style={{ textDecoration: "none" }}>
                 <Typography
                   fontSize={{ xs: "14px", sm: "20px" }}
                   style={{ textAlign: "left" }}

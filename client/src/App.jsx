@@ -8,6 +8,8 @@ import ProfileLayout from './components/ProfileLayout';
 import History from './components/History';
 import SoldBooks from './components/SoldBooks';
 import ListedBooks from './components/ListedBooks';
+import SellBookForm from './components/SellBookForm';
+
 
 // configuring axios
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -19,10 +21,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />} >
 
-          <Route index element={< IndexPage/>}/>
+          <Route index element={<IndexPage/>}/>
+          <Route path='/sell-book' element={<SellBookForm/>} />
           <Route path='/temp' element={< TempPage/>}/> {/* Only for testing */}
-
-
           <Route path='/profilelayout' element={< ProfileLayout/>}/>
           <Route path='/history' element={< History/>}/>
           <Route path='/soldbooks' element={< SoldBooks/>}/>

@@ -41,7 +41,7 @@ const ChatForm = () => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              fullWidth
+              sx={{width: "100%"}}
               variant="outlined"
               margin="normal"
             />
@@ -54,7 +54,7 @@ const ChatForm = () => {
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              fullWidth
+              sx={{width: "100%"}}
               variant="outlined"
               margin="normal"
             />

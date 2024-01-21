@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate, Navigate} from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -9,24 +9,31 @@ import {
   Tab,
   Menu,
   MenuItem,
-  IconButton,
   Popover,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
 } from "@mui/material";
 
 import ArrowDropDownSharpIcon from "@mui/icons-material/ArrowDropDownSharp";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import AutoStoriesRoundedIcon from "@mui/icons-material/AutoStoriesRounded";
-import PostBookForm from "./PostBookForm";
+import MenuIcon from "@mui/icons-material/Menu";
+import ArrowDropUpSharpIcon from "@mui/icons-material/ArrowDropUpSharp";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function DenseAppBar() {
-
   // state variables
-  const [selectedTab, setSelectedTab] = useState(0); // keeps track of currently selected tab in profile section ?.
-  const [serviceTabIndex, setServiceTabIndex] = useState(0); // keeps track of currently selected tab in our services section 
+  const [selectedTab, setSelectedTab] = useState(0); // keeps track of currently selected tab in profile section.
+  const [serviceTabIndex, setServiceTabIndex] = useState(0); // keeps track of currently selected tab in our services section
   const [menuAnchor, setMenuAnchor] = useState(null); // our services menu
   const [profileAnchor, setProfileAnchor] = useState(null); // profile pop over
-  const [isLoggedin, setIsLoggedin] = useState(false); // user login status
+  const [isLoggedin, setIsLoggedin] = useState(true); // user login status
+  const [drawerOpen, setDrawerOpen] = useState(false); // drawer open / close status
+  const [ourServicesOpen, setOurServicesOpen] = useState(false); // State to manage the open/close state of the "Our Services" list in the Drawer
 
   const navigate = useNavigate();
 
@@ -34,6 +41,7 @@ export default function DenseAppBar() {
   const handleMenuOpen = (event) => {
     setMenuAnchor(event.currentTarget);
   };
+
   // manage closing of our services menu
   const handleMenuClose = () => {
     setMenuAnchor(null);
@@ -43,6 +51,7 @@ export default function DenseAppBar() {
   const handleProfileClick = (event) => {
     setProfileAnchor(event.currentTarget);
   };
+
   // manage closing of profile icon
   const handleProfileClose = () => {
     setProfileAnchor(null);
@@ -52,10 +61,6 @@ export default function DenseAppBar() {
   const handleMenuSelect = (index) => {
     setSelectedTab(index);
     handleMenuClose();
-
-    if (index === 2 || index === 3) {
-      navigate("/post-book");
-    }
   };
 
   const handleProfileMenuSelect = (action) => {
@@ -65,30 +70,61 @@ export default function DenseAppBar() {
     console.log(index);
   };
 
+  // manage opening drawer
+  const handleDrawerOpen = () => {
+    setDrawerOpen(true);
+  };
+
+  // manage closing of drawer
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
+    setOurServicesOpen(false); // Close the "Our Services" menu list
+  };
+
+  // Function to toggle the "Our Services" list in the Drawer
+  const toggleOurServices = () => {
+    setOurServicesOpen(!ourServicesOpen);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         sx={{
           background: "#2258ae",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
+          position: "static", // ensures AppBar is positioned above the drawer
         }}
       >
         <Toolbar>
+          {/* BookIcon & Website Name */}
           <AutoStoriesRoundedIcon sx={{ marginRight: 1 }} />
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Typography variant="h6" color="inherit" component="div">
+          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+            <Typography
+              sx={{
+                fontSize: { xs: "20px", md: "22px" },
+              }}
+              variant="h6"
+              textcolor="inherit"
+            >
               SmartBookSwap
             </Typography>
           </Link>
+
+          {/* Our Service Tab */}
           <Tabs
             value={serviceTabIndex}
             onChange={(event, newValue) => setServiceTabIndex(newValue)}
             indicatorColor="transparent"
-            sx={{ marginLeft: "auto", marginTop: 1 }}
+            sx={{
+              marginLeft: "auto",
+              marginTop: 1,
+              display: { xs: "none", md: "block" },
+            }}
           >
             <Tab
               label={
-                <div style={{ color: "white", fontSize: "16px", marginTop: "2px"}}>
+                <div
+                  style={{ color: "white", fontSize: "16px", marginTop: "2px" }}
+                >
                   Our Services
                   <i
                     className="material-icons"
@@ -103,12 +139,18 @@ export default function DenseAppBar() {
               onClick={handleMenuOpen}
             />
           </Tabs>
+
+          {/* Login/Register & Profile Tab */}
           {isLoggedin ? (
             <Tabs
               value={selectedTab}
               onChange={(event, newValue) => setSelectedTab(newValue)}
               textColor="inherit"
-              sx={{ marginLeft: "auto", marginTop: 1 }}
+              sx={{
+                marginLeft: "auto",
+                marginTop: 1,
+                display: { xs: "none", md: "block" },
+              }}
               indicatorColor="transparent"
             >
               <Tab
@@ -134,13 +176,19 @@ export default function DenseAppBar() {
                 }}
                 sx={{ marginLeft: 2 }}
               >
-                <Link to={'/account'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link
+                  to={"/account"}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
                   <MenuItem>
                     <PersonRoundedIcon sx={{ marginRight: 1 }} />
                     Profile
                   </MenuItem>
                 </Link>
-                <Link to={'/account'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link
+                  to={"/"}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
                   <MenuItem>
                     <LogoutRoundedIcon sx={{ marginRight: 1 }} />
                     Logout
@@ -153,14 +201,24 @@ export default function DenseAppBar() {
               value={selectedTab}
               onChange={(event, newValue) => setSelectedTab(newValue)}
               textColor="inherit"
-              sx={{ marginLeft: "auto", marginTop: 1 }}
+              sx={{
+                marginLeft: "auto",
+                marginTop: 1,
+                display: { xs: "none", md: "block" },
+              }}
               indicatorColor="transparent"
             >
               <Tab
                 label={
                   <Link
                     to="/login"
-                    style={{ textDecoration: "none", color: "inherit", textTransform: "capitalize", fontSize: "17px", marginBottom: "5px"}}
+                    style={{
+                      textDecoration: "none",
+                      color: "inherit",
+                      textTransform: "capitalize",
+                      fontSize: "17px",
+                      marginBottom: "5px",
+                    }}
                   >
                     Login / Register
                   </Link>
@@ -168,6 +226,96 @@ export default function DenseAppBar() {
               />
             </Tabs>
           )}
+
+          {/* Drawer */}
+          <IconButton
+            sx={{ color: "white", display: { md: "none" }, marginLeft: "auto" }}
+            onClick={drawerOpen ? handleDrawerClose : handleDrawerOpen}
+          >
+            {drawerOpen ? <CloseIcon /> : <MenuIcon />}
+          </IconButton>
+
+          <Drawer
+            anchor="left"
+            open={drawerOpen}
+            onClose={handleDrawerClose}
+            sx={{
+              width: 200,
+              position: "relative",
+              flexShrink: 0,
+            }}
+          >
+            <List>
+              {isLoggedin ? (
+                <List style={{ backgroundColor: "#dae6f5" }}>
+                  <Link
+                    to="/account"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <ListItem onClick={handleDrawerClose}>
+                      <PersonRoundedIcon sx={{ marginRight: "5px" }} />
+                      <ListItemText primary="Profile" />
+                    </ListItem>
+                  </Link>
+                </List>
+              ) : (
+                <List>
+                  <List style={{ backgroundColor: "#dae6f5" }}>
+                    <Link
+                      to="/login"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <ListItem onClick={handleDrawerClose}>
+                        <ListItemText primary="Login/Register" />
+                      </ListItem>
+                    </Link>
+                  </List>
+                </List>
+              )}
+
+              <List>
+                <ListItem
+                  style={{ cursor: "pointer", backgroundColor: "#dae6f5" }}
+                  onClick={toggleOurServices}
+                >
+                  <ListItemText primary="Our Services" />
+                  {ourServicesOpen ? (
+                    <ArrowDropDownSharpIcon />
+                  ) : (
+                    <ArrowDropUpSharpIcon />
+                  )}
+                </ListItem>
+                {ourServicesOpen && (
+                  <List style={{ backgroundColor: "#f5f5f5" }}>
+                    <Link
+                      to="/buy-book"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <ListItem onClick={handleDrawerClose}>
+                        <ListItemText primary="Buy Book" />
+                      </ListItem>
+                    </Link>
+                    <Link
+                      to="/sell-book"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <ListItem onClick={handleDrawerClose}>
+                        <ListItemText primary="Sell Book" />
+                      </ListItem>
+                    </Link>
+                    <Link
+                      to="/sell-book"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <ListItem onClick={handleDrawerClose}>
+                        <ListItemText primary="Donate Book" />
+                      </ListItem>
+                    </Link>
+                  </List>
+                )}
+              </List>
+            </List>
+          </Drawer>
 
           <Menu
             id="service-menu"
@@ -177,33 +325,49 @@ export default function DenseAppBar() {
             onClose={handleMenuClose}
             sx={{ marginLeft: "12px" }}
           >
-            <Link to={'/buy-book'} style={{ textDecoration: "none", color: "inherit"}}> 
+            <Link
+              to={"/buy-book"}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               <MenuItem
                 sx={{ "&:hover": { backgroundColor: "#e3e3e3" } }}
-                onClick={() => handleMenuSelect(1)}
+                onClick={() => handleMenuSelect()}
               >
                 Buy Book
               </MenuItem>
             </Link>
-            <Link to={'/sell-book'} style={{ textDecoration: "none", color: "inherit"}}>
+            <Link
+              to={"/sell-book"}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               <MenuItem
                 sx={{ "&:hover": { backgroundColor: "#e3e3e3" } }}
-                onClick={() => handleMenuSelect(2)}
+                onClick={() => handleMenuSelect()}
               >
                 Sell Book
-              </MenuItem>
-            </Link>
-            <Link to={'/donate-book'} style={{ textDecoration: "none", color: "inherit"}}>
-              <MenuItem
-                sx={{ "&:hover": { backgroundColor: "#e3e3e3" } }}
-                onClick={() => handleMenuSelect(3)}
-              >
-                Donate Book
               </MenuItem>
             </Link>
           </Menu>
         </Toolbar>
       </AppBar>
+      {/* changed default classes style */}
+      <style>{`
+          .css-h4y409-MuiList-root {
+            padding-top: 2px;
+            padding-bottom: 0px;
+        }
+        @media (min-width: 600px) {
+          .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+            top: 65px;
+          }
+        }
+      
+        @media (max-width: 599px) {
+          .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+            top: 55px;
+          }
+        }
+        `}</style>
     </Box>
   );
 }

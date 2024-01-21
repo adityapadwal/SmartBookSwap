@@ -9,12 +9,15 @@ import { Box, Divider, Grid, Typography } from "@mui/material";
 
 const Footer = () => {
   return (
+    <div style={{ margin: '0 0 !important' }}>
+    
     <Grid
       container
       justifyContent="center"
       alignItems="center"
       height={{ xs: 360, sm: 300, md: 300 }}
       backgroundColor="#2258ae"
+      style={{ position: "static", margin: 0, }}
     >
       {/* First Box in Footer */}
       <Grid item xs={12} sm={6}>
@@ -33,7 +36,11 @@ const Footer = () => {
                 fontSize: { xs: "2rem", sm: "3rem" },
               }}
             />
-            <Typography variant="h6" fontSize={{ xs: "20px", sm: "30px" }} color="white">
+            <Typography
+              variant="h6"
+              fontSize={{ xs: "20px", sm: "30px" }}
+              color="white"
+            >
               SmartBookSwap
             </Typography>
           </Box>
@@ -92,8 +99,13 @@ const Footer = () => {
           </Typography>
           <ul style={{ listStyleType: "none", padding: 0 }}>
             <li>
-              <Link to="/home" style={{ textDecoration: "none" }}>
-                <Typography fontSize={{ xs: "14px", sm: "20px" }} style={{ textAlign: "left" }} variant="body2" color="white">
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <Typography
+                  fontSize={{ xs: "14px", sm: "20px" }}
+                  style={{ textAlign: "left" }}
+                  variant="body2"
+                  color="white"
+                >
                   <ArrowRightIcon style={{ marginRight: "4px" }} />
                   Home
                 </Typography>
@@ -101,7 +113,12 @@ const Footer = () => {
             </li>
             <li>
               <Link to="/services" style={{ textDecoration: "none" }}>
-                <Typography fontSize={{ xs: "14px", sm: "20px" }} style={{ textAlign: "left" }} variant="body2" color="white">
+                <Typography
+                  fontSize={{ xs: "14px", sm: "20px" }}
+                  style={{ textAlign: "left" }}
+                  variant="body2"
+                  color="white"
+                >
                   <ArrowRightIcon style={{ marginRight: "4px" }} />
                   Our Services
                 </Typography>
@@ -113,7 +130,8 @@ const Footer = () => {
 
       <Divider style={{ width: "100%", backgroundColor: "white" }} />
     </Grid>
-    
+ 
+    </div>
   );
 };
 

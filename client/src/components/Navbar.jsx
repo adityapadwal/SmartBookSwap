@@ -228,7 +228,6 @@ export default function DenseAppBar() {
           )}
 
           {/* Drawer */}
-
           <IconButton
             sx={{ color: "white", display: { md: "none" }, marginLeft: "auto" }}
             onClick={drawerOpen ? handleDrawerClose : handleDrawerOpen}
@@ -243,6 +242,7 @@ export default function DenseAppBar() {
             sx={{
               width: 200,
               position: "relative",
+              flexShrink: 0,
             }}
           >
             <List>
@@ -296,7 +296,7 @@ export default function DenseAppBar() {
                       </ListItem>
                     </Link>
                     <Link
-                      to="/post-book"
+                      to="/sell-book"
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
                       <ListItem onClick={handleDrawerClose}>
@@ -304,7 +304,7 @@ export default function DenseAppBar() {
                       </ListItem>
                     </Link>
                     <Link
-                      to="/post-book"
+                      to="/sell-book"
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
                       <ListItem onClick={handleDrawerClose}>
@@ -337,7 +337,7 @@ export default function DenseAppBar() {
               </MenuItem>
             </Link>
             <Link
-              to={"/post-book"}
+              to={"/sell-book"}
               style={{ textDecoration: "none", color: "inherit" }}
             >
               <MenuItem
@@ -347,20 +347,10 @@ export default function DenseAppBar() {
                 Sell Book
               </MenuItem>
             </Link>
-            <Link
-              to={"/post-book"}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <MenuItem
-                sx={{ "&:hover": { backgroundColor: "#e3e3e3" } }}
-                onClick={() => handleMenuSelect()}
-              >
-                Donate Book
-              </MenuItem>
-            </Link>
           </Menu>
         </Toolbar>
       </AppBar>
+      {/* changed default classes style */}
       <style>{`
           .css-h4y409-MuiList-root {
             padding-top: 2px;

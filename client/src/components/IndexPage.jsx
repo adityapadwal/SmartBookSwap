@@ -281,20 +281,18 @@ const IndexPage = () => {
           padding={"13px"}
         >
           {books &&
-            books
-              .slice(0, 8)
-              .map((book, index) => (
-                <Box key={index} >
-                  <BookItem
-                    image={book.image}
-                    category={book.category}
-                    name={book.name}
-                    location={book.location}
-                    price={book.price}
-                    type={book.type}
-                  />
-                </Box>
-              ))}
+            books.slice(0, 8).map((book, index) => (
+              <Box margin={"auto"} key={index} padding="10px">
+                <BookItem
+                  image={book.image}
+                  category={book.category}
+                  name={book.name}
+                  location={book.location}
+                  price={book.price}
+                  type={book.type}
+                />
+              </Box>
+            ))}
         </Box>
       </Box>
 

@@ -23,7 +23,7 @@ import {
 const steps = ["Step 1", "Step 2", "Step 3"];
 
 const SellBookForm = () => {
-  // state variables 
+  // state variables
   const [activeStep, setActiveStep] = useState(0);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -42,20 +42,21 @@ const SellBookForm = () => {
   const [mobileNo, setMobileNo] = useState(0);
   const [city, setCity] = useState("");
   const [isNextButtonDisabled, setNextButtonDisabled] = useState(true);
+  const [isFormSubmitted, setFormSubmitted] = useState(false);
 
   const handleTitleChange = (e) => {
     const title = e.target.value;
     setTitle(title);
     // Enable the Next button if both category and title are not empty
-    setNextButtonDisabled(!(title && category));  
+    setNextButtonDisabled(!(title && category));
   };
 
   // Set Subcategory options according to selected Category
-  const handleCategoryChange = (e) => {              
+  const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
     setCategory(selectedCategory);
     // Enable the Next button if both category and title are not empty
-    setNextButtonDisabled(!(title && selectedCategory));  
+    setNextButtonDisabled(!(title && selectedCategory));
     switch (selectedCategory) {
       case "medical":
         setSubcategoryOptions(["MBBS", "Pharmacy", "Nursing", "Other"]);
@@ -106,60 +107,70 @@ const SellBookForm = () => {
     const publicationOrAuthor = e.target.value;
     setPublicationOrAuthor(publicationOrAuthor);
     // Activate next button of 2nd page when (publicationOrAuthor, typeOfBook, transactionType, condition) fields are not empty
-    setNextButtonDisabled(!(publicationOrAuthor && typeOfBook && transactionType && condition));
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+    );
   };
 
   // Handle Edition Year change
   const handleEditionYearChange = (e) => {
     const editionYear = Number(e.target.value);
     setEditionYear(editionYear);
-  }
+  };
 
   // Handle Type of Book change
   const handleTypeOfBookChange = (e) => {
     const typeOfBook = e.target.value;
     setTypeOfBook(typeOfBook);
-    setNextButtonDisabled(!(publicationOrAuthor && typeOfBook && transactionType && condition));
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+    );
   };
 
-  // Handle Transaction Type change 
+  // Handle Transaction Type change
   const handleTransactionTypeChange = (e) => {
     const transactionType = e.target.value;
     setTransactionType(transactionType);
-    setNextButtonDisabled(!(publicationOrAuthor && typeOfBook && transactionType && condition));
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+    );
   };
 
   // Handle Condition change
   const handleConditionChange = (e) => {
     const condition = e.target.value;
     setCondition(condition);
-    setNextButtonDisabled(!(publicationOrAuthor && typeOfBook && transactionType && condition));
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+    );
   };
 
   // Handle Cover image change
   const handleCoverImageChange = (e) => {
     const file = e.target.files[0];
     setCoverImage(file);
-    setNextButtonDisabled(!(publicationOrAuthor && typeOfBook && transactionType && condition));
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+    );
   };
 
   // Handle Price change
   const handlePriceTypeChange = (e) => {
     const priceType = e.target.value;
     setPriceType(priceType);
-  }
+  };
 
   // Handle Mrp cahnge
   const handleMrpChange = (e) => {
-    const mrp = e.target.value; 
+    const mrp = e.target.value;
     setMrp(mrp);
-  }
+  };
 
   // Handle Description change
   const handleDescriptionChange = (e) => {
     const description = e.target.value;
     setDescription(description);
-  }
+  };
 
   // Handle User Name change
   const handleUserNameChange = (e) => {
@@ -167,21 +178,21 @@ const SellBookForm = () => {
     setUserName(userName);
     // Activate next button of 3rd page when (userName, mobileNo, city) fields are not empty
     setNextButtonDisabled(userName && mobileNo && city);
-  }
+  };
 
   // Handle Mobile No. change
   const handleMobileNoChange = (e) => {
     const mobileNo = e.target.value;
     setMobileNo(mobileNo);
     setNextButtonDisabled(userName && mobileNo && city);
-  }
+  };
 
   // Handle City change
   const handleCityChange = (e) => {
     const city = e.target.value;
     setCity(city);
     setNextButtonDisabled(userName && mobileNo && city);
-  }
+  };
 
   // Back button function
   const handleBack = () => {
@@ -191,6 +202,12 @@ const SellBookForm = () => {
 
   // When you click on the submit button it collect all the data
   const handleSubmit = () => {
+    const isFormValid = title && category && publicationOrAuthor && typeOfBook && transactionType && condition && userName && mobileNo && city;
+
+  if (!isFormValid) {
+    alert("Please fill in all required fields before submitting!.");
+  } else {
+    setFormSubmitted(true);
     const formData = {
       title,
       category,
@@ -228,43 +245,33 @@ const SellBookForm = () => {
     setMobileNo(0);
     setCity("");
     setActiveStep(0);
+  }
   };
 
   // Next button function
   const handleNext = () => {
-    if(publicationOrAuthor && typeOfBook && transactionType && condition && title && category){
-      setNextButtonDisabled(false);
-    }
-    else{
-      setNextButtonDisabled(true);
-    }
-   
-    let isValid = true;
-
-    // Validation logic for required fields
-    switch (activeStep) {
-      case 0:
-        isValid = title && category;
-        break;
-      case 1:
-        isValid =
-          publicationOrAuthor &&
-          typeOfBook &&
-          transactionType &&
-          condition;
-        break;
-      case 2:
-        isValid = userName && mobileNo && city;
-        break;
-      default:
-        break;
-    }
-
-    if (isValid) {
-      // Go to the next page
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    } else {
-      console.log("Please fill in all required fields before proceeding.");
+    if (!isFormSubmitted) {
+      // Validation logic for required fields based on the active step
+      let isValid = true;
+  
+      switch (activeStep) {
+        case 0:
+          isValid = title && category;
+          break;
+        case 1:
+          isValid = publicationOrAuthor && typeOfBook && transactionType && condition;
+          break;
+        case 2:
+          isValid = userName && mobileNo && city;
+          break;
+        default:
+          break;
+      }
+  
+      if (isValid) {
+        // Go to the next page
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
     }
   };
 
@@ -285,7 +292,11 @@ const SellBookForm = () => {
         }}
       >
         <Paper elevation={3} sx={{ padding: 5, borderRadius: 4 }}>
-          <Stepper activeStep={activeStep} alternativeLabel sx={{ marginBottom: 2 }}>
+          <Stepper
+            activeStep={activeStep}
+            alternativeLabel
+            sx={{ marginBottom: 2 }}
+          >
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -564,7 +575,7 @@ const SellBookForm = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleNext}
-                disabled={isNextButtonDisabled} // Set the disabled state based on the "isNextButtonDisabled" state variable
+                disabled={Boolean(isNextButtonDisabled)} // Set the disabled state based on the "isNextButtonDisabled" state variable
                 style={{
                   cursor: isNextButtonDisabled ? "not-allowed" : "pointer",
                 }}

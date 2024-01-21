@@ -87,11 +87,11 @@ export default function DenseAppBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, zIndex: +1 }}>
       <AppBar
         sx={{
           background: "#2258ae",
-          position: "static", // ensures AppBar is positioned above the drawer
+          position: "fixed", // ensures AppBar is positioned above the drawer
         }}
       >
         <Toolbar>
@@ -177,7 +177,7 @@ export default function DenseAppBar() {
                 sx={{ marginLeft: 2 }}
               >
                 <Link
-                  to={"/account"}
+                  to={"/profile"}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   <MenuItem>
@@ -249,7 +249,7 @@ export default function DenseAppBar() {
               {isLoggedin ? (
                 <List style={{ backgroundColor: "#dae6f5" }}>
                   <Link
-                    to="/account"
+                    to="/profile"
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
                     <ListItem onClick={handleDrawerClose}>

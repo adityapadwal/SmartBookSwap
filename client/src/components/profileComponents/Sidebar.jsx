@@ -20,7 +20,7 @@ const Sidebar = () => {
 
       <List>
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="/profilelayout">
+          <ListItemButton component={Link} to="/profile">
             <ListItemIcon>
               <AccountCircleIcon />
             </ListItemIcon>

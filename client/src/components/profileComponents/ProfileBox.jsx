@@ -44,12 +44,12 @@ const ProfileBox = () => {
         <Grid container alignItems="center" justifyContent={{xs:'center', sm:"center", md:"left"}} spacing={{ xs: 0, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           
             {/* first item avatar */}
-            <Grid  item xs={2} sm={3} md={5}>
+            <Grid  item xs={2} sm={3} md={2}>
               <Avatar sx={{ width: 130, height: 130 }} />
             </Grid>
           
             {/* username and email_id */}
-            <Grid item xs={6} sm={6} md={4} >
+            <Grid item xs={6} sm={6} md={3} >
               <Grid item  sx={{ textAlign: { xs: 'center', md: 'left'} }}>
                 
                 <h1 style={{margin: "0", marginTop: "10%"}} >{inputName} </h1>
@@ -63,7 +63,7 @@ const ProfileBox = () => {
             </Grid>
 
             {/* third item */}
-            <Grid item alignItems="center" justifyContent={{xs:'center', sm:"center",}}  xs={2} sm={4} md={12} marginTop='2rem' columns={{ xs: 4, sm: 8, md: 12 }} sx={{flexGrow: 1}} >
+            <Grid item alignItems="center" justifyContent={{xs:'center', sm:"center",}}  xs={2} sm={4} md={7} marginTop='2rem' columns={{ xs: 4, sm: 8, md: 12 }} sx={{flexGrow: 1}} >
 
               <Box sx={{ flexGrow: 1 }}>
                 <Grid container sx={{display:{xs:'none', md: 'flex'}}} spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>

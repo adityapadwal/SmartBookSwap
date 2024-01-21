@@ -24,7 +24,7 @@ function App() {
           <Route index element={<IndexPage/>}/>
           <Route path='/sell-book' element={<SellBookForm/>} />
           <Route path='/temp' element={< TempPage/>}/> {/* Only for testing */}
-          <Route path='/profilelayout' element={< ProfileLayout/>}/>
+          <Route path='/profile' element={< ProfileLayout/>}/>
           <Route path='/history' element={< History/>}/>
           <Route path='/soldbooks' element={< SoldBooks/>}/>
           <Route path='/listedbooks' element={< ListedBooks/>}/>

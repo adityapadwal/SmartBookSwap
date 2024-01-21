@@ -121,7 +121,7 @@ const IndexPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   return (
-    <Box sx={{marginTop: '3rem'}}>
+    <Box sx={{marginTop: '5rem'}}>
       <Box
         display="flex"
         flexDirection={{ xs: "column", sm: "column", md: "row" }}

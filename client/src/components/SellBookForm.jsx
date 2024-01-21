@@ -272,7 +272,7 @@ const SellBookForm = () => {
     <Box
       sx={{
         padding: { xs: "5px", sm: "10px", md: "30px" },
-        marginTop: "30px",
+        marginTop: "6rem",
       }}
     >
       <Box

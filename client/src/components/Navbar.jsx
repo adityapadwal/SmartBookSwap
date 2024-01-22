@@ -35,7 +35,7 @@ export default function DenseAppBar() {
             <Tab
               label={
                 user
-                  ? <Link to="/account" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  ? <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>
                     Profile
                   </Link>
                   : <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>

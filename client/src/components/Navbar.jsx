@@ -53,7 +53,7 @@ export default function DenseAppBar() {
   async function handleUserLogout() {
     await axios.post('/logout');
     setUser(null);
-    alert("User logged out successful");
+    alert("User log-out successful");
   }
 
   // manage opening/clicking of our services menu

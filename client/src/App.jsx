@@ -12,7 +12,6 @@ import SellBookForm from './components/SellBookForm';
 
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
-import ProfilePage from './components/ProfilePage';
 import ResetPasswordPage from './components/ResetPasswordPage';
 import NewPasswordPage from './components/NewPasswordPage';
 import { UserContextProvider } from './components/UserContext';
@@ -37,7 +36,6 @@ function App() {
           <Route path='/listedbooks' element={< ListedBooks/>}/>
           <Route path='/login' element={< LoginPage/>}/>
           <Route path='/register' element={< RegisterPage/>}/>
-          <Route path='/profiletemp' element={< ProfilePage/>}/>
           <Route path='/reset-password' element={<ResetPasswordPage/>}/>
           <Route path='/reset-password/:token' element={<NewPasswordPage/>}/>
           

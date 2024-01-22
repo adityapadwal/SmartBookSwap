@@ -26,7 +26,7 @@ function App() {
             <Route path='/temp' element={< TempPage/>}/> {/* Only for testing */}
             <Route path='/login' element={< LoginPage/>}/>
             <Route path='/register' element={< RegisterPage/>}/>
-            <Route path='/profile' element={< ProfilePage/>}/>
+            <Route path='/profiletemp' element={< ProfilePage/>}/>
             <Route path='/reset-password' element={<ResetPasswordPage/>}/>
             <Route path='/reset-password/:token' element={<NewPasswordPage/>}/>
           </Route>

@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useContext } from 'react';
+import { UserContext } from './UserContext';
+import axios from "axios";
+import { Link } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -23,8 +26,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ArrowDropUpSharpIcon from "@mui/icons-material/ArrowDropUpSharp";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { useContext } from 'react';
-import { UserContext } from './UserContext';
 
 export default function DenseAppBar() {
   // state variables
@@ -37,9 +38,23 @@ export default function DenseAppBar() {
   const [ourServicesOpen, setOurServicesOpen] = useState(false); // State to manage the open/close state of the "Our Services" list in the Drawer
 
   // Using context variables
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
-  const navigate = useNavigate();
+  // checking if user has logged in or not
+  useEffect(() => {
+    if (user) {
+      setIsLoggedin(true);
+    } else {
+      setIsLoggedin(false);
+    }
+  }, [user]);
+
+  // handling user logout
+  async function handleUserLogout() {
+    await axios.post('/logout');
+    setUser(null);
+    alert("User logged out successful");
+  }
 
   // manage opening/clicking of our services menu
   const handleMenuOpen = (event) => {
@@ -193,7 +208,7 @@ export default function DenseAppBar() {
                   to={"/"}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  <MenuItem>
+                  <MenuItem onClick={handleUserLogout}>
                     <LogoutRoundedIcon sx={{ marginRight: 1 }} />
                     Logout
                   </MenuItem>

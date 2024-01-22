@@ -15,7 +15,6 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-
 import ArrowDropDownSharpIcon from "@mui/icons-material/ArrowDropDownSharp";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
@@ -24,6 +23,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ArrowDropUpSharpIcon from "@mui/icons-material/ArrowDropUpSharp";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { useContext } from 'react';
+import { UserContext } from './UserContext';
 
 export default function DenseAppBar() {
   // state variables
@@ -34,6 +35,9 @@ export default function DenseAppBar() {
   const [isLoggedin, setIsLoggedin] = useState(true); // user login status
   const [drawerOpen, setDrawerOpen] = useState(false); // drawer open / close status
   const [ourServicesOpen, setOurServicesOpen] = useState(false); // State to manage the open/close state of the "Our Services" list in the Drawer
+
+  // Using context variables
+  const { user } = useContext(UserContext);
 
   const navigate = useNavigate();
 

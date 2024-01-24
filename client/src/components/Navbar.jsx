@@ -29,8 +29,6 @@ import CloseIcon from "@mui/icons-material/Close";
 
 export default function DenseAppBar() {
   // state variables
-  const [selectedTab, setSelectedTab] = useState(0); // keeps track of currently selected tab in profile section.
-  const [serviceTabIndex, setServiceTabIndex] = useState(0); // keeps track of currently selected tab in our services section
   const [menuAnchor, setMenuAnchor] = useState(null); // our services menu
   const [profileAnchor, setProfileAnchor] = useState(null); // profile pop over
   const [isLoggedin, setIsLoggedin] = useState(true); // user login status
@@ -56,7 +54,7 @@ export default function DenseAppBar() {
     alert("User log-out successful");
   }
 
-  // manage opening/clicking of our services menu
+  // manage opening of our services menu
   const handleMenuOpen = (event) => {
     setMenuAnchor(event.currentTarget);
   };
@@ -66,7 +64,7 @@ export default function DenseAppBar() {
     setMenuAnchor(null);
   };
 
-  // manage opening/clicking of profile icon
+  // manage opening of profile icon
   const handleProfileClick = (event) => {
     setProfileAnchor(event.currentTarget);
   };
@@ -74,19 +72,6 @@ export default function DenseAppBar() {
   // manage closing of profile icon
   const handleProfileClose = () => {
     setProfileAnchor(null);
-  };
-
-  // handles selection of items in menu
-  const handleMenuSelect = (index) => {
-    setSelectedTab(index);
-    handleMenuClose();
-  };
-
-  const handleProfileMenuSelect = (action) => {
-    // Handle actions like navigating to the profile page or signing out
-    console.log(`Selected profile action: ${action}`);
-    handleProfileClose();
-    console.log(index);
   };
 
   // manage opening drawer
@@ -130,8 +115,7 @@ export default function DenseAppBar() {
 
           {/* Our Service Tab */}
           <Tabs
-            value={serviceTabIndex}
-            onChange={(event, newValue) => setServiceTabIndex(newValue)}
+            value={0}
             indicatorColor="transparent"
             sx={{
               marginLeft: "auto",
@@ -162,8 +146,7 @@ export default function DenseAppBar() {
           {/* Login/Register & Profile Tab */}
           {isLoggedin ? (
             <Tabs
-              value={selectedTab}
-              onChange={(event, newValue) => setSelectedTab(newValue)}
+              value={0}
               textColor="inherit"
               sx={{
                 marginLeft: "auto",
@@ -199,7 +182,7 @@ export default function DenseAppBar() {
                   to={"/profile"}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  <MenuItem>
+                  <MenuItem onClick={handleProfileClose}>
                     <PersonRoundedIcon sx={{ marginRight: 1 }} />
                     Profile
                   </MenuItem>
@@ -217,8 +200,7 @@ export default function DenseAppBar() {
             </Tabs>
           ) : (
             <Tabs
-              value={selectedTab}
-              onChange={(event, newValue) => setSelectedTab(newValue)}
+              value={0}
               textColor="inherit"
               sx={{
                 marginLeft: "auto",
@@ -322,14 +304,6 @@ export default function DenseAppBar() {
                         <ListItemText primary="Sell Book" />
                       </ListItem>
                     </Link>
-                    <Link
-                      to="/sell-book"
-                      style={{ textDecoration: "none", color: "inherit" }}
-                    >
-                      <ListItem onClick={handleDrawerClose}>
-                        <ListItemText primary="Donate Book" />
-                      </ListItem>
-                    </Link>
                   </List>
                 )}
               </List>
@@ -350,7 +324,7 @@ export default function DenseAppBar() {
             >
               <MenuItem
                 sx={{ "&:hover": { backgroundColor: "#e3e3e3" } }}
-                onClick={() => handleMenuSelect()}
+                onClick={handleMenuClose}
               >
                 Buy Book
               </MenuItem>
@@ -361,7 +335,7 @@ export default function DenseAppBar() {
             >
               <MenuItem
                 sx={{ "&:hover": { backgroundColor: "#e3e3e3" } }}
-                onClick={() => handleMenuSelect()}
+                onClick={handleMenuClose}
               >
                 Sell Book
               </MenuItem>

@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
 
-const ProfileBox = () => {
+const ProfileContent = () => {
 
   const [readOnly, setReadOnly] = useState(true);
   const [inputName, setInputName] = useState('Ankita Ghadge');
@@ -171,4 +171,4 @@ const ProfileBox = () => {
   )
 }
 
-export default ProfileBox
+export default ProfileContent

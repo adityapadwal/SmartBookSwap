@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import BookItem from "./BookItem";
-import Footer from "./Footer";
+import Footer from "../footer/Footer";
 import { Link } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
 

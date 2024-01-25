@@ -22,7 +22,7 @@ import {
 
 const steps = ["Step 1", "Step 2", "Step 3"];
 
-const SellBookForm = () => {
+const SellBookPage = () => {
   // state variables
   const [activeStep, setActiveStep] = useState(0);
   const [title, setTitle] = useState("");
@@ -609,4 +609,4 @@ const SellBookForm = () => {
   );
 };
 
-export default SellBookForm;
+export default SellBookPage;

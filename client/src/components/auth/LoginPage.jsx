@@ -12,7 +12,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import axios from "axios";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../context/UserContext";
 
 const LoginPage = () => {
 

@@ -1,20 +1,20 @@
 import './App.css'
 import axios from 'axios';
-import Layout from './components/Layout';
-import IndexPage from './components/IndexPage'
-import TempPage from './components/TempPage';
 import { Route, Routes } from 'react-router-dom';
-import ProfileLayout from './components/ProfileLayout';
-import History from './components/History';
-import SoldBooks from './components/SoldBooks';
-import ListedBooks from './components/ListedBooks';
-import SellBookForm from './components/SellBookForm';
-
-import LoginPage from './components/LoginPage';
-import RegisterPage from './components/RegisterPage';
-import ResetPasswordPage from './components/ResetPasswordPage';
-import NewPasswordPage from './components/NewPasswordPage';
-import { UserContextProvider } from './components/UserContext';
+import Layout from './components/layoutWrapper/Layout';
+import RegisterPage from './components/auth/RegisterPage';
+import LoginPage from './components/auth/LoginPage';
+import ResetPasswordPage from './components/auth/ResetPasswordPage';
+import NewPasswordPage from './components/auth/NewPasswordPage';
+import IndexPage from './components/index/IndexPage'
+import BuyBookPage from './components/buyBook/BuyBookPage';
+import SellBookPage from './components/sellBook/SellBookPage';
+import ProfilePage from './components/profile/ProfilePage';
+import HistoryPage from './components/profile/HistoryPage';
+import ListedBooksPage from './components/profile/ListedBooksPage';
+import SoldBooksPage from './components/profile/SoldBooksPage';
+import TempPage from './components/testing/TempPage';
+import { UserContextProvider } from './components/context/UserContext';
 
 // configuring axios
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -25,19 +25,25 @@ function App() {
     <>
       <UserContextProvider>
         <Routes>
-          <Route path='/' element={<Layout />} >
+          <Route path='/' element={<Layout />} > {/* LayoutWrapper */}
 
-          <Route index element={<IndexPage/>}/>
-          <Route path='/sell-book' element={<SellBookForm/>} />
-          <Route path='/temp' element={< TempPage/>}/> {/* Only for testing */}
-          <Route path='/profile' element={< ProfileLayout/>}/>
-          <Route path='/history' element={< History/>}/>
-          <Route path='/soldbooks' element={< SoldBooks/>}/>
-          <Route path='/listedbooks' element={< ListedBooks/>}/>
-          <Route path='/login' element={< LoginPage/>}/>
-          <Route path='/register' element={< RegisterPage/>}/>
-          <Route path='/reset-password' element={<ResetPasswordPage/>}/>
-          <Route path='/reset-password/:token' element={<NewPasswordPage/>}/>
+          <Route index element={<IndexPage/>}/> {/* index */}
+
+          <Route path='/login' element={< LoginPage/>}/> {/* auth */}
+          <Route path='/register' element={< RegisterPage/>}/> {/* auth */}
+          <Route path='/reset-password' element={<ResetPasswordPage/>}/> {/* auth */}
+          <Route path='/reset-password/:token' element={<NewPasswordPage/>}/> {/* auth */}
+
+          <Route path='/buy-book' element={<BuyBookPage/>} /> {/* buyBook */}
+
+          <Route path='/sell-book' element={<SellBookPage/>} /> {/* sellBook */}
+
+          <Route path='/profile' element={< ProfilePage/>}/> {/* profile */}
+          <Route path='/history' element={< HistoryPage/>}/> {/* profile */}
+          <Route path='/listedbooks' element={< ListedBooksPage/>}/> {/* profile */}
+          <Route path='/soldbooks' element={< SoldBooksPage/>}/> {/* profile */}
+          
+          <Route path='/temp' element={< TempPage/>}/> {/* testing */}
           
           </Route>
         </Routes>

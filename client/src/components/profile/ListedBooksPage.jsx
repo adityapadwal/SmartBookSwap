@@ -1,11 +1,10 @@
 import React from 'react'
-import { Box, Divider, Grid, Typography, Container } from "@mui/material";
-import Sidebar from './profileComponents/Sidebar';
-import ProfileBox from './profileComponents/ProfileBox';
+import { Box, Grid } from "@mui/material";
+import Sidebar from '../profileComponents/Sidebar';
 
 
 
-const ProfileLayout = () => {
+const ListedBooksPage = () => {
   return (
     <div>
       <Box sx={{ flexGrow: 1, marginTop: "4rem"}}>
@@ -15,14 +14,14 @@ const ProfileLayout = () => {
             <Sidebar/>
         </Grid>
         <Grid item xs={10}>
-           <ProfileBox/>
+
+        {/* display listed book by the user here */}
+
         </Grid>
       </Grid>
       </Box>
-
-      
     </div>
   )
 }
 
-export default ProfileLayout
+export default ListedBooksPage

@@ -10,5 +10,7 @@ const router = express.Router();
 // All routes
 router.get("/profile", profileController.getProfile);
 
+router.put("/update-profile", profileController.putUpdateProfile);
+
 // exporting the routes
 module.exports = router;

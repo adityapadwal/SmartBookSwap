@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { EditUserContext, UserContext } from '../context/UserContext';
 import axios from 'axios';
 import { Box, Grid, Typography, Button } from "@mui/material";
@@ -13,6 +13,29 @@ const ProfileContent = () => {
   const { ready, user, setUser } = useContext(UserContext);
   const { readOnly, setReadOnly, editedName, setEditedName, editedPhone, setEditedPhone, editedLocation, setEditedLocation } = useContext(EditUserContext);
 
+  // New state for validation error message
+  const [validationError, setValidationError] = useState('');
+
+  // Function to check if the form is valid
+  const isFormValid = () => {
+    return (
+      editedName.trim() !== '' &&
+      editedPhone.trim() !== '' &&
+      editedLocation.trim() !== ''
+    );
+  };
+  // Function to check if the phone is valid
+  const isNumberValid = () => {
+    return (
+      editedPhone.trim().length == 10
+    );
+  };
+
+  // useEffect to clear validation error when inputs change
+  useEffect(() => {
+    setValidationError('');
+  }, [editedName, editedPhone, editedLocation]);
+
   if (!ready) {
     return 'Loading...';
   }
@@ -22,6 +45,16 @@ const ProfileContent = () => {
       // enable editing
       setReadOnly(false);
     } else {
+      // Validate the form
+      if (!isFormValid()) {
+        setValidationError('Please fill in all fields.');
+        return;
+      }
+      if (!isNumberValid()) {
+        setValidationError('Mobile Number should have 10 digits');
+        return;
+      }
+
       // updating user details
       try {
         // sending data to server
@@ -32,7 +65,7 @@ const ProfileContent = () => {
         });
 
         // handle success
-        console.log('Profile updated successfully');
+        alert('Profile updated successfully');
 
         // resetting user in context
         setUser((prevUser) => ({
@@ -40,14 +73,15 @@ const ProfileContent = () => {
           name: editedName,
           phone: editedPhone,
           address: editedLocation,
-        }))
-      } catch {
+        }));
+
+        // disable editing
+        setReadOnly(true);
+      } catch (error) {
         // Handle error
         console.error('Error updating profile', error);
+        setValidationError('Error updating profile. Please try again.');
       };
-
-      // disable editing
-      setReadOnly(true);
     }
   };
 
@@ -136,9 +170,9 @@ const ProfileContent = () => {
                 onChange={(event) => setEditedName(event.target.value)}
                 disabled={readOnly}
                 required
-                // InputProps={{
-                //   readOnly: readOnly,
-                // }}
+              // InputProps={{
+              //   readOnly: readOnly,
+              // }}
               />
             </Grid>
 
@@ -151,9 +185,9 @@ const ProfileContent = () => {
                 onChange={(event) => setEditedPhone(event.target.value)}
                 disabled={readOnly}
                 required
-                // InputProps={{
-                //   readOnly: readOnly,
-                // }}
+              // InputProps={{
+              //   readOnly: readOnly,
+              // }}
               />
             </Grid>
           </Grid>
@@ -166,9 +200,9 @@ const ProfileContent = () => {
                 value={user.email}
                 disabled={true}
                 required
-                // InputProps={{
-                //   readOnly: readOnly,
-                // }}
+              // InputProps={{
+              //   readOnly: readOnly,
+              // }}
               />
             </Grid>
 
@@ -181,12 +215,35 @@ const ProfileContent = () => {
                 onChange={(event) => setEditedLocation(event.target.value)}
                 disabled={readOnly}
                 required
-                // InputProps={{
-                //   readOnly: readOnly,
-                // }}
+              // InputProps={{
+              //   readOnly: readOnly,
+              // }}
               />
             </Grid>
           </Grid>
+
+          {/* Display validation error */}
+          {validationError && (
+            <Typography
+              variant="body2"
+              color="error"
+              sx={{
+                mt: 1,
+                textAlign: 'center',
+                backgroundColor: '#FFEBEE',
+                border: '1px solid #FFCDD2',
+                borderRadius: '8px',
+                padding: '8px',
+                '&:hover': {
+                  backgroundColor: '#FFCDD2',
+                },
+              }}
+            >
+              {validationError}
+            </Typography>
+          )}
+
+          {/* Edit Profile / Save Changes button */}
           <Grid sx={{ marginTop: '1rem' }}>
             <Button variant="contained" onClick={handleProfileChanges}>
               {readOnly ? 'Edit Profile' : 'Save Changes'}

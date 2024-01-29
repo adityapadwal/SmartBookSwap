@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react'
-import { UserContext } from '../context/UserContext';
+import React, { useContext } from 'react'
+import { EditUserContext, UserContext } from '../context/UserContext';
 import axios from 'axios';
 import { Box, Grid, Typography, Button } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
@@ -9,18 +9,13 @@ import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import TextField from '@mui/material/TextField';
 
 const ProfileContent = () => {
-  // context
+  // context variables
   const { ready, user, setUser } = useContext(UserContext);
+  const { readOnly, setReadOnly, editedName, setEditedName, editedPhone, setEditedPhone, editedLocation, setEditedLocation } = useContext(EditUserContext);
 
   if (!ready) {
     return 'Loading...';
   }
-
-  // state variables for editable fields
-  const [readOnly, setReadOnly] = useState(true);
-  const [editedName, setEditedName] = useState(user.name || '');
-  const [editedPhone, setEditedPhone] = useState(user.phone || '');
-  const [editedLocation, setEditedLocation] = useState(user.address || '');
 
   const handleProfileChanges = async () => {
     if (readOnly) {
@@ -139,10 +134,11 @@ const ProfileContent = () => {
                 label="User Name"
                 value={editedName}
                 onChange={(event) => setEditedName(event.target.value)}
-                // disabled={readOnly}
-                InputProps={{
-                  readOnly: readOnly,
-                }}
+                disabled={readOnly}
+                required
+                // InputProps={{
+                //   readOnly: readOnly,
+                // }}
               />
             </Grid>
 
@@ -153,10 +149,11 @@ const ProfileContent = () => {
                 label="Mobile Number"
                 value={editedPhone}
                 onChange={(event) => setEditedPhone(event.target.value)}
-                // disabled={readOnly}
-                InputProps={{
-                  readOnly: readOnly,
-                }}
+                disabled={readOnly}
+                required
+                // InputProps={{
+                //   readOnly: readOnly,
+                // }}
               />
             </Grid>
           </Grid>
@@ -168,6 +165,7 @@ const ProfileContent = () => {
                 label="Email Id"
                 value={user.email}
                 disabled={true}
+                required
                 // InputProps={{
                 //   readOnly: readOnly,
                 // }}
@@ -181,10 +179,11 @@ const ProfileContent = () => {
                 label="Location"
                 value={editedLocation}
                 onChange={(event) => setEditedLocation(event.target.value)}
-                // disabled={readOnly}
-                InputProps={{
-                  readOnly: readOnly,
-                }}
+                disabled={readOnly}
+                required
+                // InputProps={{
+                //   readOnly: readOnly,
+                // }}
               />
             </Grid>
           </Grid>

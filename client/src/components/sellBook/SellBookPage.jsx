@@ -1,19 +1,9 @@
 import React, { useState } from "react";
+import { Navigate} from "react-router-dom";
 import {
   Box,
   Paper,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  FormLabel,
   Button,
-  Typography,
-  TextareaAutosize,
   Grid,
   Stepper,
   Step,
@@ -22,6 +12,7 @@ import {
 import SellPage1 from "./sellPage1";
 import SellPage2 from "./sellPage2";
 import SellPage3 from "./sellPage3";
+import axios from "axios";
 
 const steps = ["Step 1", "Step 2", "Step 3"];
 
@@ -46,6 +37,7 @@ const SellBookPage = () => {
   const [city, setCity] = useState("");
   const [isNextButtonDisabled, setNextButtonDisabled] = useState(true);
   const [isFormSubmitted, setFormSubmitted] = useState(false);
+  const [redirect, setRedirect] = useState(false); // redirecting to profile after successful submission of form
 
   const handleTitleChange = (e) => {
     const title = e.target.value;
@@ -117,7 +109,8 @@ const SellBookPage = () => {
 
   // Handle Edition Year change
   const handleEditionYearChange = (e) => {
-    const editionYear = Number(e.target.value);
+    const editionYear = (e.target.value);
+
     setEditionYear(editionYear);
   };
 
@@ -204,7 +197,8 @@ const SellBookPage = () => {
   };
 
   // When you click on the submit button it collect all the data
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const isFormValid =
       title &&
       category &&
@@ -220,6 +214,35 @@ const SellBookPage = () => {
       alert("Please fill in all required fields before submitting!.");
     } else {
       setFormSubmitted(true);
+      try{
+        await axios.post('/sellBook', {
+          title,
+          category,
+          subcategory,
+          publicationOrAuthor,
+          editionYear,
+          typeOfBook,
+          transactionType,
+          condition,
+          coverImage,
+          priceType,
+          mrp,
+          description,
+          userName,
+          mobileNo,
+          city
+        });
+        setRedirect(true);
+        alert("Book Added Sucessfully!");
+      }catch (error) {
+        console.log("Error:", error);
+        if (error.response) {
+            alert(`Request Failed: ${error.response.data}`);
+        } else {
+            alert("Failed to add book. Please try again later!");
+        }
+    }
+
       const formData = {
         title,
         category,
@@ -259,6 +282,10 @@ const SellBookPage = () => {
       setActiveStep(0);
     }
   };
+
+  if (redirect) {
+    return <Navigate to={'/listedbooks'} />
+}
 
   // Next button function
   const handleNext = () => {

@@ -50,7 +50,7 @@ export default function SellPage2({
           />
           <Grid marginBottom={3} container spacing={{ xs: 2, md: 10 }}>
             <Grid item xs={12} md={6}>
-              <TextField
+            <TextField
                 sx={{ width: "100%" }}
                 label="Edition (Year)"
                 type="number"

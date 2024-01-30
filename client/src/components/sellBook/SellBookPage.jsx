@@ -215,7 +215,7 @@ const SellBookPage = () => {
     } else {
       setFormSubmitted(true);
       try{
-        await axios.post('/sellBook', {
+        await axios.post('/addBook', {
           title,
           category,
           subcategory,

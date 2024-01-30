@@ -1,24 +1,18 @@
 import React, { useState } from "react";
+import { Navigate} from "react-router-dom";
 import {
   Box,
   Paper,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  FormLabel,
   Button,
-  Typography,
-  TextareaAutosize,
   Grid,
   Stepper,
   Step,
   StepLabel,
 } from "@mui/material";
+import SellPage1 from "./sellPage1";
+import SellPage2 from "./sellPage2";
+import SellPage3 from "./sellPage3";
+import axios from "axios";
 
 const steps = ["Step 1", "Step 2", "Step 3"];
 
@@ -43,6 +37,7 @@ const SellBookPage = () => {
   const [city, setCity] = useState("");
   const [isNextButtonDisabled, setNextButtonDisabled] = useState(true);
   const [isFormSubmitted, setFormSubmitted] = useState(false);
+  const [redirect, setRedirect] = useState(false); // redirecting to profile after successful submission of form
 
   const handleTitleChange = (e) => {
     const title = e.target.value;
@@ -114,7 +109,8 @@ const SellBookPage = () => {
 
   // Handle Edition Year change
   const handleEditionYearChange = (e) => {
-    const editionYear = Number(e.target.value);
+    const editionYear = (e.target.value);
+
     setEditionYear(editionYear);
   };
 
@@ -177,21 +173,21 @@ const SellBookPage = () => {
     const userName = e.target.value;
     setUserName(userName);
     // Activate next button of 3rd page when (userName, mobileNo, city) fields are not empty
-    setNextButtonDisabled(userName && mobileNo && city);
+    setNextButtonDisabled(!(userName && mobileNo && city));
   };
 
   // Handle Mobile No. change
   const handleMobileNoChange = (e) => {
     const mobileNo = e.target.value;
     setMobileNo(mobileNo);
-    setNextButtonDisabled(userName && mobileNo && city);
+    setNextButtonDisabled(!(userName && mobileNo && city));
   };
 
   // Handle City change
   const handleCityChange = (e) => {
     const city = e.target.value;
     setCity(city);
-    setNextButtonDisabled(userName && mobileNo && city);
+    setNextButtonDisabled(!(userName && mobileNo && city));
   };
 
   // Back button function
@@ -201,65 +197,109 @@ const SellBookPage = () => {
   };
 
   // When you click on the submit button it collect all the data
-  const handleSubmit = () => {
-    const isFormValid = title && category && publicationOrAuthor && typeOfBook && transactionType && condition && userName && mobileNo && city;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const isFormValid =
+      title &&
+      category &&
+      publicationOrAuthor &&
+      typeOfBook &&
+      transactionType &&
+      condition &&
+      userName &&
+      mobileNo &&
+      city;
 
-  if (!isFormValid) {
-    alert("Please fill in all required fields before submitting!.");
-  } else {
-    setFormSubmitted(true);
-    const formData = {
-      title,
-      category,
-      subcategory,
-      publicationOrAuthor,
-      editionYear,
-      typeOfBook,
-      transactionType,
-      condition,
-      coverImage,
-      priceType,
-      mrp,
-      description,
-      userName,
-      mobileNo,
-      city,
-    };
+    if (!isFormValid) {
+      alert("Please fill in all required fields before submitting!.");
+    } else {
+      setFormSubmitted(true);
+      try{
+        await axios.post('/sellBook', {
+          title,
+          category,
+          subcategory,
+          publicationOrAuthor,
+          editionYear,
+          typeOfBook,
+          transactionType,
+          condition,
+          coverImage,
+          priceType,
+          mrp,
+          description,
+          userName,
+          mobileNo,
+          city
+        });
+        setRedirect(true);
+        alert("Book Added Sucessfully!");
+      }catch (error) {
+        console.log("Error:", error);
+        if (error.response) {
+            alert(`Request Failed: ${error.response.data}`);
+        } else {
+            alert("Failed to add book. Please try again later!");
+        }
+    }
 
-    console.log("Form Data:", formData);
+      const formData = {
+        title,
+        category,
+        subcategory,
+        publicationOrAuthor,
+        editionYear,
+        typeOfBook,
+        transactionType,
+        condition,
+        coverImage,
+        priceType,
+        mrp,
+        description,
+        userName,
+        mobileNo,
+        city,
+      };
 
-    // Reset all the input field values to their empty state
-    setTitle("");
-    setCategory("");
-    setSubcategory("");
-    setPublicationOrAuthor("");
-    setEditionYear(0);
-    setTypeOfBook("");
-    setTransactionType("");
-    setCondition("");
-    setCoverImage("");
-    setPriceType("");
-    setMrp(0);
-    setDescription("");
-    setUserName("");
-    setMobileNo(0);
-    setCity("");
-    setActiveStep(0);
-  }
+      console.log("Form Data:", formData);
+
+      // Reset all the input field values to their empty state
+      setTitle("");
+      setCategory("");
+      setSubcategory("");
+      setPublicationOrAuthor("");
+      setEditionYear(0);
+      setTypeOfBook("");
+      setTransactionType("");
+      setCondition("");
+      setCoverImage("");
+      setPriceType("");
+      setMrp(0);
+      setDescription("");
+      setUserName("");
+      setMobileNo(0);
+      setCity("");
+      setActiveStep(0);
+    }
   };
+
+  if (redirect) {
+    return <Navigate to={'/listedbooks'} />
+}
 
   // Next button function
   const handleNext = () => {
     if (!isFormSubmitted) {
       // Validation logic for required fields based on the active step
       let isValid = true;
-  
+
       switch (activeStep) {
         case 0:
           isValid = title && category;
           break;
         case 1:
-          isValid = publicationOrAuthor && typeOfBook && transactionType && condition;
+          isValid =
+            publicationOrAuthor && typeOfBook && transactionType && condition;
           break;
         case 2:
           isValid = userName && mobileNo && city;
@@ -267,7 +307,8 @@ const SellBookPage = () => {
         default:
           break;
       }
-  
+
+      setNextButtonDisabled(true);
       if (isValid) {
         // Go to the next page
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -304,263 +345,47 @@ const SellBookPage = () => {
             ))}
           </Stepper>
 
-          {activeStep === 0 && (
-            <Box>
-              {/* Form 1 Fields */}
-              <TextField
-                sx={{ width: "100%", marginBottom: 2 }}
-                label="Title of Book"
-                margin="normal"
-                required
-                variant="outlined"
-                value={title}
-                onChange={handleTitleChange}
-              />
-              <FormControl
-                sx={{ width: "100%", marginBottom: 2 }}
-                variant="outlined"
-                margin="normal"
-              >
-                <InputLabel id="category-label" required>
-                  Category
-                </InputLabel>
-                <Select
-                  labelId="category-label"
-                  label="Category"
-                  value={category}
-                  onChange={handleCategoryChange}
-                >
-                  <MenuItem value="medical">Medical</MenuItem>
-                  <MenuItem value="engineering">Engineering</MenuItem>
-                  <MenuItem value="ssc">Secondary Education</MenuItem>
-                  <MenuItem value="hsc">Higher Secondary Education</MenuItem>
-                  <MenuItem value="competativeExams">
-                    Competitive Exams
-                  </MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl
-                sx={{ width: "100%", marginBottom: 2 }}
-                variant="outlined"
-                margin="normal"
-              >
-                <InputLabel id="subcategory-label">Subcategory</InputLabel>
-                <Select
-                  labelId="subcategory-label"
-                  label="Subcategory"
-                  value={subcategory}
-                  onChange={handleSubcategoryChange}
-                >
-                  {subcategoryOptions.map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
-          )}
+          <SellPage1
+            activeStep={activeStep}
+            title={title}
+            category={category}
+            subcategory={subcategory}
+            handleTitleChange={handleTitleChange}
+            handleCategoryChange={handleCategoryChange}
+            subcategoryOptions={subcategoryOptions}
+            handleSubcategoryChange={handleSubcategoryChange}
+          />
 
-          {activeStep === 1 && (
-            <Box>
-              {/* Form 2 Fields */}
-              <TextField
-                sx={{ width: "100%" }}
-                label="Publication/Author Name"
-                margin="normal"
-                required
-                variant="outlined"
-                value={publicationOrAuthor}
-                onChange={handlePublicationOrAuthorChange}
-              />
-              <Grid marginBottom={3} container spacing={{ xs: 2, md: 10 }}>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    sx={{ width: "100%" }}
-                    label="Edition (Year)"
-                    type="number"
-                    margin="normal"
-                    variant="outlined"
-                    value={editionYear}
-                    onChange={handleEditionYearChange}
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <FormControl
-                    sx={{ width: "100%" }}
-                    variant="outlined"
-                    margin="normal"
-                  >
-                    <InputLabel required id="book-type-label">
-                      Type of Book
-                    </InputLabel>
-                    <Select
-                      value={typeOfBook}
-                      onChange={handleTypeOfBookChange}
-                      labelId="book-type-label"
-                      label="Type of Book"
-                    >
-                      <MenuItem value="Reference Book">Reference Book</MenuItem>
-                      <MenuItem value="Textbook">Textbook</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-              </Grid>
-              <Grid container spacing={{ xs: 2, md: 10 }}>
-                <Grid item xs={12} md={6}>
-                  <FormControl component="fieldset" margin="normal" required>
-                    <FormLabel component="legend">
-                      Type of Transaction
-                    </FormLabel>
-                    <RadioGroup
-                      value={transactionType}
-                      onChange={handleTransactionTypeChange}
-                      row
-                    >
-                      <FormControlLabel
-                        value="Sell"
-                        control={<Radio />}
-                        label="Sell"
-                      />
-                      <FormControlLabel
-                        value="Free"
-                        control={<Radio />}
-                        label="Free"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </Grid>
+          <SellPage2
+            activeStep={activeStep}
+            publicationOrAuthor={publicationOrAuthor}
+            handlePublicationOrAuthorChange={handlePublicationOrAuthorChange}
+            editionYear={editionYear}
+            handleEditionYearChange={handleEditionYearChange}
+            typeOfBook={typeOfBook}
+            handleTypeOfBookChange={handleTypeOfBookChange}
+            transactionType={transactionType}
+            handleTransactionTypeChange={handleTransactionTypeChange}
+            condition={condition}
+            handleConditionChange={handleConditionChange}
+            handleCoverImageChange={handleCoverImageChange}
+            priceType={priceType}
+            handlePriceTypeChange={handlePriceTypeChange}
+            mrp={mrp}
+            handleMrpChange={handleMrpChange}
+            description={description}
+            handleDescriptionChange={handleDescriptionChange}
+          />
 
-                <Grid item xs={12} md={6}>
-                  <FormControl component="fieldset" margin="normal" required>
-                    <FormLabel component="legend">Condition</FormLabel>
-                    <RadioGroup
-                      value={condition}
-                      onChange={handleConditionChange}
-                      row
-                    >
-                      <FormControlLabel
-                        value="New"
-                        control={<Radio />}
-                        label="New"
-                      />
-                      <FormControlLabel
-                        value="Used"
-                        control={<Radio />}
-                        label="Used"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </Grid>
-              </Grid>
-              <FormControl sx={{ width: "100%" }}>
-                <FormLabel>
-                  Click the box below to upload the cover page!
-                </FormLabel>
-                <TextField
-                  sx={{ width: "100%" }}
-                  label=""
-                  type="file"
-                  margin="normal"
-                  variant="outlined"
-                  onChange={handleCoverImageChange}
-                />
-              </FormControl>
-
-              <Grid container spacing={{ xs: 2, md: 10 }} marginBottom={2}>
-                <Grid item xs={12} md={6}>
-                  <FormControl
-                    sx={{ width: "100%" }}
-                    variant="outlined"
-                    margin="normal"
-                  >
-                    <InputLabel id="price-type">Price Type</InputLabel>
-                    <Select
-                      value={priceType}
-                      onChange={handlePriceTypeChange}
-                      labelId="price-type"
-                      label="Price Type"
-                    >
-                      <MenuItem value="Fixed">Fixed</MenuItem>
-                      <MenuItem value="Negotiable">Negotiable</MenuItem>
-                      <MenuItem value="Price on call">Price on call</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    value={mrp}
-                    onChange={handleMrpChange}
-                    sx={{ width: "100%" }}
-                    label="MRP (Rs.)"
-                    type="number"
-                    margin="normal"
-                    variant="outlined"
-                  />
-                </Grid>
-              </Grid>
-
-              <FormControl>
-                <FormLabel component="legend">Description of Book</FormLabel>
-                <TextareaAutosize
-                  rowsmin={4}
-                  placeholder=""
-                  style={{
-                    height: "130px",
-                    marginTop: 10,
-                    marginBottom: 10,
-                  }}
-                  value={description}
-                  onChange={handleDescriptionChange}
-                  variant="outlined"
-                />
-              </FormControl>
-            </Box>
-          )}
-
-          {activeStep === 2 && (
-            <Box>
-              {/* Form 3 Fields */}
-              <TextField
-                sx={{ width: "100%" }}
-                label="Your Name"
-                margin="normal"
-                required
-                variant="outlined"
-                value={userName}
-                onChange={handleUserNameChange}
-              />
-              <Grid container spacing={{ xs: 2, md: 10 }}>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    sx={{ width: "100%" }}
-                    label="Mobile No."
-                    type="number"
-                    margin="normal"
-                    variant="outlined"
-                    required
-                    value={mobileNo}
-                    onChange={handleMobileNoChange}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    sx={{ width: "100%" }}
-                    label="City"
-                    type="text"
-                    margin="normal"
-                    variant="outlined"
-                    required
-                    value={city}
-                    onChange={handleCityChange}
-                  />
-                </Grid>
-              </Grid>
-            </Box>
-          )}
-
+          <SellPage3
+            activeStep={activeStep}
+            userName={userName}
+            mobileNo={mobileNo}
+            city={city}
+            handleUserNameChange={handleUserNameChange}
+            handleMobileNoChange={handleMobileNoChange}
+            handleCityChange={handleCityChange}
+          />
           <Grid container justifyContent="space-between" marginTop={2}>
             <Button
               variant="contained"

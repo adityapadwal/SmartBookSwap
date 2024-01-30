@@ -4,7 +4,7 @@
 const express = require("express");
 
 // Importing the temp Controller 
-const tempController = require("../controllers/temp");
+const tempController = require("../controllers/temp.js");
 
 // Importing express router
 const router = express.Router();

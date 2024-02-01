@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { EditUserContext, UserContext } from '../context/UserContext';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { Box, Grid, Typography, Button } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
@@ -27,7 +28,7 @@ const ProfileContent = () => {
   // Function to check if the phone is valid
   const isNumberValid = () => {
     return (
-      editedPhone.trim().length == 10
+      editedPhone.trim().length === 10
     );
   };
 
@@ -38,6 +39,10 @@ const ProfileContent = () => {
 
   if (!ready) {
     return 'Loading...';
+  }
+
+  if (!user) {
+    return <Navigate to={'/'} />;
   }
 
   const handleProfileChanges = async () => {
@@ -85,8 +90,11 @@ const ProfileContent = () => {
     }
   };
 
-  function handleLogout() {
-    console.log(user);
+  async function handleLogout() {
+    await axios.post('/logout');
+    alert("User logout successful");
+    setUser(null);
+    return <Navigate to={'/'} />;
   }
 
   return (
@@ -124,21 +132,27 @@ const ProfileContent = () => {
               <Grid container sx={{ display: { xs: 'none', md: 'flex' } }} spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
 
                 <Grid item xs={2} sm={4} md={4} >
-                  <Button variant="contained" endIcon={< LibraryAddOutlinedIcon />} sx={{ padding: { xs: '0rem', sm: '1rem' }, margin: { xs: '1rem', md: '0rem' } }}>
-                    <Typography >Sell Book</Typography>
-                  </Button>
+                  <Link to={'/sell-book'}>
+                    <Button variant="contained" endIcon={< LibraryAddOutlinedIcon />} sx={{ padding: { xs: '0rem', sm: '1rem' }, margin: { xs: '1rem', md: '0rem' } }}>
+                      <Typography >Sell Book</Typography>
+                    </Button>
+                  </Link>
                 </Grid>
 
                 <Grid item xs={2} sm={4} md={4} >
-                  <Button variant="contained" endIcon={<StorefrontOutlinedIcon />} sx={{ padding: { xs: '0.3rem', sm: '1rem' }, margin: { xs: '1rem', md: '0rem' } }}>
-                    <Typography >Buy Book</Typography>
-                  </Button>
+                  <Link to={'/buy-book'}>
+                    <Button variant="contained" endIcon={<StorefrontOutlinedIcon />} sx={{ padding: { xs: '0.3rem', sm: '1rem' }, margin: { xs: '1rem', md: '0rem' } }}>
+                      <Typography >Buy Book</Typography>
+                    </Button>
+                  </Link>
                 </Grid>
 
                 <Grid item xs={2} sm={4} md={4}>
-                  <Button variant="contained" endIcon={<AddShoppingCartIcon />} sx={{ padding: { xs: '0.5rem', sm: '1rem' }, margin: { xs: '1rem', md: '0rem' } }}>
-                    <Typography >Cart</Typography>
-                  </Button>
+                  <Link to={'/cart'}>
+                    <Button variant="contained" endIcon={<AddShoppingCartIcon />} sx={{ padding: { xs: '0.5rem', sm: '1rem' }, margin: { xs: '1rem', md: '0rem' } }}>
+                      <Typography >Cart</Typography>
+                    </Button>
+                  </Link>
                 </Grid>
 
               </Grid>
@@ -166,7 +180,7 @@ const ProfileContent = () => {
                 fullWidth
                 id="outlined-read-only-input"
                 label="User Name"
-                value={editedName}
+                value={user.name}
                 onChange={(event) => setEditedName(event.target.value)}
                 disabled={readOnly}
                 required
@@ -181,7 +195,7 @@ const ProfileContent = () => {
                 fullWidth
                 id="outlined-read-only-input"
                 label="Mobile Number"
-                value={editedPhone}
+                value={user.phone}
                 onChange={(event) => setEditedPhone(event.target.value)}
                 disabled={readOnly}
                 required
@@ -211,7 +225,7 @@ const ProfileContent = () => {
                 fullWidth
                 id="outlined-read-only-input"
                 label="Location"
-                value={editedLocation}
+                value={user.address}
                 onChange={(event) => setEditedLocation(event.target.value)}
                 disabled={readOnly}
                 required

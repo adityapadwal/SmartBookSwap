@@ -1,7 +1,6 @@
 // controllers/sellBook.js
 const SellBook = require("../models/SellBook.js");
 
-// Handle file uploads
 exports.addBook = async (req, res) => {
   try {
     // Extract book data from the request body
@@ -81,47 +80,16 @@ exports.getBookById = async (req, res) => {
 
 exports.editBook = async (req, res) => {
   const id = req.params.id;
-  const {
-    title,
-    category,
-    subcategory,
-    publicationOrAuthor,
-    editionYear,
-    typeOfBook,
-    transactionType,
-    condition,
-    coverImage,
-    priceType,
-    mrp,
-    description,
-    userName,
-    mobileNo,
-    city,
-  } = req.body;
-
-  let book;
+  let book = await SellBook.findById(id);
+  if (!book) {
+    console.log("Book not found!", 404);
+  }
   try {
-    book = await SellBook.findByIdAndUpdate(id, {
-      title,
-      category,
-      subcategory,
-      publicationOrAuthor,
-      editionYear,
-      typeOfBook,
-      transactionType,
-      condition,
-      coverImage,
-      priceType,
-      mrp,
-      description,
-      userName,
-      mobileNo,
-      city,
-    });
+    updatedbook = await SellBook.findByIdAndUpdate(id, req.body);
   } catch (err) {
     return console.log(err);
   }
-  if (!book) {
+  if (!updatedbook) {
     return res.status(500).json({ message: "Book is not updated!" });
   }
   res.status(200).json({ message: "Book Updated Successfully!" });

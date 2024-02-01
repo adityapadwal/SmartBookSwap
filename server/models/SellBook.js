@@ -18,7 +18,7 @@ const SellBookSchema = new Schema({
   userName: { type: String, required: true },
   mobileNo: { type: Number, required: true },
   city: { type: String, required: true },
-  // seller_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  // addedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   // buyer_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 

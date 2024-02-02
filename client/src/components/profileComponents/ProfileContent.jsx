@@ -180,7 +180,8 @@ const ProfileContent = () => {
                 fullWidth
                 id="outlined-read-only-input"
                 label="User Name"
-                value={user.name}
+                defaultValue={user.name}
+                // value={editedName}
                 onChange={(event) => setEditedName(event.target.value)}
                 disabled={readOnly}
                 required
@@ -195,7 +196,8 @@ const ProfileContent = () => {
                 fullWidth
                 id="outlined-read-only-input"
                 label="Mobile Number"
-                value={user.phone}
+                defaultValue={user.phone}
+                // value={editedPhone}
                 onChange={(event) => setEditedPhone(event.target.value)}
                 disabled={readOnly}
                 required
@@ -225,7 +227,8 @@ const ProfileContent = () => {
                 fullWidth
                 id="outlined-read-only-input"
                 label="Location"
-                value={user.address}
+                defaultValue={user.address}
+                // value={editedLocation}
                 onChange={(event) => setEditedLocation(event.target.value)}
                 disabled={readOnly}
                 required

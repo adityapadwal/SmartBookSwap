@@ -14,7 +14,7 @@ import HistoryPage from './components/profile/HistoryPage';
 import ListedBooksPage from './components/profile/ListedBooksPage';
 import SoldBooksPage from './components/profile/SoldBooksPage';
 import TempPage from './components/testing/TempPage';
-import { UserContextProvider } from './components/context/UserContext';
+import { EditUserContextProvider, UserContextProvider } from './components/context/UserContext';
 
 // configuring axios
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -24,29 +24,31 @@ function App() {
   return (
     <>
       <UserContextProvider>
-        <Routes>
-          <Route path='/' element={<Layout />} > {/* LayoutWrapper */}
+        <EditUserContextProvider>
+          <Routes>
+            <Route path='/' element={<Layout />} > {/* LayoutWrapper */}
 
-          <Route index element={<IndexPage/>}/> {/* index */}
+              <Route index element={<IndexPage />} /> {/* index */}
 
-          <Route path='/login' element={< LoginPage/>}/> {/* auth */}
-          <Route path='/register' element={< RegisterPage/>}/> {/* auth */}
-          <Route path='/reset-password' element={<ResetPasswordPage/>}/> {/* auth */}
-          <Route path='/reset-password/:token' element={<NewPasswordPage/>}/> {/* auth */}
+              <Route path='/login' element={< LoginPage />} /> {/* auth */}
+              <Route path='/register' element={< RegisterPage />} /> {/* auth */}
+              <Route path='/reset-password' element={<ResetPasswordPage />} /> {/* auth */}
+              <Route path='/reset-password/:token' element={<NewPasswordPage />} /> {/* auth */}
 
-          <Route path='/buy-book' element={<BuyBookPage/>} /> {/* buyBook */}
+              <Route path='/buy-book' element={<BuyBookPage />} /> {/* buyBook */}
 
-          <Route path='/sell-book' element={<SellBookPage/>} /> {/* sellBook */}
+              <Route path='/sell-book' element={<SellBookPage />} /> {/* sellBook */}
 
-          <Route path='/profile' element={< ProfilePage/>}/> {/* profile */}
-          <Route path='/history' element={< HistoryPage/>}/> {/* profile */}
-          <Route path='/listedbooks' element={< ListedBooksPage/>}/> {/* profile */}
-          <Route path='/soldbooks' element={< SoldBooksPage/>}/> {/* profile */}
-          
-          <Route path='/temp' element={< TempPage/>}/> {/* testing */}
-          
-          </Route>
-        </Routes>
+              <Route path='/profile' element={< ProfilePage />} /> {/* profile */}
+              <Route path='/history' element={< HistoryPage />} /> {/* profile */}
+              <Route path='/listedbooks' element={< ListedBooksPage />} /> {/* profile */}
+              <Route path='/soldbooks' element={< SoldBooksPage />} /> {/* profile */}
+
+              <Route path='/temp' element={< TempPage />} /> {/* testing */}
+
+            </Route>
+          </Routes>
+        </EditUserContextProvider>
       </UserContextProvider>
     </>
   )

@@ -1,194 +1,38 @@
-import React, { useState } from "react";
-import { Navigate} from "react-router-dom";
-import {
-  Box,
-  Paper,
-  Button,
-  Grid,
-  Stepper,
-  Step,
-  StepLabel,
-} from "@mui/material";
+import React, { useContext, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { Box, Paper, Button, Grid, Stepper, Step, StepLabel } from "@mui/material";
 import SellPage1 from "./sellPage1";
 import SellPage2 from "./sellPage2";
 import SellPage3 from "./sellPage3";
+import { BookDetailsContext } from "../context/BookDetailsContext";
 import axios from "axios";
 
 const steps = ["Step 1", "Step 2", "Step 3"];
-
 const SellBookPage = () => {
+  // context variables
+  const {
+    title, setTitle,
+    category, setCategory,
+    subcategory, setSubcategory,
+    publicationOrAuthor, setPublicationOrAuthor,
+    editionYear, setEditionYear,
+    typeOfBook, setTypeOfBook,
+    transactionType, setTransactionType,
+    condition, setCondition,
+    coverImage, setCoverImage,
+    priceType, setPriceType,
+    mrp, setMrp,
+    description, setDescription,
+    userName, setUserName,
+    mobileNo, setMobileNo,
+    city, setCity,
+    nextButtonDisabled, setNextButtonDisabled,
+    isFormSubmitted, setFormSubmitted,
+  } = useContext(BookDetailsContext);
+
   // state variables
   const [activeStep, setActiveStep] = useState(0);
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [subcategory, setSubcategory] = useState("");
-  const [subcategoryOptions, setSubcategoryOptions] = useState([]);
-  const [publicationOrAuthor, setPublicationOrAuthor] = useState("");
-  const [editionYear, setEditionYear] = useState(0);
-  const [typeOfBook, setTypeOfBook] = useState("");
-  const [transactionType, setTransactionType] = useState("");
-  const [condition, setCondition] = useState("");
-  const [coverImage, setCoverImage] = useState("");
-  const [priceType, setPriceType] = useState("");
-  const [mrp, setMrp] = useState(0);
-  const [description, setDescription] = useState("");
-  const [userName, setUserName] = useState("");
-  const [mobileNo, setMobileNo] = useState(0);
-  const [city, setCity] = useState("");
-  const [isNextButtonDisabled, setNextButtonDisabled] = useState(true);
-  const [isFormSubmitted, setFormSubmitted] = useState(false);
   const [redirect, setRedirect] = useState(false); // redirecting to profile after successful submission of form
-
-  const handleTitleChange = (e) => {
-    const title = e.target.value;
-    setTitle(title);
-    // Enable the Next button if both category and title are not empty
-    setNextButtonDisabled(!(title && category));
-  };
-
-  // Set Subcategory options according to selected Category
-  const handleCategoryChange = (e) => {
-    const selectedCategory = e.target.value;
-    setCategory(selectedCategory);
-    // Enable the Next button if both category and title are not empty
-    setNextButtonDisabled(!(title && selectedCategory));
-    switch (selectedCategory) {
-      case "medical":
-        setSubcategoryOptions(["MBBS", "Pharmacy", "Nursing", "Other"]);
-        break;
-      case "engineering":
-        setSubcategoryOptions([
-          "Computer",
-          "E & TC",
-          "Information Technology",
-          "AIDS",
-          "Electrical",
-          "Civil",
-          "Mechanical",
-          "Instrumentation",
-          "Other",
-        ]);
-        break;
-      case "ssc":
-        setSubcategoryOptions(["1 to 10th"]);
-        break;
-      case "hsc":
-        setSubcategoryOptions(["Science", "Commerce", "Arts", "Other"]);
-        break;
-      case "competativeExams":
-        setSubcategoryOptions([
-          "Government Jobs",
-          "Engineering",
-          "Medical",
-          "Management",
-          "Finance & Accountancy",
-          "Language Proficiency",
-          "Architecture",
-          "Education & Testing",
-        ]);
-        break;
-      default:
-        setSubcategoryOptions([]);
-    }
-  };
-
-  // Handle Subcategory change
-  const handleSubcategoryChange = (e) => {
-    setSubcategory(e.target.value);
-  };
-
-  // Handle Publication/Author change
-  const handlePublicationOrAuthorChange = (e) => {
-    const publicationOrAuthor = e.target.value;
-    setPublicationOrAuthor(publicationOrAuthor);
-    // Activate next button of 2nd page when (publicationOrAuthor, typeOfBook, transactionType, condition) fields are not empty
-    setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition)
-    );
-  };
-
-  // Handle Edition Year change
-  const handleEditionYearChange = (e) => {
-    const editionYear = (e.target.value);
-
-    setEditionYear(editionYear);
-  };
-
-  // Handle Type of Book change
-  const handleTypeOfBookChange = (e) => {
-    const typeOfBook = e.target.value;
-    setTypeOfBook(typeOfBook);
-    setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition)
-    );
-  };
-
-  // Handle Transaction Type change
-  const handleTransactionTypeChange = (e) => {
-    const transactionType = e.target.value;
-    setTransactionType(transactionType);
-    setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition)
-    );
-  };
-
-  // Handle Condition change
-  const handleConditionChange = (e) => {
-    const condition = e.target.value;
-    setCondition(condition);
-    setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition)
-    );
-  };
-
-  // Handle Cover image change
-  const handleCoverImageChange = (e) => {
-    const file = e.target.files[0];
-    setCoverImage(file);
-    setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition)
-    );
-  };
-
-  // Handle Price change
-  const handlePriceTypeChange = (e) => {
-    const priceType = e.target.value;
-    setPriceType(priceType);
-  };
-
-  // Handle Mrp cahnge
-  const handleMrpChange = (e) => {
-    const mrp = e.target.value;
-    setMrp(mrp);
-  };
-
-  // Handle Description change
-  const handleDescriptionChange = (e) => {
-    const description = e.target.value;
-    setDescription(description);
-  };
-
-  // Handle User Name change
-  const handleUserNameChange = (e) => {
-    const userName = e.target.value;
-    setUserName(userName);
-    // Activate next button of 3rd page when (userName, mobileNo, city) fields are not empty
-    setNextButtonDisabled(!(userName && mobileNo && city));
-  };
-
-  // Handle Mobile No. change
-  const handleMobileNoChange = (e) => {
-    const mobileNo = e.target.value;
-    setMobileNo(mobileNo);
-    setNextButtonDisabled(!(userName && mobileNo && city));
-  };
-
-  // Handle City change
-  const handleCityChange = (e) => {
-    const city = e.target.value;
-    setCity(city);
-    setNextButtonDisabled(!(userName && mobileNo && city));
-  };
 
   // Back button function
   const handleBack = () => {
@@ -196,7 +40,7 @@ const SellBookPage = () => {
     setNextButtonDisabled(false);
   };
 
-  // When you click on the submit button it collect all the data
+  // When you click on the submit button it collects all the data
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isFormValid =
@@ -214,7 +58,7 @@ const SellBookPage = () => {
       alert("Please fill in all required fields before submitting!.");
     } else {
       setFormSubmitted(true);
-      try{
+      try {
         await axios.post('/addBook', {
           title,
           category,
@@ -234,58 +78,38 @@ const SellBookPage = () => {
         });
         setRedirect(true);
         alert("Book Added Sucessfully!");
-      }catch (error) {
+      } catch (error) {
         console.log("Error:", error);
         if (error.response) {
-            alert(`Request Failed: ${error.response.data}`);
+          alert(`Request Failed: ${error.response.data}`);
         } else {
-            alert("Failed to add book. Please try again later!");
+          alert("Failed to add book. Please try again later!");
         }
-    }
+      }
 
-      const formData = {
-        title,
-        category,
-        subcategory,
-        publicationOrAuthor,
-        editionYear,
-        typeOfBook,
-        transactionType,
-        condition,
-        coverImage,
-        priceType,
-        mrp,
-        description,
-        userName,
-        mobileNo,
-        city,
-      };
-
-      console.log("Form Data:", formData);
-
-      // Reset all the input field values to their empty state
-      setTitle("");
-      setCategory("");
-      setSubcategory("");
-      setPublicationOrAuthor("");
-      setEditionYear(0);
-      setTypeOfBook("");
-      setTransactionType("");
-      setCondition("");
-      setCoverImage("");
-      setPriceType("");
-      setMrp(0);
-      setDescription("");
-      setUserName("");
-      setMobileNo(0);
-      setCity("");
-      setActiveStep(0);
+      resetInputFields();
     }
   };
 
-  if (redirect) {
-    return <Navigate to={'/listedbooks'} />
-}
+  // Reset all the input field values to their empty state
+  function resetInputFields() {
+    setTitle("");
+    setCategory("");
+    setSubcategory("");
+    setPublicationOrAuthor("");
+    setEditionYear(0);
+    setTypeOfBook("");
+    setTransactionType("");
+    setCondition("");
+    setCoverImage("");
+    setPriceType("");
+    setMrp(0);
+    setDescription("");
+    setUserName("");
+    setMobileNo(0);
+    setCity("");
+    setActiveStep(0);
+  }
 
   // Next button function
   const handleNext = () => {
@@ -316,6 +140,10 @@ const SellBookPage = () => {
     }
   };
 
+  if (redirect) {
+    return <Navigate to={'/listedbooks'} />
+  }
+
   return (
     <Box
       sx={{
@@ -345,47 +173,12 @@ const SellBookPage = () => {
             ))}
           </Stepper>
 
-          <SellPage1
-            activeStep={activeStep}
-            title={title}
-            category={category}
-            subcategory={subcategory}
-            handleTitleChange={handleTitleChange}
-            handleCategoryChange={handleCategoryChange}
-            subcategoryOptions={subcategoryOptions}
-            handleSubcategoryChange={handleSubcategoryChange}
-          />
+          <SellPage1 activeStep={activeStep}/>
 
-          <SellPage2
-            activeStep={activeStep}
-            publicationOrAuthor={publicationOrAuthor}
-            handlePublicationOrAuthorChange={handlePublicationOrAuthorChange}
-            editionYear={editionYear}
-            handleEditionYearChange={handleEditionYearChange}
-            typeOfBook={typeOfBook}
-            handleTypeOfBookChange={handleTypeOfBookChange}
-            transactionType={transactionType}
-            handleTransactionTypeChange={handleTransactionTypeChange}
-            condition={condition}
-            handleConditionChange={handleConditionChange}
-            handleCoverImageChange={handleCoverImageChange}
-            priceType={priceType}
-            handlePriceTypeChange={handlePriceTypeChange}
-            mrp={mrp}
-            handleMrpChange={handleMrpChange}
-            description={description}
-            handleDescriptionChange={handleDescriptionChange}
-          />
+          <SellPage2 activeStep={activeStep} />
 
-          <SellPage3
-            activeStep={activeStep}
-            userName={userName}
-            mobileNo={mobileNo}
-            city={city}
-            handleUserNameChange={handleUserNameChange}
-            handleMobileNoChange={handleMobileNoChange}
-            handleCityChange={handleCityChange}
-          />
+          <SellPage3 activeStep={activeStep} />
+
           <Grid container justifyContent="space-between" marginTop={2}>
             <Button
               variant="contained"
@@ -400,9 +193,9 @@ const SellBookPage = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleNext}
-                disabled={Boolean(isNextButtonDisabled)} // Set the disabled state based on the "isNextButtonDisabled" state variable
+                disabled={Boolean(nextButtonDisabled)} // Set the disabled state based on the "nextButtonDisabled" state variable
                 style={{
-                  cursor: isNextButtonDisabled ? "not-allowed" : "pointer",
+                  cursor: nextButtonDisabled ? "not-allowed" : "pointer",
                 }}
               >
                 Next
@@ -425,10 +218,10 @@ const SellBookPage = () => {
       .css-11reh94-MuiGrid-root>.MuiGrid-item {
         margin-bottom: 10px;
       }
-
+      
       .css-1nrlq1o-MuiFormControl-root {
         min-width: 100%;
-    }
+      }
       `}</style>
     </Box>
   );

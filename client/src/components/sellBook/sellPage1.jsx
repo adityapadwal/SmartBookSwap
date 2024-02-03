@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import {
   Box,
   FormControl,
@@ -6,18 +7,76 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React from "react";
+import { BookDetailsContext } from "../context/BookDetailsContext";
 
-export default function SellPage1({
-  activeStep,
-  title,
-  category,
-  subcategory,
-  handleTitleChange,
-  handleCategoryChange,
-  subcategoryOptions,
-  handleSubcategoryChange,
-}) {
+export default function SellPage1({ activeStep }) {
+  // context variables
+  const {
+    title, setTitle, 
+    category, setCategory, 
+    subcategory, setSubcategory,  
+    subcategoryOptions, setSubcategoryOptions,
+    setNextButtonDisabled,
+  } = useContext(BookDetailsContext);
+
+  const handleTitleChange = (e) => {
+    const title = e.target.value;
+    setTitle(title);
+    // Enable the Next button if both category and title are not empty
+    setNextButtonDisabled(!(title && category));
+  };
+
+  // Set Subcategory options according to selected Category
+  const handleCategoryChange = (e) => {
+    const selectedCategory = e.target.value;
+    setCategory(selectedCategory);
+    // Enable the Next button if both category and title are not empty
+    setNextButtonDisabled(!(title && selectedCategory));
+    switch (selectedCategory) {
+      case "medical":
+        setSubcategoryOptions(["MBBS", "Pharmacy", "Nursing", "Other"]);
+        break;
+      case "engineering":
+        setSubcategoryOptions([
+          "Computer",
+          "E & TC",
+          "Information Technology",
+          "AIDS",
+          "Electrical",
+          "Civil",
+          "Mechanical",
+          "Instrumentation",
+          "Other",
+        ]);
+        break;
+      case "ssc":
+        setSubcategoryOptions(["1 to 10th"]);
+        break;
+      case "hsc":
+        setSubcategoryOptions(["Science", "Commerce", "Arts", "Other"]);
+        break;
+      case "competativeExams":
+        setSubcategoryOptions([
+          "Government Jobs",
+          "Engineering",
+          "Medical",
+          "Management",
+          "Finance & Accountancy",
+          "Language Proficiency",
+          "Architecture",
+          "Education & Testing",
+        ]);
+        break;
+      default:
+        setSubcategoryOptions([]);
+    }
+  };
+
+  // Handle Subcategory change
+  const handleSubcategoryChange = (e) => {
+    setSubcategory(e.target.value);
+  };
+
   return (
     <div>
       {activeStep === 0 && (

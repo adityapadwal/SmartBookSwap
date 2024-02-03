@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   Box,
   FormControl,
@@ -30,6 +30,9 @@ export default function SellPage2({ activeStep }) {
     setNextButtonDisabled,
   } = useContext(BookDetailsContext);
 
+  // state variables
+  const [isFreeTransaction, setIsFreeTransaction] = useState(false);
+
   // Handle Publication/Author change
   const handlePublicationOrAuthorChange = (e) => {
     const publicationOrAuthor = e.target.value;
@@ -60,6 +63,10 @@ export default function SellPage2({ activeStep }) {
   const handleTransactionTypeChange = (e) => {
     const transactionType = e.target.value;
     setTransactionType(transactionType);
+
+    // Set the state based on the selected transaction type
+    setIsFreeTransaction(transactionType === "Free");
+
     setNextButtonDisabled(
       !(publicationOrAuthor && typeOfBook && transactionType && condition)
     );
@@ -117,7 +124,7 @@ export default function SellPage2({ activeStep }) {
           />
           <Grid marginBottom={3} container spacing={{ xs: 2, md: 10 }}>
             <Grid item xs={12} md={6}>
-            <TextField
+              <TextField
                 sx={{ width: "100%" }}
                 label="Edition (Year)"
                 type="number"
@@ -149,6 +156,7 @@ export default function SellPage2({ activeStep }) {
             </Grid>
           </Grid>
           <Grid container spacing={{ xs: 2, md: 10 }}>
+
             <Grid item xs={12} md={6}>
               <FormControl component="fieldset" margin="normal" required>
                 <FormLabel component="legend">Type of Transaction</FormLabel>
@@ -172,25 +180,25 @@ export default function SellPage2({ activeStep }) {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <FormControl component="fieldset" margin="normal" required>
-                <FormLabel component="legend">Condition</FormLabel>
-                <RadioGroup
-                  value={condition}
-                  onChange={handleConditionChange}
-                  row
-                >
-                  <FormControlLabel
-                    value="New"
-                    control={<Radio />}
-                    label="New"
-                  />
-                  <FormControlLabel
-                    value="Used"
-                    control={<Radio />}
-                    label="Used"
-                  />
-                </RadioGroup>
-              </FormControl>
+                  <FormControl component="fieldset" margin="normal" required>
+                    <FormLabel component="legend">Condition</FormLabel>
+                    <RadioGroup
+                      value={condition}
+                      onChange={handleConditionChange}
+                      row
+                    >
+                      <FormControlLabel
+                        value="New"
+                        control={<Radio />}
+                        label="New"
+                      />
+                      <FormControlLabel
+                        value="Used"
+                        control={<Radio />}
+                        label="Used"
+                      />
+                    </RadioGroup>
+                  </FormControl>
             </Grid>
           </Grid>
           <FormControl sx={{ width: "100%" }}>
@@ -207,6 +215,7 @@ export default function SellPage2({ activeStep }) {
 
           <Grid container spacing={{ xs: 2, md: 10 }} marginBottom={2}>
             <Grid item xs={12} md={6}>
+              {/* Render Price Type field when not Free transaction */}
               <FormControl
                 sx={{ width: "100%" }}
                 variant="outlined"
@@ -218,6 +227,7 @@ export default function SellPage2({ activeStep }) {
                   onChange={handlePriceTypeChange}
                   labelId="price-type"
                   label="Price Type"
+                  disabled={isFreeTransaction} // Disable when transaction type is Free
                 >
                   <MenuItem value="Fixed">Fixed</MenuItem>
                   <MenuItem value="Negotiable">Negotiable</MenuItem>
@@ -227,6 +237,7 @@ export default function SellPage2({ activeStep }) {
             </Grid>
 
             <Grid item xs={12} md={6}>
+              {/* Render MRP field when not Free transaction */}
               <TextField
                 value={mrp}
                 onChange={handleMrpChange}
@@ -235,6 +246,7 @@ export default function SellPage2({ activeStep }) {
                 type="number"
                 margin="normal"
                 variant="outlined"
+                disabled={isFreeTransaction} // Disable when transaction type is Free
               />
             </Grid>
           </Grid>

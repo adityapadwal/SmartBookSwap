@@ -1,15 +1,38 @@
+import React, { useContext } from "react";
 import { Box, Grid, TextField } from "@mui/material";
-import React from "react";
+import { BookDetailsContext } from "../context/BookDetailsContext";
 
-export default function SellPage3({
-  activeStep,
-  userName,
-  mobileNo,
-  city,
-  handleUserNameChange,
-  handleMobileNoChange,
-  handleCityChange,
-}) {
+export default function SellPage3({ activeStep}) {
+  // context variables
+  const {
+    userName, setUserName,
+    mobileNo, setMobileNo,
+    city, setCity,
+    setNextButtonDisabled,
+  } = useContext(BookDetailsContext);
+
+  // Handle User Name change
+  const handleUserNameChange = (e) => {
+    const userName = e.target.value;
+    setUserName(userName);
+    // Activate next button of 3rd page when (userName, mobileNo, city) fields are not empty
+    setNextButtonDisabled(!(userName && mobileNo && city));
+  };
+
+  // Handle Mobile No. change
+  const handleMobileNoChange = (e) => {
+    const mobileNo = e.target.value;
+    setMobileNo(mobileNo);
+    setNextButtonDisabled(!(userName && mobileNo && city));
+  };
+
+  // Handle City change
+  const handleCityChange = (e) => {
+    const city = e.target.value;
+    setCity(city);
+    setNextButtonDisabled(!(userName && mobileNo && city));
+  };
+
   return (
     <div>
       {activeStep === 2 && (

@@ -15,6 +15,7 @@ import ListedBooksPage from './components/profile/ListedBooksPage';
 import SoldBooksPage from './components/profile/SoldBooksPage';
 import TempPage from './components/testing/TempPage';
 import { EditUserContextProvider, UserContextProvider } from './components/context/UserContext';
+import { BookDetailsContextProvider } from './components/context/BookDetailsContext';
 
 // configuring axios
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -25,6 +26,7 @@ function App() {
     <>
       <UserContextProvider>
         <EditUserContextProvider>
+          <BookDetailsContextProvider>
           <Routes>
             <Route path='/' element={<Layout />} > {/* LayoutWrapper */}
 
@@ -48,6 +50,7 @@ function App() {
 
             </Route>
           </Routes>
+          </BookDetailsContextProvider>
         </EditUserContextProvider>
       </UserContextProvider>
     </>

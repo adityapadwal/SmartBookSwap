@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import {
   Box,
   FormControl,
@@ -12,28 +13,94 @@ import {
   TextField,
   TextareaAutosize,
 } from "@mui/material";
-import React from "react";
+import { BookDetailsContext } from "../context/BookDetailsContext";
 
-export default function SellPage2({
-  activeStep,
-  publicationOrAuthor,
-  handlePublicationOrAuthorChange,
-  editionYear,
-  handleEditionYearChange,
-  typeOfBook,
-  handleTypeOfBookChange,
-  transactionType,
-  handleTransactionTypeChange,
-  condition,
-  handleConditionChange,
-  handleCoverImageChange,
-  priceType,
-  handlePriceTypeChange,
-  mrp,
-  handleMrpChange,
-  description,
-  handleDescriptionChange,
-}) {
+export default function SellPage2({ activeStep }) {
+  // context variables
+  const {
+    publicationOrAuthor, setPublicationOrAuthor,
+    editionYear, setEditionYear,
+    typeOfBook, setTypeOfBook,
+    transactionType, setTransactionType,
+    condition, setCondition,
+    setCoverImage,
+    priceType, setPriceType,
+    mrp, setMrp,
+    description, setDescription,
+    setNextButtonDisabled,
+  } = useContext(BookDetailsContext);
+
+  // Handle Publication/Author change
+  const handlePublicationOrAuthorChange = (e) => {
+    const publicationOrAuthor = e.target.value;
+    setPublicationOrAuthor(publicationOrAuthor);
+    // Activate next button of 2nd page when (publicationOrAuthor, typeOfBook, transactionType, condition) fields are not empty
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+    );
+  };
+
+  // Handle Edition Year change
+  const handleEditionYearChange = (e) => {
+    const editionYear = (e.target.value);
+
+    setEditionYear(editionYear);
+  };
+
+  // Handle Type of Book change
+  const handleTypeOfBookChange = (e) => {
+    const typeOfBook = e.target.value;
+    setTypeOfBook(typeOfBook);
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+    );
+  };
+
+  // Handle Transaction Type change
+  const handleTransactionTypeChange = (e) => {
+    const transactionType = e.target.value;
+    setTransactionType(transactionType);
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+    );
+  };
+
+  // Handle Condition change
+  const handleConditionChange = (e) => {
+    const condition = e.target.value;
+    setCondition(condition);
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+    );
+  };
+
+  // Handle Cover image change
+  const handleCoverImageChange = (e) => {
+    const file = e.target.files[0];
+    setCoverImage(file);
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+    );
+  };
+
+  // Handle Price change
+  const handlePriceTypeChange = (e) => {
+    const priceType = e.target.value;
+    setPriceType(priceType);
+  };
+
+  // Handle Mrp cahnge
+  const handleMrpChange = (e) => {
+    const mrp = e.target.value;
+    setMrp(mrp);
+  };
+
+  // Handle Description change
+  const handleDescriptionChange = (e) => {
+    const description = e.target.value;
+    setDescription(description);
+  };
+
   return (
     <div>
       {activeStep === 1 && (

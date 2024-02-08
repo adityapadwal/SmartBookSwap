@@ -1,53 +1,43 @@
 import React, { useContext } from "react";
 import { Box, Grid, TextField } from "@mui/material";
-import { BookDetailsContext } from "../context/BookDetailsContext";
+import { UserContext } from '../context/UserContext';
 
-export default function SellPage3({ activeStep}) {
-  // context variables
-  const {
-    userName, setUserName,
-    mobileNo, setMobileNo,
-    city, setCity,
-    setNextButtonDisabled,
-  } = useContext(BookDetailsContext);
-
-  // Handle User Name change
-  const handleUserNameChange = (e) => {
-    const userName = e.target.value;
-    setUserName(userName);
-    // Activate next button of 3rd page when (userName, mobileNo, city) fields are not empty
-    setNextButtonDisabled(!(userName && mobileNo && city));
-  };
-
-  // Handle Mobile No. change
-  const handleMobileNoChange = (e) => {
-    const mobileNo = e.target.value;
-    setMobileNo(mobileNo);
-    setNextButtonDisabled(!(userName && mobileNo && city));
-  };
-
-  // Handle City change
-  const handleCityChange = (e) => {
-    const city = e.target.value;
-    setCity(city);
-    setNextButtonDisabled(!(userName && mobileNo && city));
-  };
+export default function SellPage3({ activeStep }) {
+  const { user } = useContext(UserContext);
 
   return (
     <div>
       {activeStep === 2 && (
         <Box>
-          {/* Form 3 Fields */}
-          <TextField
-            sx={{ width: "100%" }}
-            label="Your Name"
-            margin="normal"
-            required
-            variant="outlined"
-            value={userName}
-            onChange={handleUserNameChange}
-          />
           <Grid container spacing={{ xs: 2, md: 10 }}>
+            {/* User Name */}
+            <Grid item xs={12} md={6}>
+              <TextField
+                sx={{ width: "100%" }}
+                label="Your Name"
+                margin="normal"
+                required
+                variant="outlined"
+                value={user.name}
+                disabled={true}
+              />
+            </Grid>
+            {/* User Email */}
+            <Grid item xs={12} md={6}>
+              <TextField
+                sx={{ width: "100%" }}
+                label="Email"
+                type="email"
+                margin="normal"
+                variant="outlined"
+                required
+                value={user.email}
+                disabled={true}
+              />
+            </Grid>
+          </Grid>
+          <Grid container spacing={{ xs: 2, md: 10 }}>
+            {/* User Phone */}
             <Grid item xs={12} md={6}>
               <TextField
                 sx={{ width: "100%" }}
@@ -56,11 +46,11 @@ export default function SellPage3({ activeStep}) {
                 margin="normal"
                 variant="outlined"
                 required
-                value={mobileNo}
-                onChange={handleMobileNoChange}
+                value={user.phone}
+                disabled={true}
               />
             </Grid>
-
+            {/* User City */}
             <Grid item xs={12} md={6}>
               <TextField
                 sx={{ width: "100%" }}
@@ -69,8 +59,8 @@ export default function SellPage3({ activeStep}) {
                 margin="normal"
                 variant="outlined"
                 required
-                value={city}
-                onChange={handleCityChange}
+                value={user.address}
+                disabled={true}
               />
             </Grid>
           </Grid>

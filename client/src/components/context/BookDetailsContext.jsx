@@ -14,13 +14,10 @@ export function BookDetailsContextProvider({ children }) {
     const [typeOfBook, setTypeOfBook] = useState("");
     const [transactionType, setTransactionType] = useState("");
     const [condition, setCondition] = useState("");
-    const [coverImage, setCoverImage] = useState("");
+    const [addedPhotos, setAddedPhotos] = useState([]);
     const [priceType, setPriceType] = useState("");
     const [mrp, setMrp] = useState(0);
     const [description, setDescription] = useState("");
-    const [userName, setUserName] = useState("");
-    const [mobileNo, setMobileNo] = useState(0);
-    const [city, setCity] = useState("");
     const [nextButtonDisabled, setNextButtonDisabled] = useState(true);
     const [isFormSubmitted, setFormSubmitted] = useState(false);
 
@@ -36,13 +33,10 @@ export function BookDetailsContextProvider({ children }) {
                 typeOfBook, setTypeOfBook,
                 transactionType, setTransactionType,
                 condition, setCondition,
-                coverImage, setCoverImage,
+                addedPhotos, setAddedPhotos,
                 priceType, setPriceType,
                 mrp, setMrp,
                 description, setDescription,
-                userName, setUserName,
-                mobileNo, setMobileNo,
-                city, setCity,
                 nextButtonDisabled, setNextButtonDisabled,
                 isFormSubmitted, setFormSubmitted,
         }}>

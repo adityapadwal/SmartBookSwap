@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from 'react';
-import { UserContext } from '../context/UserContext';
+import React, { useEffect, useState, useRef } from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {
@@ -19,7 +19,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import ArrowDropDownSharpIcon from "@mui/icons-material/ArrowDropDownSharp";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import PersonIcon from "@mui/icons-material/Person";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import AutoStoriesRoundedIcon from "@mui/icons-material/AutoStoriesRounded";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -29,8 +29,9 @@ import CloseIcon from "@mui/icons-material/Close";
 
 export default function DenseAppBar() {
   // state variables
+  const profileIconButtonRef = useRef(null);
   const [menuAnchor, setMenuAnchor] = useState(null); // our services menu
-  const [profileAnchor, setProfileAnchor] = useState(null); // profile pop over
+  const [profileAnchor, setProfileAnchor] = useState(null); // profile popper
   const [isLoggedin, setIsLoggedin] = useState(true); // user login status
   const [drawerOpen, setDrawerOpen] = useState(false); // drawer open / close status
   const [ourServicesOpen, setOurServicesOpen] = useState(false); // State to manage the open/close state of the "Our Services" list in the Drawer
@@ -41,6 +42,7 @@ export default function DenseAppBar() {
   // checking if user has logged in or not
   useEffect(() => {
     if (user) {
+      console.log(user);
       setIsLoggedin(true);
     } else {
       setIsLoggedin(false);
@@ -49,7 +51,7 @@ export default function DenseAppBar() {
 
   // handling user logout
   async function handleUserLogout() {
-    await axios.post('/logout');
+    await axios.post("/logout");
     setUser(null);
     alert("User log-out successful");
   }
@@ -107,7 +109,7 @@ export default function DenseAppBar() {
                 fontSize: { xs: "20px", md: "22px" },
               }}
               variant="h6"
-              textcolor="inherit"
+              color="inherit"
             >
               SmartBookSwap
             </Typography>
@@ -119,8 +121,10 @@ export default function DenseAppBar() {
             indicatorColor="transparent"
             sx={{
               marginLeft: "auto",
+              marginRight: isLoggedin ? "auto" : "",
               marginTop: 1,
               display: { xs: "none", md: "block" },
+              justifyContent: "center",
             }}
           >
             <Tab
@@ -145,59 +149,53 @@ export default function DenseAppBar() {
 
           {/* Login/Register & Profile Tab */}
           {isLoggedin ? (
-            <Tabs
-              value={0}
-              textColor="inherit"
-              sx={{
-                marginLeft: "auto",
-                marginTop: 1,
-                display: { xs: "none", md: "block" },
-              }}
-              indicatorColor="transparent"
-            >
-              <Tab
-                icon={
-                  <PersonRoundedIcon
-                    style={{ color: "#fff" }}
-                    sx={{ width: 35, height: 30 }}
-                  />
-                }
+            <div>
+              <IconButton
+                ref={profileIconButtonRef}
                 onClick={handleProfileClick}
-              />
-              <Popover
-                open={Boolean(profileAnchor)}
-                anchorEl={profileAnchor}
-                onClose={handleProfileClose}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                sx={{ marginLeft: 2 }}
+                color="inherit"
+                sx={{ width: 60, height: 50 }}
               >
-                <Link
-                  to={"/profile"}
-                  style={{ textDecoration: "none", color: "inherit" }}
+                <PersonIcon />
+              </IconButton>
+              {profileIconButtonRef.current && (
+                <Popover
+                  open={Boolean(profileAnchor)}
+                  anchorEl={profileIconButtonRef.current}
+                  onClose={handleProfileClose}
+                  disableScrollLock // prevent body padding
+                  disablePortal
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  sx={{ left: "1.5rem" }}
                 >
-                  <MenuItem onClick={handleProfileClose}>
-                    <PersonRoundedIcon sx={{ marginRight: 1 }} />
-                    Profile
-                  </MenuItem>
-                </Link>
-                <Link
-                  to={"/"}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <MenuItem onClick={handleUserLogout}>
-                    <LogoutRoundedIcon sx={{ marginRight: 1 }} />
-                    Logout
-                  </MenuItem>
-                </Link>
-              </Popover>
-            </Tabs>
+                  <Link
+                    to={"/profile"}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <MenuItem onClick={handleProfileClose}>
+                      <PersonIcon sx={{ marginRight: 1 }} />
+                      Profile
+                    </MenuItem>
+                  </Link>
+                  <Link
+                    to={"/"}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <MenuItem onClick={handleUserLogout}>
+                      <LogoutRoundedIcon sx={{ marginRight: 1 }} />
+                      Logout
+                    </MenuItem>
+                  </Link>
+                </Popover>
+              )}
+            </div>
           ) : (
             <Tabs
               value={0}
@@ -254,7 +252,7 @@ export default function DenseAppBar() {
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
                     <ListItem onClick={handleDrawerClose}>
-                      <PersonRoundedIcon sx={{ marginRight: "5px" }} />
+                      <PersonIcon sx={{ marginRight: "5px" }} />
                       <ListItemText primary="Profile" />
                     </ListItem>
                   </Link>
@@ -273,7 +271,6 @@ export default function DenseAppBar() {
                   </List>
                 </List>
               )}
-
               <List>
                 <ListItem
                   style={{ cursor: "pointer", backgroundColor: "#dae6f5" }}
@@ -316,11 +313,19 @@ export default function DenseAppBar() {
             keepMounted
             open={Boolean(menuAnchor)}
             onClose={handleMenuClose}
+            disableScrollLock // prevent body padding
+            disablePortal
             sx={{ marginLeft: "12px" }}
           >
             <Link
               to={"/buy-book"}
-              style={{ textDecoration: "none", color: "inherit" }}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                justifyContent: "center",
+                width: "135px",
+                display: "block",
+              }}
             >
               <MenuItem
                 sx={{ "&:hover": { backgroundColor: "#e3e3e3" } }}
@@ -331,7 +336,11 @@ export default function DenseAppBar() {
             </Link>
             <Link
               to={"/sell-book"}
-              style={{ textDecoration: "none", color: "inherit" }}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                justifyContent: "center",
+              }}
             >
               <MenuItem
                 sx={{ "&:hover": { backgroundColor: "#e3e3e3" } }}
@@ -359,6 +368,9 @@ export default function DenseAppBar() {
           .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
             top: 55px;
           }
+        }
+        .css-1dwmb0r-MuiButtonBase-root-MuiMenuItem-root {  
+          justify-content: center;
         }
         `}</style>
     </Box>

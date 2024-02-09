@@ -32,61 +32,7 @@ const IndexPage = () => {
       price: "300",
       type: "fixed",
       image:
-        "https://www.clankart.com/user-uploads/advert/Physical_Chemistry_Revised_and_Enlarged_7th_Edition_PC_Rakshit1706711688498_thumb.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://www.clankart.com/user-uploads/advert/Pack_of_Narendra_Awasti_MS_Chauhan_RD_Sharma_Objective1707445088683.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://www.clankart.com/user-uploads/advert/Statistics_Honours_for_BSc_First_Year1707418651809_thumb.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://www.clankart.com/user-uploads/advert/For_All_indian_science_and_medical_students1707417637854_thumb.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
         "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://www.clankart.com/user-uploads/advert/QUANTATIVE_APTITUDE1707379902126_thumb.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://www.clankart.com/user-uploads/advert/Objective_Arithmetic__Ssc_amp_Railway_Exam_Special1707379605420_thumb.jpg",
     },
     {
       category: "Engineering",
@@ -113,7 +59,61 @@ const IndexPage = () => {
       price: "300",
       type: "fixed",
       image:
+        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
+    },
+    {
+      category: "Engineering",
+      name: "Book Title",
+      location: "Pune",
+      price: "300",
+      type: "fixed",
+      image:
         "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
+    },
+    {
+      category: "Engineering",
+      name: "Book Title",
+      location: "Pune",
+      price: "300",
+      type: "fixed",
+      image:
+        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
+    },
+    {
+      category: "Engineering",
+      name: "Book Title",
+      location: "Pune",
+      price: "300",
+      type: "fixed",
+      image:
+        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
+    },
+    {
+      category: "Engineering",
+      name: "Book Title",
+      location: "Pune",
+      price: "300",
+      type: "fixed",
+      image:
+        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
+    },
+    {
+      category: "Engineering",
+      name: "Book Title",
+      location: "Pune",
+      price: "300",
+      type: "fixed",
+      image:
+        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
+    },
+    {
+      category: "Engineering",
+      name: "Book Title",
+      location: "Pune",
+      price: "300",
+      type: "fixed",
+      image:
+        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
     },
   ];
 

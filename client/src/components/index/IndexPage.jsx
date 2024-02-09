@@ -32,7 +32,7 @@ const IndexPage = () => {
       price: "300",
       type: "fixed",
       image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
+        "https://www.clankart.com/user-uploads/advert/Physical_Chemistry_Revised_and_Enlarged_7th_Edition_PC_Rakshit1706711688498_thumb.jpg",
     },
     {
       category: "Engineering",
@@ -41,7 +41,7 @@ const IndexPage = () => {
       price: "300",
       type: "fixed",
       image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
+        "https://www.clankart.com/user-uploads/advert/Pack_of_Narendra_Awasti_MS_Chauhan_RD_Sharma_Objective1707445088683.jpg",
     },
     {
       category: "Engineering",
@@ -50,7 +50,7 @@ const IndexPage = () => {
       price: "300",
       type: "fixed",
       image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
+        "https://www.clankart.com/user-uploads/advert/Statistics_Honours_for_BSc_First_Year1707418651809_thumb.jpg",
     },
     {
       category: "Engineering",
@@ -59,25 +59,7 @@ const IndexPage = () => {
       price: "300",
       type: "fixed",
       image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
+        "https://www.clankart.com/user-uploads/advert/For_All_indian_science_and_medical_students1707417637854_thumb.jpg",
     },
     {
       category: "Engineering",
@@ -87,6 +69,24 @@ const IndexPage = () => {
       type: "fixed",
       image:
         "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
+    },
+    {
+      category: "Engineering",
+      name: "Book Title",
+      location: "Pune",
+      price: "300",
+      type: "fixed",
+      image:
+        "https://www.clankart.com/user-uploads/advert/QUANTATIVE_APTITUDE1707379902126_thumb.jpg",
+    },
+    {
+      category: "Engineering",
+      name: "Book Title",
+      location: "Pune",
+      price: "300",
+      type: "fixed",
+      image:
+        "https://www.clankart.com/user-uploads/advert/Objective_Arithmetic__Ssc_amp_Railway_Exam_Special1707379605420_thumb.jpg",
     },
     {
       category: "Engineering",
@@ -121,7 +121,7 @@ const IndexPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   return (
-    <Box sx={{marginTop: '5rem'}}>
+    <Box sx={{ background: "#deeafe", paddingTop: "2px" }}>
       <Box
         display="flex"
         flexDirection={{ xs: "column", sm: "column", md: "row" }}
@@ -133,57 +133,37 @@ const IndexPage = () => {
         }}
         height={{ xs: "auto", sm: "auto", md: "auto" }}
         padding={5}
+        boxShadow={2}
+        borderRadius={3}
+        margin={8.5}
+        marginTop={14.5}
+        backgroundColor="#ffffff"
       >
         {/* Left Box - Title and Description */}
         <Box
           width={{ xs: "100%", sm: "100%", md: "50%" }}
           textAlign="left"
           marginTop={{ xs: 0, md: 0 }}
+          marginRight={{ xs: 0, md: "2rem" }}
         >
-          {/* Adjust marginTop based on the height of your navbar */}
           <Typography
             variant="h4"
             gutterBottom
             fontWeight="bold"
             marginBottom="2rem"
-            sx={{
-              fontSize: {
-                xs: "20px",
-                sm: "22px",
-                md: "22px",
-                lg: "30px",
-              },
-            }}
           >
             Affordable Learning, Sustainable Living!
           </Typography>
           <Typography
             paragraph
-            sx={{
-              fontSize: {
-                xs: "16px",
-                sm: "18px",
-                md: "18px",
-                lg: "22px",
-              },
-            }}
-            fontWeight={"450"}
-            fontStyle={"italic"}
+            fontWeight={450}
+            fontStyle="italic"
+            marginBottom="2rem"
           >
             Welcome to SmartBookSwap – Your Smarter Way to Access Essential
             Educational Resources!
           </Typography>
-          <Typography
-            sx={{
-              fontSize: {
-                xs: "14px",
-                sm: "16px",
-                md: "16px",
-                lg: "18px",
-              },
-            }}
-            marginBottom="2rem"
-          >
+          <Typography marginBottom="2rem">
             Say goodbye to the hassle of traditional bookshops and brokers –
             here, you can easily Buy, Sell, or Donate essential study materials
             at affordable rates from your peers or nearby sellers.
@@ -193,7 +173,7 @@ const IndexPage = () => {
           </Button>
         </Box>
 
-        {/* Right Box - Seach Form */}
+        {/* Right Box - Search Form */}
         <Box
           width={{ xs: "90%", sm: "92%", md: "30%" }}
           height={{ xs: "auto", sm: "auto", md: "350px" }}
@@ -201,8 +181,8 @@ const IndexPage = () => {
           border="1px solid #ccc"
           borderRadius={3}
           boxShadow={2}
-          marginTop={{ xs: "40px", sm: "40px", md: 0 }}
           marginBottom={{ xs: "16px", sm: "16px", md: 0 }}
+          // Remove margin property
         >
           <Typography variant="h6" gutterBottom>
             Search Books Here!
@@ -225,14 +205,7 @@ const IndexPage = () => {
               value={selectedCategory}
               onChange={(event) => setSelectedCategory(event.target.value)}
             >
-              <MenuItem value="medical">Medical</MenuItem>
-              <MenuItem value="school">School</MenuItem>
-              <MenuItem value="engineering">Engineering</MenuItem>
-              <MenuItem value="science&arts">Science & Arts</MenuItem>
-              <MenuItem value="internatinalExams">International Exams</MenuItem>
-              <MenuItem value="hsc">Higher Secondary Education</MenuItem>
-              <MenuItem value="ssc">Secondary School</MenuItem>
-              <MenuItem value="other">Other</MenuItem>
+              {/* Your MenuItem options */}
             </Select>
           </FormControl>
 
@@ -261,6 +234,7 @@ const IndexPage = () => {
           variant="h4"
           fontWeight="bold"
           gutterBottom
+          textAlign="center"
           sx={{
             fontSize: {
               xs: "20px",

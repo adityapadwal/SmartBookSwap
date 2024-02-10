@@ -6,9 +6,11 @@ import SellPage2 from "./sellPage2";
 import SellPage3 from "./sellPage3";
 import { BookDetailsContext } from "../context/BookDetailsContext";
 import axios from "axios";
+import { UserContext } from "../context/UserContext";
 
 const steps = ["Step 1", "Step 2", "Step 3"];
 const SellBookPage = () => {
+
   // context variables
   const {
     title, setTitle,
@@ -19,20 +21,19 @@ const SellBookPage = () => {
     typeOfBook, setTypeOfBook,
     transactionType, setTransactionType,
     condition, setCondition,
-    coverImage, setCoverImage,
+    addedPhotos, setAddedPhotos,
     priceType, setPriceType,
     mrp, setMrp,
     description, setDescription,
-    userName, setUserName,
-    mobileNo, setMobileNo,
-    city, setCity,
     nextButtonDisabled, setNextButtonDisabled,
     isFormSubmitted, setFormSubmitted,
   } = useContext(BookDetailsContext);
 
+  const {user} = useContext(UserContext);
+
   // state variables
   const [activeStep, setActiveStep] = useState(0);
-  const [redirect, setRedirect] = useState(false); // redirecting to profile after successful submission of form
+  const [redirect, setRedirect] = useState(false); // redirecting to listed books after successful submission of form
 
   // Back button function
   const handleBack = () => {
@@ -49,10 +50,7 @@ const SellBookPage = () => {
       publicationOrAuthor &&
       typeOfBook &&
       transactionType &&
-      condition &&
-      userName &&
-      mobileNo &&
-      city;
+      condition
 
     if (!isFormValid) {
       alert("Please fill in all required fields before submitting!.");
@@ -68,13 +66,10 @@ const SellBookPage = () => {
           typeOfBook,
           transactionType,
           condition,
-          coverImage,
+          addedPhotos,
           priceType,
           mrp,
           description,
-          userName,
-          mobileNo,
-          city
         });
         setRedirect(true);
         alert("Book Added Sucessfully!");
@@ -101,13 +96,10 @@ const SellBookPage = () => {
     setTypeOfBook("");
     setTransactionType("");
     setCondition("");
-    setCoverImage("");
+    setAddedPhotos([]);
     setPriceType("");
     setMrp(0);
     setDescription("");
-    setUserName("");
-    setMobileNo(0);
-    setCity("");
     setActiveStep(0);
   }
 
@@ -125,11 +117,8 @@ const SellBookPage = () => {
           isValid =
             publicationOrAuthor && typeOfBook && transactionType && condition;
           break;
-        case 2:
-          isValid = userName && mobileNo && city;
-          break;
-        default:
-          break;
+          default:
+            break;
       }
 
       setNextButtonDisabled(true);
@@ -142,6 +131,10 @@ const SellBookPage = () => {
 
   if (redirect) {
     return <Navigate to={'/listedbooks'} />
+  }
+
+  if (!user) {
+    return <Navigate to={'/'} />;
   }
 
   return (
@@ -173,7 +166,7 @@ const SellBookPage = () => {
             ))}
           </Stepper>
 
-          <SellPage1 activeStep={activeStep}/>
+          <SellPage1 activeStep={activeStep} />
 
           <SellPage2 activeStep={activeStep} />
 

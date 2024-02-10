@@ -1,51 +1,56 @@
 // controllers/sellBook.js
 const SellBook = require("../models/SellBook.js");
 
+// Importing the jwt model
+const jwt = require("jsonwebtoken");
+
+// Importing the jwt secret token
+const jwtSecret = process.env.JWT_SECRET;
+
 exports.addBook = async (req, res) => {
+  const { token } = req.cookies;
+  const {
+    title,
+    category,
+    subcategory,
+    publicationOrAuthor,
+    editionYear,
+    typeOfBook,
+    transactionType,
+    condition,
+    addedPhotos,
+    priceType,
+    mrp,
+    description,
+  } = req.body;
+
   try {
-    // Extract book data from the request body
-    const {
-      title,
-      category,
-      subcategory,
-      publicationOrAuthor,
-      editionYear,
-      typeOfBook,
-      transactionType,
-      condition,
-      coverImage,
-      priceType,
-      mrp,
-      description,
-      userName,
-      mobileNo,
-      city,
-    } = req.body;
-
-    // Create a new SellBook instance
-    const newBook = await SellBook.create({
-      title,
-      category,
-      subcategory,
-      publicationOrAuthor,
-      editionYear,
-      typeOfBook,
-      transactionType,
-      condition,
-      coverImage,
-      priceType,
-      mrp,
-      description,
-      userName,
-      mobileNo,
-      city,
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+      if (err) {
+        throw err;
+      } else {
+        const newBook = await SellBook.create({
+          owner: userData.id,
+          title: title,
+          category: category,
+          subcategory: subcategory,
+          publicationOrAuthor: publicationOrAuthor,
+          editionYear: editionYear,
+          typeOfBook: typeOfBook,
+          transactionType: transactionType,
+          condition: condition,
+          photos: addedPhotos,
+          priceType: priceType,
+          mrp: mrp,
+          description: description,
+        });
+        res.json(newBook);
+        console.log("Book added in database!");
+      }
     });
-
-    res.json(newBook);
-    console.log("Book added successfully!");
-  } catch (error) {
+  } catch(error) {
     res.status(422).json(error);
-    console.log("Book is not added in the database!");
+    console.log("Book not added in database!");
   }
 };
 

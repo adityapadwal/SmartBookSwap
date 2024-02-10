@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   Box,
   FormControl,
@@ -14,6 +14,7 @@ import {
   TextareaAutosize,
 } from "@mui/material";
 import { BookDetailsContext } from "../context/BookDetailsContext";
+import PhotosUploader from "./PhotosUploader";
 
 export default function SellPage2({ activeStep }) {
   // context variables
@@ -23,12 +24,15 @@ export default function SellPage2({ activeStep }) {
     typeOfBook, setTypeOfBook,
     transactionType, setTransactionType,
     condition, setCondition,
-    setCoverImage,
+    addedPhotos, setAddedPhotos,
     priceType, setPriceType,
     mrp, setMrp,
     description, setDescription,
     setNextButtonDisabled,
   } = useContext(BookDetailsContext);
+
+  // state variables
+  const [isFreeTransaction, setIsFreeTransaction] = useState(false);
 
   // Handle Publication/Author change
   const handlePublicationOrAuthorChange = (e) => {
@@ -36,15 +40,17 @@ export default function SellPage2({ activeStep }) {
     setPublicationOrAuthor(publicationOrAuthor);
     // Activate next button of 2nd page when (publicationOrAuthor, typeOfBook, transactionType, condition) fields are not empty
     setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
     );
   };
 
   // Handle Edition Year change
   const handleEditionYearChange = (e) => {
     const editionYear = (e.target.value);
-
     setEditionYear(editionYear);
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
+    );
   };
 
   // Handle Type of Book change
@@ -52,7 +58,7 @@ export default function SellPage2({ activeStep }) {
     const typeOfBook = e.target.value;
     setTypeOfBook(typeOfBook);
     setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
     );
   };
 
@@ -60,8 +66,12 @@ export default function SellPage2({ activeStep }) {
   const handleTransactionTypeChange = (e) => {
     const transactionType = e.target.value;
     setTransactionType(transactionType);
+
+    // Set the state based on the selected transaction type
+    setIsFreeTransaction(transactionType === "Free");
+
     setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
     );
   };
 
@@ -70,16 +80,7 @@ export default function SellPage2({ activeStep }) {
     const condition = e.target.value;
     setCondition(condition);
     setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition)
-    );
-  };
-
-  // Handle Cover image change
-  const handleCoverImageChange = (e) => {
-    const file = e.target.files[0];
-    setCoverImage(file);
-    setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition)
+      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
     );
   };
 
@@ -99,6 +100,9 @@ export default function SellPage2({ activeStep }) {
   const handleDescriptionChange = (e) => {
     const description = e.target.value;
     setDescription(description);
+    setNextButtonDisabled(
+      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
+    );
   };
 
   return (
@@ -117,11 +121,12 @@ export default function SellPage2({ activeStep }) {
           />
           <Grid marginBottom={3} container spacing={{ xs: 2, md: 10 }}>
             <Grid item xs={12} md={6}>
-            <TextField
+              <TextField
                 sx={{ width: "100%" }}
                 label="Edition (Year)"
                 type="number"
                 margin="normal"
+                required
                 variant="outlined"
                 value={editionYear}
                 onChange={handleEditionYearChange}
@@ -149,6 +154,7 @@ export default function SellPage2({ activeStep }) {
             </Grid>
           </Grid>
           <Grid container spacing={{ xs: 2, md: 10 }}>
+
             <Grid item xs={12} md={6}>
               <FormControl component="fieldset" margin="normal" required>
                 <FormLabel component="legend">Type of Transaction</FormLabel>
@@ -194,19 +200,15 @@ export default function SellPage2({ activeStep }) {
             </Grid>
           </Grid>
           <FormControl sx={{ width: "100%" }}>
-            <FormLabel>Click the box below to upload the cover page!</FormLabel>
-            <TextField
-              sx={{ width: "100%" }}
-              label=""
-              type="file"
-              margin="normal"
-              variant="outlined"
-              onChange={handleCoverImageChange}
-            />
+            <FormLabel>Click the box below to upload the images of your books!</FormLabel>
+            <FormLabel>Upload at least 4 images</FormLabel>
+            {/* Photos uploader component */}
+            <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
           </FormControl>
 
           <Grid container spacing={{ xs: 2, md: 10 }} marginBottom={2}>
             <Grid item xs={12} md={6}>
+              {/* Render Price Type field when not Free transaction */}
               <FormControl
                 sx={{ width: "100%" }}
                 variant="outlined"
@@ -218,6 +220,7 @@ export default function SellPage2({ activeStep }) {
                   onChange={handlePriceTypeChange}
                   labelId="price-type"
                   label="Price Type"
+                  disabled={isFreeTransaction} // Disable when transaction type is Free
                 >
                   <MenuItem value="Fixed">Fixed</MenuItem>
                   <MenuItem value="Negotiable">Negotiable</MenuItem>
@@ -227,6 +230,7 @@ export default function SellPage2({ activeStep }) {
             </Grid>
 
             <Grid item xs={12} md={6}>
+              {/* Render MRP field when not Free transaction */}
               <TextField
                 value={mrp}
                 onChange={handleMrpChange}
@@ -235,6 +239,7 @@ export default function SellPage2({ activeStep }) {
                 type="number"
                 margin="normal"
                 variant="outlined"
+                disabled={isFreeTransaction} // Disable when transaction type is Free
               />
             </Grid>
           </Grid>

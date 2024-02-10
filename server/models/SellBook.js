@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SellBookSchema = new Schema({
+  owner: {type: mongoose.Schema.Types.ObjectId, ref:'users'},
   title: { type: String, required: true },
   category: { type: String, required: true },
   subcategory: String,
@@ -11,13 +12,10 @@ const SellBookSchema = new Schema({
   typeOfBook: { type: String, required: true },
   transactionType: { type: String, required: true },
   condition: { type: String, required: true },
-  coverImage: String,
+  photos: [String],
   priceType: String,
   mrp: { type: Number, default: 0 },
   description: String,
-  userName: { type: String, required: true },
-  mobileNo: { type: Number, required: true },
-  city: { type: String, required: true },
   // addedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   // buyer_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });

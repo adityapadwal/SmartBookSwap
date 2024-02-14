@@ -1,6 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { Box, Paper, Button, Grid, Stepper, Step, StepLabel } from "@mui/material";
+import {
+  Box,
+  Paper,
+  Button,
+  Grid,
+  Stepper,
+  Step,
+  StepLabel,
+} from "@mui/material";
 import SellPage1 from "./sellPage1";
 import SellPage2 from "./sellPage2";
 import SellPage3 from "./sellPage3";
@@ -10,26 +18,39 @@ import { UserContext } from "../context/UserContext";
 
 const steps = ["Step 1", "Step 2", "Step 3"];
 const SellBookPage = () => {
-
   // context variables
   const {
-    title, setTitle,
-    category, setCategory,
-    subcategory, setSubcategory,
-    publicationOrAuthor, setPublicationOrAuthor,
-    editionYear, setEditionYear,
-    typeOfBook, setTypeOfBook,
-    transactionType, setTransactionType,
-    condition, setCondition,
-    addedPhotos, setAddedPhotos,
-    priceType, setPriceType,
-    mrp, setMrp,
-    description, setDescription,
-    nextButtonDisabled, setNextButtonDisabled,
-    isFormSubmitted, setFormSubmitted,
+    title,
+    setTitle,
+    category,
+    setCategory,
+    subcategory,
+    setSubcategory,
+    publicationOrAuthor,
+    setPublicationOrAuthor,
+    editionYear,
+    setEditionYear,
+    typeOfBook,
+    setTypeOfBook,
+    transactionType,
+    setTransactionType,
+    condition,
+    setCondition,
+    addedPhotos,
+    setAddedPhotos,
+    priceType,
+    setPriceType,
+    mrp,
+    setMrp,
+    description,
+    setDescription,
+    nextButtonDisabled,
+    setNextButtonDisabled,
+    isFormSubmitted,
+    setFormSubmitted,
   } = useContext(BookDetailsContext);
 
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   // state variables
   const [activeStep, setActiveStep] = useState(0);
@@ -50,14 +71,14 @@ const SellBookPage = () => {
       publicationOrAuthor &&
       typeOfBook &&
       transactionType &&
-      condition
+      condition;
 
     if (!isFormValid) {
       alert("Please fill in all required fields before submitting!.");
     } else {
       setFormSubmitted(true);
       try {
-        await axios.post('/addBook', {
+        await axios.post("/addBook", {
           title,
           category,
           subcategory,
@@ -81,7 +102,6 @@ const SellBookPage = () => {
           alert("Failed to add book. Please try again later!");
         }
       }
-
       resetInputFields();
     }
   };
@@ -117,8 +137,8 @@ const SellBookPage = () => {
           isValid =
             publicationOrAuthor && typeOfBook && transactionType && condition;
           break;
-          default:
-            break;
+        default:
+          break;
       }
 
       setNextButtonDisabled(true);
@@ -130,11 +150,11 @@ const SellBookPage = () => {
   };
 
   if (redirect) {
-    return <Navigate to={'/listedbooks'} />
+    return <Navigate to={"/listedbooks"} />;
   }
 
   if (!user) {
-    return <Navigate to={'/'} />;
+    return <Navigate to={"/"} />;
   }
 
   return (

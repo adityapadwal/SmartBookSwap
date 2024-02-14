@@ -1,161 +1,142 @@
-import React from 'react'
-import { Grid, Box } from '@mui/material'
-import RotateLeftIcon from '@mui/icons-material/RotateLeft';
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
-import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
-import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
+import React from "react";
+import { useMediaQuery } from "@mui/material";
 
 const BookDetails = () => {
+  const isXS = useMediaQuery("(max-width:600px)");
+  const isSM = useMediaQuery("(min-width:600px) and (max-width:959px)");
+  const isMD = useMediaQuery("(min-width:960px)");
 
-    return (
-        <div style={{
-            
+  return (
+    <div style={{}}>
+      <div
+        style={{
+          padding: "0.3rem 1.5rem 1rem 1.5rem",
+          backgroundColor: "white",
+          transition: "background-color 0.5s ease, box-shadow 0.5s ease",
+          borderRadius: "8px",
+          boxShadow: "0 3px 3px rgba(0, 0, 0, 0.4)",
+        }}
+        onMouseOver={(e) => {
+          // Apply hover styles on mouse over
+          e.currentTarget.style.backgroundColor = "white";
+          e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.5)";
+        }}
+        onMouseOut={(e) => {
+          // Revert to initial styles on mouse out
+          e.currentTarget.style.backgroundColor = "white";
+          e.currentTarget.style.boxShadow = "0 3px 3px rgba(0, 0, 0, 0.4)";
+        }}
+      >
+        <h1
+          style={{
+            fontSize: isXS ? "25px" : isSM ? "30px" : "",
+            margin: "10px 0px 20px 0px",
+          }}
+        >
+          Discrete Mathematics
+        </h1>
+        <p
+          style={{
+            margin: "-10px 0px 10px 0px",
+            fontSize: isXS ? "14px" : isSM ? "16px" : "20px",
+          }}
+        >
+          {" "}
+          <i>Engineering </i> | <i> Computer</i>
+        </p>
+      </div>
 
-        }}>
-            <div style={{
-                padding: '1rem',
-                backgroundColor: '#deeafe',
-                borderRadius:'20px',
-                transition: 'background-color 0.5s ease, box-shadow 0.5s ease',
-                boxShadow: '0 0 10px rgba(0, 0, 0, 0.4)', // Initial box shadow
-                fontFamily: 'monospace',
-            }}
-                onMouseOver={(e) => {
-                    // Apply hover styles on mouse over
-                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-                    e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.6)';
-                }}
-                onMouseOut={(e) => {
-                    // Revert to initial styles on mouse out
-                    e.currentTarget.style.backgroundColor = '#deeafe';
-                    e.currentTarget.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.4)';
-                }}>
-                <h1>Engineering Mathematics</h1>
-                <p style={{ marginTop: '-1rem' }}> Field  : <i>Engineering </i>| Department  : <i> Computer</i> | Year: <i>II</i></p>
+      <div
+        style={{
+          padding: "0.3rem 1.5rem 1rem 1.5rem",
+          marginTop: "20px",
+          backgroundColor: "white",
+          transition: "background-color 0.5s ease, box-shadow 0.5s ease",
+          borderRadius: "8px",
+          boxShadow: "0 3px 3px rgba(0, 0, 0, 0.4)",
+        }}
+        onMouseOver={(e) => {
+          // Apply hover styles on mouse over
+          e.currentTarget.style.backgroundColor = "white";
+          e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.5)";
+        }}
+        onMouseOut={(e) => {
+          // Revert to initial styles on mouse out
+          e.currentTarget.style.backgroundColor = "white";
+          e.currentTarget.style.boxShadow = "0 3px 3px rgba(0, 0, 0, 0.4)";
+        }}
+      >
+        <h2 style={{ fontSize: isXS ? "20px" : isSM ? "25px" : "" }}>
+          Book Details
+        </h2>
+        <ul
+          style={{
+            margin: "-5px 0px 0px -5px",
+            fontSize: isXS ? "14px" : isSM ? "16px" : "20px",
+          }}
+        >
+          <li style={{ marginBottom: "-10px" }}>
+            Publication / Author : <b> Nirali </b>{" "}
+          </li>
+          <br />
+          <li style={{ marginBottom: "-10px" }}>
+            {" "}
+            Edition : <b>2023 </b>{" "}
+          </li>
+          <br />
+          <li style={{ marginBottom: "-10px" }}>
+            {" "}
+            Type: <b> Text Book </b>{" "}
+          </li>
+          <br />
+          <li style={{ marginBottom: "-10px" }}>
+            {" "}
+            Condition: <b> Used </b>{" "}
+          </li>
+          <br />
+        </ul>
+      </div>
 
-            </div>
+      <div
+        style={{
+          padding: "0.3rem 1.5rem 1rem 1.5rem",
+          marginTop: "20px",
+          backgroundColor: "white",
+          transition: "background-color 0.5s ease, box-shadow 0.5s ease",
+          borderRadius: "8px",
+          boxShadow: "0 3px 3px rgba(0, 0, 0, 0.4)",
+          height: isXS ? "" : isSM ? "172px" : "183px",
+          width: "100",
+        }}
+        onMouseOver={(e) => {
+          // Apply hover styles on mouse over
+          e.currentTarget.style.backgroundColor = "white";
+          e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.5)";
+        }}
+        onMouseOut={(e) => {
+          // Revert to initial styles on mouse out
+          e.currentTarget.style.backgroundColor = "white";
+          e.currentTarget.style.boxShadow = "0 3px 3px rgba(0, 0, 0, 0.4)";
+        }}
+      >
+        <h2 style={{ fontSize: isXS ? "20px" : isSM ? "25px" : "" }}>
+          {" "}
+          Description:{" "}
+        </h2>
+        <p
+          style={{
+            fontSize: isXS ? "14px" : isSM ? "16px" : "20px",
+            margin: "-5px 0px 0.5rem 0px",
+          }}
+        >
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis,
+          sint, mollitia in ut suscipit accusamus facilis soluta assumenda
+          expedita quae modi eos nobis inventore, quasi hic laboriosam cumque
+          rem qui.{" "}
+        </p>
+      </div>
+    </div>
+  );
+};
 
-            {/* <div style={{
-                padding: '1rem',
-                backgroundColor: 'white',
-                transition: 'background-color 0.5s ease, box-shadow 0.5s ease',
-                boxShadow: '0 0 0px rgba(0, 0, 0, 0.0)', // Initial box shadow
-                fontFamily: 'monospace',
-            }}
-                onMouseOver={(e) => {
-                    // Apply hover styles on mouse over
-                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-                    e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.4)';
-                }}
-                onMouseOut={(e) => {
-                    // Revert to initial styles on mouse out
-                    e.currentTarget.style.backgroundColor = 'white';
-                    e.currentTarget.style.boxShadow = '0 0 0px rgba(0, 0, 0, 0.0)';
-                }}>
-                <h3 style={{ fontWeight: '400' }}>Price:</h3>
-                <h2 style={{ marginTop: '-1rem' }}>₹200.00 <span style={{ fontWeight: 'lighter', fontSize: '1rem' }}>all tax included</span></h2>
-                <button
-                    style={{
-                        padding: '7px 14px',
-                        fontSize: '15px',
-                        marginTop: '-10px',
-                        backgroundColor: '#f39c12',  // Background color
-                        color: 'white',             // Text color
-                        border: 'none',             // Remove border
-                        borderRadius: '5px',        // Add border radius for rounded corners
-                        cursor: 'pointer',          // Change cursor on hover
-                        transition: 'background-color 0.3s',  // Add smooth transition on background color change
-                    }}
-                    onMouseOver={(e) => e.target.style.backgroundColor = '#f54c0a'}  // Change background color on hover
-                    onMouseOut={(e) => e.target.style.backgroundColor = '#f39c12'}   // Change back to original color on mouse out
-                >
-                    Negotiate/fixed
-                </button>
-            </div> */}
-            <hr />
-            <div
-                style={{
-                    padding: '1rem',
-                    backgroundColor: '#deeafe',
-                    borderRadius:'20px',
-                    transition: 'background-color 0.5s ease, box-shadow 0.5s ease',
-                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.4)', // Initial box shadow
-                    fontFamily: 'monospace',
-                }}
-                onMouseOver={(e) => {
-                    // Apply hover styles on mouse over
-                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-                    e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.6)';
-                }}
-                onMouseOut={(e) => {
-                    // Revert to initial styles on mouse out
-                    e.currentTarget.style.backgroundColor = '#deeafe';
-                    e.currentTarget.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.4)';
-                }}
-
-            >
-                <h3>Details</h3>
-                <ul>
-                    <li>Publication/ Author : <b> Nirali </b>  </li>
-                    <br />
-                    <li> Edition : <b>2023  </b>   </li>
-                    <br />
-                    <li> Type: <b> Text Book </b>  </li>
-                    <br />
-                    <li> Negotiable: <b> Yes </b>  </li>
-                    <br />
-                    <li> Condition: <b> 2nd hand </b>  </li>
-                    <br />
-                </ul>
-
-            </div>
-            <hr />
-            <div
-                style={{
-                    padding: '1rem',
-                    backgroundColor: '#deeafe',
-                    borderRadius: '20px',
-                    transition: 'background-color 0.5s ease, box-shadow 0.5s ease',
-                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.4)', // Initial box shadow
-                    fontFamily: 'monospace',
-                    marginBottom:'-1rem'
-                }}
-                onMouseOver={(e) => {
-                    // Apply hover styles on mouse over
-                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-                    e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.6)';
-                }}
-                onMouseOut={(e) => {
-                    // Revert to initial styles on mouse out
-                    e.currentTarget.style.backgroundColor = '#deeafe';
-                    e.currentTarget.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.4)';
-                }}
-            >
-                <Grid container>
-                    <Grid item xs={6} md ={3}
-                        sx={{ textAlign: 'center', padding: '1rem' }} >
-
-                        <RotateLeftIcon sx={{ color: 'blue' }} />
-                        <p style={{ marginTop: '-0.1rem' }}> <b>10</b>  days returnable</p>
-                    </Grid>
-                    <Grid item xs={6} md ={3} sx={{ textAlign: 'center', padding: '1rem' }}>
-                        <LocalShippingOutlinedIcon sx={{ color: 'blue' }} />
-                        <p style={{ marginTop: '-0.1rem' }}> <b>Cash</b> on delivery</p>
-                    </Grid>
-                    <Grid item xs={6} md ={3} sx={{ textAlign: 'center', padding: '1rem' }}>
-                        <SecurityOutlinedIcon sx={{ color: 'blue' }} />
-                        <p style={{ marginTop: '-0.1rem' }}> <b>Secure</b>  Payment Gateway</p>
-                    </Grid>
-                    <Grid item xs={6} md ={3} sx={{ textAlign: 'center', padding: '1rem' }}>
-                        <VerifiedOutlinedIcon sx={{ color: 'blue' }} />
-                        <p style={{ marginTop: '-0.1rem' }}> <b>Verification</b> before Delivery</p>
-                    </Grid>
-                </Grid>
-            </div>
-            
-            <hr style={{ marginTop: '2rem' }} />
-        </div>
-    )
-}
-
-export default BookDetails
+export default BookDetails;

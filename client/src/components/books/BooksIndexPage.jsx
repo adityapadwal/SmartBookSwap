@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box, Grid } from "@mui/material";
-import BuyFilters from './BuyFilters';
-import BuyNavBar from './BuyNavBar';
-import BookCard from './BookCard';
+import FilterComponent from './FilterCoponent';
+import NavbarComponent from './NavbarComponent';
+import BookCardComponent from './BookCardComponent';
 
-export default function BuyBookPage() {
+export default function BooksIndexPage() {
   const books = [
     {
       category: "Medical",
@@ -112,11 +112,11 @@ export default function BuyBookPage() {
       <Box sx={{ flexGrow: 1, marginTop: "4rem" }}>
         <Grid container spacing={2}>
           <Grid position='fixed' item xs={3} height="100vh" sx={{ backgroundColor: "#dae6f5", overflow: 'inherit', }}>
-            <BuyFilters />
+            <FilterComponent />
           </Grid>
 
           <Grid item xs={12} sx={{ marginLeft: { xs: "1rem", sm: "2rem", md: "12rem" }, marginTop: '1rem', }}>
-            <BuyNavBar />
+            <NavbarComponent />
             
             <Box
               margin={"auto"}
@@ -129,7 +129,7 @@ export default function BuyBookPage() {
               {books &&
                 books.slice(1, 7).map((book, index) => (
                   <Box margin={"auto"} key={index} padding="10px">
-                    <BookCard
+                    <BookCardComponent
                       image={book.image}
                       category={book.category}
                       name={book.name}

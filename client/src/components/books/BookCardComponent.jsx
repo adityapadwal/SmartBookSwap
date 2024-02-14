@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 
-const BookCard = ({ image, category, name, location, price, type }) => {
+const BookCardComponent = ({ image, category, name, location, price, type }) => {
   return (
     <div>
        <Card
@@ -98,4 +98,4 @@ const BookCard = ({ image, category, name, location, price, type }) => {
   )
 }
 
-export default BookCard
+export default BookCardComponent

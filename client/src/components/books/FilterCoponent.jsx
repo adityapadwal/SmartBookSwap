@@ -13,7 +13,7 @@ import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 
-const BuyFilters = () => {
+const FilterComponent = () => {
     const CustomCheckbox = (props) => (
         <Checkbox
           style={{ transform: 'scale(0.7)' }} // Adjust the scale factor as needed
@@ -85,4 +85,4 @@ const BuyFilters = () => {
     )
 }
 
-export default BuyFilters
+export default FilterComponent

@@ -286,7 +286,7 @@ export default function DenseAppBar() {
                 {ourServicesOpen && (
                   <List style={{ backgroundColor: "#f5f5f5" }}>
                     <Link
-                      to="/buy-book"
+                      to="/books"
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
                       <ListItem onClick={handleDrawerClose}>
@@ -318,7 +318,7 @@ export default function DenseAppBar() {
             sx={{ marginLeft: "12px" }}
           >
             <Link
-              to={"/buy-book"}
+              to={"/books"}
               style={{
                 textDecoration: "none",
                 color: "inherit",

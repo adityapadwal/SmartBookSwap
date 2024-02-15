@@ -11,6 +11,7 @@ const mongoose = require("mongoose"); // ODM
 const tempRoutes = require("./routes/temp.js");
 const authRoutes = require("./routes/auth.js");
 const profileRoutes = require("./routes/profile.js");
+const bookRoutes = require("./routes/book.js");
 const sellBookRoutes = require("./routes/sellBook.js");
 const uploadRoutes = require("./routes/upload.js");
 
@@ -33,6 +34,7 @@ app.use(
 app.use(tempRoutes);
 app.use(authRoutes);
 app.use(profileRoutes);
+app.use(bookRoutes);
 app.use(sellBookRoutes);
 app.use(uploadRoutes);
 

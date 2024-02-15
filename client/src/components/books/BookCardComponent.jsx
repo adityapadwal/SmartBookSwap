@@ -11,89 +11,126 @@ import { Link } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 
-const BookCardComponent = ({ image, category, name, location, price, type }) => {
+const BookCardComponent = ({ image, category, subcategory, title, publication, location, price, priceType }) => {
   return (
     <div>
-       <Card
-      sx={{
-        margin: 2,
-        width: 260,
-        height: 360,
-        borderRadius: 5,
-        ":hover": {
-          boxShadow: "10px 10px 20px #ccc",
-        },
-        position: "relative",
-      }}
-    >
-      <img height={"50%"} width={"100%"} src={image} alt={name} />
-      <CardContent>
-        <Box
-          sx={{
-            borderRadius: "9px",
-            padding: "5px 10px",
-            fontSize: 12,
-            textTransform: "uppercase",
-            color: "#fff",
-            backgroundColor: "#1976d2",
-            borderColor: "#1976d2",
-            position: "absolute",
-            top: "12rem",
-            left: 12,
-          }}
-        >
-          {category}
-        </Box>
-        <Typography
-          sx={{ marginTop: "16px" }}
-          fontWeight="bold"
-          variant="subtitle1"
-          gutterBottom
-        >
-          {name}
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "8px",
-          }}
-        >
-          <LocationOnIcon sx={{ marginRight: "4px", color: "#1976d2" }} />
-          <Typography variant="body2" color="textSecondary">
-            {location}
-          </Typography>
-        </Box>
-        <Typography variant="body2" color="textSecondary">
-          {`Rs. ${price}`} {type && `(${type})`}
-        </Typography>
-      </CardContent>
-      <CardActions
+      <Card
         sx={{
-          position: "absolute",
-          bottom: 0,
-          left: "85%",
-          transform: "translateX(-50%)",
-          width: "100%",
-          margin: 1,
+          margin: 2,
+          width: 260,
+          height: 360,
+          borderRadius: 5,
+          ":hover": {
+            boxShadow: "10px 10px 20px #ccc",
+          },
+          position: "relative",
         }}
       >
-        <Button
+        {/* Image */}
+        <img height={"50%"} width={"100%"} src={image} alt={'No Image available'} />
+        <CardContent>
+          {/* Category */}
+          <Box
+            sx={{
+              borderRadius: "9px",
+              padding: "5px 10px",
+              fontSize: 12,
+              textTransform: "uppercase",
+              color: "#fff",
+              backgroundColor: "#1976d2",
+              borderColor: "#1976d2",
+              position: "absolute",
+              top: "12rem",
+              left: 12,
+            }}
+          >
+            {category}
+          </Box>
+
+          {/* Subcategory */}
+          <Box
+            sx={{
+              borderRadius: "9px",
+              padding: "5px 10px",
+              fontSize: 12,
+              textTransform: "uppercase",
+              color: "#fff",
+              backgroundColor: "#1976d2",
+              borderColor: "#1976d2",
+              position: "absolute",
+              top: "12rem",
+              right: 12,
+            }}
+          >
+            {subcategory}
+          </Box>
+
+          {/* Book title */}
+          <Typography
+            sx={{ marginTop: "16px" }}
+            fontWeight="bold"
+            variant="subtitle1"
+            gutterBottom
+          >
+            {(title.length > 25) ? title.slice(0, 23)+'...' : title}
+          </Typography>
+
+          {/* Book publication/author */}
+          <Typography
+            sx={{ marginTop: "16px" }}
+            variant="subtitle"
+            gutterBottom
+          >
+            {(publication.length > 25) ? publication.slice(0, 23)+'...' : publication}
+          </Typography>
+
+          {/* Location and Price */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body2" color="textSecondary">
+              {priceType ? `Rs. ${price} (${priceType})` : `(Free)`}
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <LocationOnIcon sx={{ marginRight: "4px", color: "#1976d2" }} />
+              <Typography variant="body2" color="textSecondary">
+                {location}
+              </Typography>
+            </Box>
+
+          </Box>
+
+        </CardContent>
+        <CardActions
           sx={{
-            backgroundColor: "#1976d2",
-            color: "white",
-            ":hover": {
-              backgroundColor: "#2258ae",
-            },
+            position: "absolute",
+            bottom: 0,
+            left: "85%",
+            transform: "translateX(-50%)",
+            width: "100%",
+            margin: 1,
           }}
-          component={Link}
-          to={`/`}
-          size="small"
         >
-          Book
-        </Button>
-      </CardActions>
-    </Card>
+          <Button
+            sx={{
+              backgroundColor: "#1976d2",
+              color: "white",
+              ":hover": {
+                backgroundColor: "#2258ae",
+              },
+            }}
+            component={Link}
+            to={`/`}
+            size="small"
+          >
+            Get Book
+          </Button>
+        </CardActions>
+      </Card>
     </div>
   )
 }

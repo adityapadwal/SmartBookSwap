@@ -1,111 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Grid } from "@mui/material";
 import FilterComponent from './FilterCoponent';
 import NavbarComponent from './NavbarComponent';
 import BookCardComponent from './BookCardComponent';
+import axios from 'axios';
 
 export default function BooksIndexPage() {
-  const books = [
-    {
-      category: "Medical",
-      name: "Book Title",
-      location: "Pune",
-      price: "200",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-      type: "fixed",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-  ];
+
+  // state variables
+  const [books, setBooks] = useState([]);
+
+  // fetching all the listed books
+  useEffect(() => {
+    axios
+      .get('/books')
+      .then((response) => {
+        setBooks(response.data);
+        console.log(response.data); // debugging...
+      });
+  }, []);
 
   return (
     <div>
@@ -117,7 +30,7 @@ export default function BooksIndexPage() {
 
           <Grid item xs={12} sx={{ marginLeft: { xs: "1rem", sm: "2rem", md: "12rem" }, marginTop: '1rem', }}>
             <NavbarComponent />
-            
+
             <Box
               margin={"auto"}
               display="flex"
@@ -127,15 +40,17 @@ export default function BooksIndexPage() {
               padding={"13px"}
             >
               {books &&
-                books.slice(1, 7).map((book, index) => (
+                books.map((book, index) => (
                   <Box margin={"auto"} key={index} padding="10px">
                     <BookCardComponent
-                      image={book.image}
+                      image={book.photos[0]}
                       category={book.category}
-                      name={book.name}
-                      location={book.location}
-                      price={book.price}
-                      type={book.type}
+                      subcategory={book.subcategory}
+                      title={book.title}
+                      publication={book.publicationOrAuthor}
+                      location={book.location} 
+                      price={book.mrp}
+                      priceType={book.priceType}
                     />
                   </Box>
                 ))}

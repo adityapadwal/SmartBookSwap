@@ -33,14 +33,14 @@ export default function SellPage1({ activeStep }) {
     // Enable the Next button if both category and title are not empty
     setNextButtonDisabled(!(title && selectedCategory));
     switch (selectedCategory) {
-      case "medical":
+      case "Medical":
         setSubcategoryOptions(["MBBS", "Pharmacy", "Nursing", "Other"]);
         break;
-      case "engineering":
+      case "Engineering":
         setSubcategoryOptions([
           "Computer",
           "E & TC",
-          "Information Technology",
+          "IT",
           "AIDS",
           "Electrical",
           "Civil",
@@ -49,13 +49,13 @@ export default function SellPage1({ activeStep }) {
           "Other",
         ]);
         break;
-      case "ssc":
+      case "SSC":
         setSubcategoryOptions(["1 to 10th"]);
         break;
-      case "hsc":
+      case "HSC":
         setSubcategoryOptions(["Science", "Commerce", "Arts", "Other"]);
         break;
-      case "competativeExams":
+      case "Competative Exams":
         setSubcategoryOptions([
           "Government Jobs",
           "Engineering",
@@ -105,11 +105,11 @@ export default function SellPage1({ activeStep }) {
               value={category}
               onChange={handleCategoryChange}
             >
-              <MenuItem value="medical">Medical</MenuItem>
-              <MenuItem value="engineering">Engineering</MenuItem>
-              <MenuItem value="ssc">Secondary Education</MenuItem>
-              <MenuItem value="hsc">Higher Secondary Education</MenuItem>
-              <MenuItem value="competativeExams">Competitive Exams</MenuItem>
+              <MenuItem value="Medical">Medical</MenuItem>
+              <MenuItem value="Engineering">Engineering</MenuItem>
+              <MenuItem value="SSC">Secondary Education</MenuItem>
+              <MenuItem value="HSC">Higher Secondary Education</MenuItem>
+              <MenuItem value="Competative Exams">Competitive Exams</MenuItem>
             </Select>
           </FormControl>
           <FormControl

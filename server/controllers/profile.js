@@ -35,6 +35,20 @@ exports.getProfile = (req, res) => {
     }
 };
 
+exports.getProfileById = async (req, res) => {
+  const id = req.params.id;
+  let user;
+  try {
+    user = await User.findById(id);
+  } catch (error) {
+    console.log(error);
+  }
+  if (!user) {
+    return res.status(500).json({ message: "User not found!" });
+  }
+  return res.status(200).json({ user });
+};
+
 exports.putUpdateProfile = async (req, res) => {
     try {
       const { token } = req.cookies;

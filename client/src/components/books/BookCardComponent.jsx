@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -9,16 +9,51 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import axios from 'axios';
+
+const BookCardComponent = ({
+  id,
+  owner,
+  image,
+  category,
+  subcategory,
+  title,
+  publication,
+  location,
+  price,
+  priceType,
+}) => {
+  // console.log(owner);
+  const [user, setUser] = useState({});
+
+  // fetching user data
+  useEffect(() => {
+    // Ensure owner is not null and fetch user data only if it's available
+    if (owner) {
+      axios
+        .get(`/profile/${owner}`)
+        .then((response) => {
+          setUser(response.data);
+          console.log(response.data);  // debugging...
+          console.log("Address: ", response.data.address);  // debugging...
+        })
+        .catch((error) => {
+          console.error('Error fetching user data:', error);
+        });
+    }
+  }, []);
+
+  console.log("usestate user data: ", user);
+  // console.log(user.address);
 
 
-const BookCardComponent = ({ image, category, subcategory, title, publication, location, price, priceType }) => {
   return (
     <div>
-      <Card
+       <Card
         sx={{
-          margin: 2,
-          width: 260,
-          height: 360,
+          margin: 1.5,
+          width: 300,
+          height: 400,
           borderRadius: 5,
           ":hover": {
             boxShadow: "10px 10px 20px #ccc",
@@ -27,20 +62,20 @@ const BookCardComponent = ({ image, category, subcategory, title, publication, l
         }}
       >
         {/* Image */}
-        <img height={"50%"} width={"100%"} src={image} alt={'No Image available'} />
+        <img height={"50%"} width={"100%"} src={image} alt={"No Image available"} />
         <CardContent>
           {/* Category */}
           <Box
             sx={{
-              borderRadius: "9px",
-              padding: "5px 10px",
-              fontSize: 12,
+              borderRadius: "8px",
+              padding: "5px 5px",
+              fontSize: 10,
               textTransform: "uppercase",
               color: "#fff",
               backgroundColor: "#1976d2",
               borderColor: "#1976d2",
               position: "absolute",
-              top: "12rem",
+              top: "13rem",
               left: 12,
             }}
           >
@@ -50,15 +85,15 @@ const BookCardComponent = ({ image, category, subcategory, title, publication, l
           {/* Subcategory */}
           <Box
             sx={{
-              borderRadius: "9px",
-              padding: "5px 10px",
-              fontSize: 12,
+              borderRadius: "8px",
+              padding: "5px 5px",
+              fontSize: 10,
               textTransform: "uppercase",
               color: "#fff",
               backgroundColor: "#1976d2",
               borderColor: "#1976d2",
               position: "absolute",
-              top: "12rem",
+              top: "13rem",
               right: 12,
             }}
           >
@@ -72,16 +107,12 @@ const BookCardComponent = ({ image, category, subcategory, title, publication, l
             variant="subtitle1"
             gutterBottom
           >
-            {(title.length > 25) ? title.slice(0, 23)+'...' : title}
+            {title.length > 33 ? title.slice(0, 30) + "..." : title}
           </Typography>
 
           {/* Book publication/author */}
-          <Typography
-            sx={{ marginTop: "16px" }}
-            variant="subtitle"
-            gutterBottom
-          >
-            {(publication.length > 25) ? publication.slice(0, 23)+'...' : publication}
+          <Typography sx={{ marginTop: "16px" }} variant="subtitle" gutterBottom>
+            {publication.length > 25 ? publication.slice(0, 23) + "..." : publication}
           </Typography>
 
           {/* Location and Price */}
@@ -90,20 +121,20 @@ const BookCardComponent = ({ image, category, subcategory, title, publication, l
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              marginTop: "8px", // Move location to new line
             }}
           >
             <Typography variant="body2" color="textSecondary">
-              {priceType ? `Rs. ${price} (${priceType})` : `(Free)`}
+              {priceType ? `Rs. ${price} (${priceType})` : "(Free)"}
             </Typography>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center", marginTop: "5px" }}>
               <LocationOnIcon sx={{ marginRight: "4px", color: "#1976d2" }} />
               <Typography variant="body2" color="textSecondary">
-                {location}
+                   {user.address}
               </Typography>
             </Box>
-
-          </Box>
-
         </CardContent>
         <CardActions
           sx={{
@@ -132,7 +163,7 @@ const BookCardComponent = ({ image, category, subcategory, title, publication, l
         </CardActions>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default BookCardComponent
+export default BookCardComponent;

@@ -33,7 +33,7 @@ const categories = [
   {
     value: "Medical",
     label: "Medical",
-    subcategories: ["Nursing", "MBBS", "Pharmacy"],
+    subcategories: ["Nursing", "MBBS", "Pharmacy", "Other"],
   },
   {
     value: "Competative Exams",
@@ -47,9 +47,10 @@ const categories = [
       "Language Proficiency",
       "Architecture",
       "Education & Testing",
+      "Other"
     ],
   },
-  { value: "SSC", label: "SSC", subcategories: ["1 to 10th"] },
+  { value: "SSC", label: "SSC", subcategories: ["1 to 10th", "Other"] },
   {
     value: "HSC",
     label: "HSC",

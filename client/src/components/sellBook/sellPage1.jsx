@@ -50,7 +50,7 @@ export default function SellPage1({ activeStep }) {
         ]);
         break;
       case "SSC":
-        setSubcategoryOptions(["1 to 10th"]);
+        setSubcategoryOptions(["1 to 10th", "Other"]);
         break;
       case "HSC":
         setSubcategoryOptions(["Science", "Commerce", "Arts", "Other"]);
@@ -65,6 +65,7 @@ export default function SellPage1({ activeStep }) {
           "Language Proficiency",
           "Architecture",
           "Education & Testing",
+          "Other"
         ]);
         break;
       default:

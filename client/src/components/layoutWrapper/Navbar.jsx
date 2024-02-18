@@ -318,7 +318,7 @@ export default function DenseAppBar() {
             sx={{ marginLeft: "12px" }}
           >
             <Link
-              to={"/buy-book"}
+              to={"/books"}
               style={{
                 textDecoration: "none",
                 color: "inherit",

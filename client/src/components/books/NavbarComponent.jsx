@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import TextField from '@mui/material/TextField';
 
-const BuyNavBar = () => {
+const NavbarCoponent = () => {
     
     const [sort, setSort] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
@@ -50,4 +50,4 @@ const BuyNavBar = () => {
     )
 }
 
-export default BuyNavBar
+export default NavbarCoponent

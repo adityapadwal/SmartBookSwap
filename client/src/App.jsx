@@ -7,7 +7,7 @@ import LoginPage from './components/auth/LoginPage';
 import ResetPasswordPage from './components/auth/ResetPasswordPage';
 import NewPasswordPage from './components/auth/NewPasswordPage';
 import IndexPage from './components/index/IndexPage'
-import BuyBookPage from './components/buyBook/BuyBookPage';
+import BooksIndexPage from './components/books/BooksIndexPage';
 import SellBookPage from './components/sellBook/SellBookPage';
 import ProfilePage from './components/profile/ProfilePage';
 import HistoryPage from './components/profile/HistoryPage';
@@ -38,7 +38,8 @@ function App() {
               <Route path='/reset-password' element={<ResetPasswordPage />} /> {/* auth */}
               <Route path='/reset-password/:token' element={<NewPasswordPage />} /> {/* auth */}
 
-              <Route path='/buy-book' element={<BuyBookPage />} /> {/* buyBook */}
+              <Route path='/books' element={<BooksIndexPage />} /> {/* books */}
+
               <Route path='/buy-book-card' element={<BuyBookCard />} /> {/* buyBook */}
 
               <Route path='/sell-book' element={<SellBookPage />} /> {/* sellBook */}

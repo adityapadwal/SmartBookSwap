@@ -24,7 +24,7 @@ export default function BooksIndexPage() {
             position="fixed"
             item
             xs={3}
-            width="17rem"
+            width="18rem"
             height="100vh"
             sx={{ backgroundColor: "#dae6f5", overflow: "inherit" }}
           >
@@ -42,6 +42,7 @@ export default function BooksIndexPage() {
             sx={{
               marginLeft: { xs: "1rem", sm: "2rem", md: "17rem" },
               marginTop: "1rem",
+              height: "100vh"
             }}
           >
             <NavbarComponent />
@@ -53,6 +54,7 @@ export default function BooksIndexPage() {
               justifyContent="center"
               alignItems="center"
               padding={"13px"}
+
             >
               {books
                 .filter((book) => {

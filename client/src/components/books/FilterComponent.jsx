@@ -38,13 +38,22 @@ const categories = [
   {
     value: "Competative Exams",
     label: "Competative Exams",
-    subcategories: ["Finance & Accountancy", "Engineering"],
+    subcategories: [
+      "Government Jobs",
+      "Engineering",
+      "Medical",
+      "Management",
+      "Finance & Accountancy",
+      "Language Proficiency",
+      "Architecture",
+      "Education & Testing",
+    ],
   },
   { value: "SSC", label: "SSC", subcategories: ["1 to 10th"] },
   {
     value: "HSC",
     label: "HSC",
-    subcategories: ["Science", "Arts", "Commerce"],
+    subcategories: ["Science", "Commerce", "Arts", "Other"],
   },
 ];
 
@@ -83,6 +92,7 @@ const FilterComponent = ({
           maxWidth: 370,
           height: "627px",
           overflowY: "auto",
+          overflowX: "auto",
           display: { xs: "none", sm: "none", md: "block" },
         }}
       >

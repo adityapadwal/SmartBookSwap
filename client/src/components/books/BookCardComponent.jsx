@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import axios from 'axios';
+import axios from "axios";
 
 const BookCardComponent = ({
   id,
@@ -34,11 +34,11 @@ const BookCardComponent = ({
         .get(`/profile/${owner}`)
         .then((response) => {
           setUser(response.data);
-          console.log(response.data);  // debugging...
-          console.log("Address: ", response.data.address);  // debugging...
+          console.log(response.data); // debugging...
+          console.log("Address: ", response.data.address); // debugging...
         })
         .catch((error) => {
-          console.error('Error fetching user data:', error);
+          console.error("Error fetching user data:", error);
         });
     }
   }, []);
@@ -46,13 +46,12 @@ const BookCardComponent = ({
   console.log("usestate user data: ", user);
   // console.log(user.address);
 
-
   return (
     <div>
-       <Card
+      <Card
         sx={{
           margin: 1.5,
-          width: 300,
+          width: 282,
           height: 400,
           borderRadius: 5,
           ":hover": {
@@ -62,7 +61,12 @@ const BookCardComponent = ({
         }}
       >
         {/* Image */}
-        <img height={"50%"} width={"100%"} src={image} alt={"No Image available"} />
+        <img
+          height={"50%"}
+          width={"100%"}
+          src={image}
+          alt={"No Image available"}
+        />
         <CardContent>
           {/* Category */}
           <Box
@@ -111,8 +115,14 @@ const BookCardComponent = ({
           </Typography>
 
           {/* Book publication/author */}
-          <Typography sx={{ marginTop: "16px" }} variant="subtitle" gutterBottom>
-            {publication.length > 25 ? publication.slice(0, 23) + "..." : publication}
+          <Typography
+            sx={{ marginTop: "16px" }}
+            variant="subtitle"
+            gutterBottom
+          >
+            {publication.length > 25
+              ? publication.slice(0, 23) + "..."
+              : publication}
           </Typography>
 
           {/* Location and Price */}
@@ -127,14 +137,13 @@ const BookCardComponent = ({
             <Typography variant="body2" color="textSecondary">
               {priceType ? `Rs. ${price} (${priceType})` : "(Free)"}
             </Typography>
-            
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", marginTop: "5px" }}>
-              <LocationOnIcon sx={{ marginRight: "4px", color: "#1976d2" }} />
-              <Typography variant="body2" color="textSecondary">
-                   {user.address}
-              </Typography>
-            </Box>
+            <LocationOnIcon sx={{ marginRight: "4px", color: "#1976d2" }} />
+            <Typography variant="body2" color="textSecondary">
+              {user.address}
+            </Typography>
+          </Box>
         </CardContent>
         <CardActions
           sx={{

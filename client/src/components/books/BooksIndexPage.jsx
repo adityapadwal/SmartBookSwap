@@ -7,7 +7,6 @@ import { useMediaQuery } from "@mui/material";
 import axios from "axios";
 
 export default function BooksIndexPage() {
-
   const isXS = useMediaQuery("(max-width:600px)");
   const isSM = useMediaQuery("(min-width:600px) and (max-width:959px)");
   const isMD = useMediaQuery("(min-width:960px)");
@@ -26,7 +25,8 @@ export default function BooksIndexPage() {
     if (categoryFilter && subcategoryFilter) {
       // Both category and subcategory are selected
       return (
-        book.category === categoryFilter && book.subcategory === subcategoryFilter
+        book.category === categoryFilter &&
+        book.subcategory === subcategoryFilter
       );
     } else if (categoryFilter) {
       // Only category is selected
@@ -44,7 +44,7 @@ export default function BooksIndexPage() {
     <div style={{ background: "#f3f5f9" }}>
       <Box sx={{ flexGrow: 1, marginTop: "4rem" }}>
         <Grid container spacing={2}>
-        {isMD && (
+          {isMD && (
             <Grid
               position="fixed"
               item
@@ -82,7 +82,12 @@ export default function BooksIndexPage() {
               padding={"13px"}
             >
               {filteredBooks.length === 0 ? (
-                <Typography variant="h6" sx={{fontSize: {xs: "15px", sm: "20px", md: "25px"}}}>Couldn't find any books in the selected category!</Typography>
+                <Typography
+                  variant="h6"
+                  sx={{ fontSize: { xs: "15px", sm: "20px", md: "25px" } }}
+                >
+                  Couldn't find any books in the selected category!
+                </Typography>
               ) : (
                 filteredBooks.map((book, index) => (
                   <Box margin={"auto"} key={index} padding="10px">
@@ -104,6 +109,12 @@ export default function BooksIndexPage() {
             </Box>
           </Grid>
         </Grid>
+        {/* changed default classes style for background of div containing all book cards */}
+        <style>{`
+          .css-1obfa4e {
+            background-color: #f3f5f9;
+        }
+        `}</style>
       </Box>
     </div>
   );

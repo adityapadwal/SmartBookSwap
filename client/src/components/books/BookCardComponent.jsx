@@ -28,23 +28,21 @@ const BookCardComponent = ({
 
   // fetching user data
   useEffect(() => {
-    // Ensure owner is not null and fetch user data only if it's available
     if (owner) {
       axios
         .get(`/profile/${owner}`)
         .then((response) => {
           setUser(response.data);
-          console.log(response.data); // debugging...
-          console.log("Address: ", response.data.address); // debugging...
+          console.log("User data:", response.data);
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
         });
     }
-  }, []);
+  }, [owner]);
 
-  console.log("usestate user data: ", user);
-  // console.log(user.address);
+  // console.log("usestate user data: ", user);
+  // console.log(user.user.address);
 
   return (
     <div>
@@ -111,7 +109,7 @@ const BookCardComponent = ({
             variant="subtitle1"
             gutterBottom
           >
-            {title.length > 33 ? title.slice(0, 30) + "..." : title}
+            {title.length > 27 ? title.slice(0, 25) + "..." : title}
           </Typography>
 
           {/* Book publication/author */}
@@ -140,9 +138,15 @@ const BookCardComponent = ({
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", marginTop: "5px" }}>
             <LocationOnIcon sx={{ marginRight: "4px", color: "#1976d2" }} />
-            <Typography variant="body2" color="textSecondary">
-              {user.address}
-            </Typography>
+            {user.user && user.user.address ? (
+              <Typography variant="body2" color="textSecondary">
+                {user.user.address}
+              </Typography>
+            ) : (
+              <Typography variant="body2" color="textSecondary">
+                Address not available
+              </Typography>
+            )}
           </Box>
         </CardContent>
         <CardActions

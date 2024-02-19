@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import axios from 'axios';
+import axios from "axios";
 
 const BookCardComponent = ({
   id,
@@ -28,31 +28,28 @@ const BookCardComponent = ({
 
   // fetching user data
   useEffect(() => {
-    // Ensure owner is not null and fetch user data only if it's available
     if (owner) {
       axios
         .get(`/profile/${owner}`)
         .then((response) => {
           setUser(response.data);
-          console.log(response.data);  // debugging...
-          console.log("Address: ", response.data.address);  // debugging...
+          console.log("User data:", response.data);
         })
         .catch((error) => {
-          console.error('Error fetching user data:', error);
+          console.error("Error fetching user data:", error);
         });
     }
-  }, []);
+  }, [owner]);
 
-  console.log("usestate user data: ", user);
-  // console.log(user.address);
-
+  // console.log("usestate user data: ", user);
+  // console.log(user.user.address);
 
   return (
     <div>
-       <Card
+      <Card
         sx={{
           margin: 1.5,
-          width: 300,
+          width: 282,
           height: 400,
           borderRadius: 5,
           ":hover": {
@@ -62,7 +59,12 @@ const BookCardComponent = ({
         }}
       >
         {/* Image */}
-        <img height={"50%"} width={"100%"} src={image} alt={"No Image available"} />
+        <img
+          height={"50%"}
+          width={"100%"}
+          src={image}
+          alt={"No Image available"}
+        />
         <CardContent>
           {/* Category */}
           <Box
@@ -107,12 +109,18 @@ const BookCardComponent = ({
             variant="subtitle1"
             gutterBottom
           >
-            {title.length > 33 ? title.slice(0, 30) + "..." : title}
+            {title.length > 27 ? title.slice(0, 25) + "..." : title}
           </Typography>
 
           {/* Book publication/author */}
-          <Typography sx={{ marginTop: "16px" }} variant="subtitle" gutterBottom>
-            {publication.length > 25 ? publication.slice(0, 23) + "..." : publication}
+          <Typography
+            sx={{ marginTop: "16px" }}
+            variant="subtitle"
+            gutterBottom
+          >
+            {publication.length > 25
+              ? publication.slice(0, 23) + "..."
+              : publication}
           </Typography>
 
           {/* Location and Price */}
@@ -127,14 +135,19 @@ const BookCardComponent = ({
             <Typography variant="body2" color="textSecondary">
               {priceType ? `Rs. ${price} (${priceType})` : "(Free)"}
             </Typography>
-            
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", marginTop: "5px" }}>
-              <LocationOnIcon sx={{ marginRight: "4px", color: "#1976d2" }} />
+            <LocationOnIcon sx={{ marginRight: "4px", color: "#1976d2" }} />
+            {user.user && user.user.address ? (
               <Typography variant="body2" color="textSecondary">
-                   {user.address}
+                {user.user.address}
               </Typography>
-            </Box>
+            ) : (
+              <Typography variant="body2" color="textSecondary">
+                Address not available
+              </Typography>
+            )}
+          </Box>
         </CardContent>
         <CardActions
           sx={{

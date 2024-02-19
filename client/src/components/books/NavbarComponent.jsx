@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import TextField from '@mui/material/TextField';
 
-const NavbarCoponent = () => {
+const NavbarComponent = () => {
     
     const [sort, setSort] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
@@ -26,12 +26,12 @@ const NavbarCoponent = () => {
         <div>
             <Box>
                 <Grid container spacing={9}>
-                    <Grid item xs={7} md={10} sx={{ transform: 'scale(0.8)', marginTop: '-0.7rem', marginLeft:'0rem' }}>
+                    <Grid item xs={7} md={10} sx={{ transform: 'scale(0.8)', marginLeft:'0rem' }}>
                         <TextField id="standard-basic" label="🔎  Search" variant="standard"  style={{width: '90%'}}/>
                        
                     </Grid>
 
-                    <Grid item xs={1.3} sx={{ transform: 'scale(0.8)', marginTop: '-0.7rem' }}>
+                    <Grid item xs={1.3} sx={{ transform: 'scale(0.8)' }}>
                         <FormControl variant="standard" sx={{ minWidth:{xs:70, md: 100} }}>
                             <InputLabel id="demo-simple-select-standard-label">Sort by</InputLabel>
                             <Select labelId="demo-simple-select-standard-label" id="demo-simple-select-standard" value={sort} onChange={handleChangeSort} label="sort">
@@ -50,4 +50,4 @@ const NavbarCoponent = () => {
     )
 }
 
-export default NavbarCoponent
+export default NavbarComponent

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -13,6 +13,51 @@ import FormLabel from "@mui/material/FormLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 
+const categories = [
+  { value: "", label: "All" },
+  {
+    value: "Engineering",
+    label: "Engineering",
+    subcategories: [
+      "Computer",
+      "IT",
+      "E & TC",
+      "AIDS",
+      "Civil",
+      "Mechanical",
+      "Electrical",
+      "Instrumentation",
+      "Other",
+    ],
+  },
+  {
+    value: "Medical",
+    label: "Medical",
+    subcategories: ["Nursing", "MBBS", "Pharmacy", "Other"],
+  },
+  {
+    value: "Competative Exams",
+    label: "Competative Exams",
+    subcategories: [
+      "Government Jobs",
+      "Engineering",
+      "Medical",
+      "Management",
+      "Finance & Accountancy",
+      "Language Proficiency",
+      "Architecture",
+      "Education & Testing",
+      "Other"
+    ],
+  },
+  { value: "SSC", label: "SSC", subcategories: ["1 to 10th", "Other"] },
+  {
+    value: "HSC",
+    label: "HSC",
+    subcategories: ["Science", "Commerce", "Arts", "Other"],
+  },
+];
+
 const FilterComponent = ({
   categoryFilter,
   setCategoryFilter,
@@ -22,17 +67,33 @@ const FilterComponent = ({
   const CustomCheckbox = (props) => (
     <Checkbox
       style={{ transform: "scale(0.7)" }}
-      checked={props.checked} // Explicitly pass the checked prop
+      checked={props.checked}
       {...props}
     />
   );
+
+  const handleCategoryChange = (e) => {
+    const value = e.target.value;
+    setCategoryFilter(value);
+    if (value !== "") {
+      // Reset subcategory filter when category changes
+      setSubcategoryFilter("");
+    }
+  };
+
+  const handleSubcategoryChange = (subcategory) => {
+    setSubcategoryFilter(subcategoryFilter === subcategory ? "" : subcategory);
+  };
 
   return (
     <div>
       <Box
         sx={{
           width: "100%",
-          maxWidth: 360,
+          maxWidth: 370,
+          height: "627px",
+          overflowY: "auto",
+          overflowX: "auto",
           display: { xs: "none", sm: "none", md: "block" },
         }}
       >
@@ -41,7 +102,7 @@ const FilterComponent = ({
             <ListItem disablePadding sx={{ margin: "1rem" }}>
               <FormControl>
                 <FormLabel
-                  sx={{ color: "blue" }}
+                  sx={{ color: "#2258ae", fontSize: "20px" }}
                   id="demo-radio-buttons-group-label"
                 >
                   <b>Categories</b>
@@ -50,35 +111,17 @@ const FilterComponent = ({
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   value={categoryFilter}
-                  onChange={(e) => setCategoryFilter(e.target.value)}
+                  onChange={handleCategoryChange}
                   name="radio-buttons-group"
                 >
-                  <FormControlLabel value="" control={<Radio />} label="All" />
-                  <FormControlLabel
-                    value="engineering"
-                    control={<Radio />}
-                    label="Engineering"
-                  />
-                  <FormControlLabel
-                    value="medical"
-                    control={<Radio />}
-                    label="Medical"
-                  />
-                  <FormControlLabel
-                    value="competative exams"
-                    control={<Radio />}
-                    label="Competitive Exams"
-                  />
-                  <FormControlLabel
-                    value="ssc"
-                    control={<Radio />}
-                    label="SSC"
-                  />
-                  <FormControlLabel
-                    value="hsc"
-                    control={<Radio />}
-                    label="HSC"
-                  />
+                  {categories.map(({ value, label }) => (
+                    <FormControlLabel
+                      key={value}
+                      value={value}
+                      control={<Radio />}
+                      label={label}
+                    />
+                  ))}
                 </RadioGroup>
               </FormControl>
             </ListItem>
@@ -89,37 +132,38 @@ const FilterComponent = ({
           <List>
             <ListItem disablePadding>
               <ListItemButton>
-                <ListItemText primary="Subcategories" />
+                <ListItemText
+                  primaryTypographyProps={{
+                    sx: {
+                      color: "#2258ae",
+                      fontWeight: "bold",
+                      fontSize: "20px",
+                    },
+                  }}
+                  primary={<b>Subcategories</b>}
+                />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
               <ListItem component="a">
                 <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <CustomCheckbox
-                        checked={subcategoryFilter === "IT"}
-                        onChange={(e) => {
-                          const newValue = e.target.value;
-                          setSubcategoryFilter((prevValue) =>
-                            prevValue === newValue ? "" : newValue
-                          );
-                        }}
+                  {categories
+                    .find((cat) => cat.value === categoryFilter)
+                    ?.subcategories?.map((subcategory) => (
+                      <FormControlLabel
+                        key={subcategory}
+                        control={
+                          <CustomCheckbox
+                            checked={subcategoryFilter === subcategory}
+                            onChange={() =>
+                              handleSubcategoryChange(subcategory)
+                            }
+                          />
+                        }
+                        value={subcategory}
+                        label={subcategory}
                       />
-                    }
-                    value="IT"
-                    label="IT"
-                  />
-                  {/* <FormControlLabel control={<CustomCheckbox />} style={{ transform: 'scale(0.9)', height: '1.7rem' }} label="UPSC" />
-                  <FormControlLabel control={<CustomCheckbox />} style={{ transform: 'scale(0.9)', height: '1.7rem' }} label="BAMS" />
-                  <FormControlLabel control={<CustomCheckbox />} style={{ transform: 'scale(0.9)', height: '1.7rem' }} label="Computer Eng" />
-                  <FormControlLabel control={<CustomCheckbox />} style={{ transform: 'scale(0.9)', height: '1.7rem' }} label="12th CBSC" />
-                  <FormControlLabel control={<CustomCheckbox />} style={{ transform: 'scale(0.9)', height: '1.7rem' }} label="Law" />
-                  <FormControlLabel control={<CustomCheckbox />} style={{ transform: 'scale(0.9)', height: '1.7rem' }} label="AIDS" />
-                  <FormControlLabel control={<CustomCheckbox />} style={{ transform: 'scale(0.9)', height: '1.7rem' }} label="MBBS" />
-                  <FormControlLabel control={<CustomCheckbox />} style={{ transform: 'scale(0.9)', height: '1.7rem' }} label="10th" />
-                  <FormControlLabel control={<CustomCheckbox />} style={{ transform: 'scale(0.9)', height: '1.7rem' }} label="MPSC" />
-                  <FormControlLabel control={<CustomCheckbox />} style={{ transform: 'scale(0.9)', height: '1.7rem' }} label="Science" /> */}
+                    ))}
                 </FormGroup>
               </ListItem>
             </ListItem>

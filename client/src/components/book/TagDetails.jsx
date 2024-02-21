@@ -5,7 +5,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
 import { useMediaQuery } from "@mui/material";
 
-const TagDetails = () => {
+const TagDetails = ({book, user}) => {
   // Get today's date
   const today = new Date();
 
@@ -83,10 +83,12 @@ const TagDetails = () => {
             <span
               style={{ fontSize: isXS ? "1.4rem" : isSM ? "1.6rem" : "1.8rem" }}
             >
-              ₹ 200.00{" "}
+              {/* book mrp */}
+              {book.mrp === 0 ? "Free" : "₹ " + book.mrp}{" "}
             </span>
             <span style={{ fontSize: isXS ? "14px" : isSM ? "16px" : "20px" }}>
-              ( Price on call )
+              {/* book price type */}
+              ({book.priceType})
             </span>
           </h1>
           <h3 style={{ color: "green", margin: "6px 0 5px 0" }}>Available</h3>
@@ -189,7 +191,8 @@ const TagDetails = () => {
               fontSize: isXS ? "1.5rem" : isSM ? "1.8rem" : "2rem",
             }}
           />
-          <span>Ankita Ghadge</span>
+          {/* seller name */}
+          <span> {user.name} </span>
         </p>
         <p
           style={{
@@ -205,14 +208,16 @@ const TagDetails = () => {
               fontSize: isXS ? "1.5rem" : isSM ? "1.8rem" : "2rem",
             }}
           />{" "}
-          Pimple Saudagar{" "}
+          {/* seller address */}
+          {user.address} {" "}
         </p>
         <Button
           variant="outlined"
           color="primary"
           style={{ padding: "6px 8px", fontSize: "13px" }}
         >
-          Visit Profile
+          {/* search location functionality */}
+          Search Location on Map
         </Button>
       </div>
     </div>

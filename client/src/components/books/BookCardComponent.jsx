@@ -23,7 +23,8 @@ const BookCardComponent = ({
   price,
   priceType,
 }) => {
-  // console.log(owner);
+
+  // state variables
   const [user, setUser] = useState({});
 
   // fetching user data
@@ -33,16 +34,12 @@ const BookCardComponent = ({
         .get(`/profile/${owner}`)
         .then((response) => {
           setUser(response.data);
-          console.log("User data:", response.data);
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
         });
     }
   }, [owner]);
-
-  // console.log("usestate user data: ", user);
-  // console.log(user.user.address);
 
   return (
     <div>
@@ -168,7 +165,7 @@ const BookCardComponent = ({
               },
             }}
             component={Link}
-            to={`/`}
+            to={`/books/${id}`}
             size="small"
           >
             Get Book

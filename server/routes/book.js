@@ -9,6 +9,7 @@ const router = express.Router();
 
 // All routes
 router.get('/books', bookController.getAllBooks);
+router.get('/books/:id', bookController.getBookById);
 
 // exporting the routes
 module.exports = router;

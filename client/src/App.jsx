@@ -40,7 +40,7 @@ function App() {
 
               <Route path='/books' element={<BooksIndexPage />} /> {/* books */}
 
-              <Route path='/buy-book-card' element={<BookPage />} /> {/* book */}
+              <Route path='/books/:id' element={<BookPage />} /> {/* book */}
 
               <Route path='/sell-book' element={<SellBookPage />} /> {/* sellBook */}
 

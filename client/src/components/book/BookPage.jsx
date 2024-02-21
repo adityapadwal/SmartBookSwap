@@ -1,10 +1,11 @@
 import * as React from "react";
 import { Box, Grid } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 import BookImages from "./BookImages";
 import BookDetails from "./BookDetails";
 import TagDetails from "./TagDetails";
-import { useMediaQuery } from "@mui/material";
-const BuyBookCard = () => {
+
+const BookPage = () => {
   const isXS = useMediaQuery("(max-width:600px)");
   const isSM = useMediaQuery("(min-width:600px) and (max-width:959px)");
   const isMD = useMediaQuery("(min-width:960px)");
@@ -43,4 +44,4 @@ const BuyBookCard = () => {
   );
 };
 
-export default BuyBookCard;
+export default BookPage;

@@ -33,7 +33,7 @@ const BookCardComponent = ({
         .get(`/profile/${owner}`)
         .then((response) => {
           setUser(response.data);
-          console.log("User data:", response.data);
+          // console.log("User data:", response.data);
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);

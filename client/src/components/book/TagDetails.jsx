@@ -88,7 +88,7 @@ const TagDetails = ({book, user}) => {
             </span>
             <span style={{ fontSize: isXS ? "14px" : isSM ? "16px" : "20px" }}>
               {/* book price type */}
-              ({book.priceType})
+              {book.priceType !== "" ? "("+(book.priceType)+")" : ""}
             </span>
           </h1>
           <h3 style={{ color: "green", margin: "6px 0 5px 0" }}>Available</h3>

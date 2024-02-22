@@ -19,7 +19,6 @@ const BookCardComponent = ({
   subcategory,
   title,
   publication,
-  location,
   price,
   priceType,
 }) => {

@@ -24,7 +24,7 @@ const BookCardComponent = ({
 }) => {
 
   // state variables
-  const [user, setUser] = useState({});
+  const [location, setLocation] = useState(null);
 
   // fetching user data
   useEffect(() => {
@@ -32,7 +32,7 @@ const BookCardComponent = ({
       axios
         .get(`/profile/${owner}`)
         .then((response) => {
-          setUser(response.data);
+          setLocation(response.data);
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
@@ -134,9 +134,9 @@ const BookCardComponent = ({
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", marginTop: "5px" }}>
             <LocationOnIcon sx={{ marginRight: "4px", color: "#1976d2" }} />
-            {user.user && user.user.address ? (
+            { location ? (
               <Typography variant="body2" color="textSecondary">
-                {user.user.address}
+                {location}
               </Typography>
             ) : (
               <Typography variant="body2" color="textSecondary">

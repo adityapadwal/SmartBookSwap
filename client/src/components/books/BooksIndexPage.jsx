@@ -116,7 +116,7 @@ export default function BooksIndexPage() {
 
           <Grid
             item
-            xs={12}
+            xs={10}
             sx={{
               marginLeft: { xs: "1rem", sm: "2rem", md: "17rem" },
               marginTop: "1rem",
@@ -125,7 +125,7 @@ export default function BooksIndexPage() {
           >
             {/* Search and Sort */}
             <Box>
-              <Grid container spacing={9}>
+              <Grid container spacing={{ xs: 12, md: 3 }}>
                 <Grid
                   item
                   xs={7}
@@ -142,27 +142,66 @@ export default function BooksIndexPage() {
                   />
                 </Grid>
 
-                <Grid item xs={1.3} sx={{ transform: "scale(0.8)" }}>
+                <Grid
+                  container
+                  item
+                  xs={1.3}
+                  sx={{ transform: "scale(0.8)", alignItems: "center" }}
+                >
                   <FormControl
                     variant="standard"
-                    sx={{ width: { xs: 70, md: 100 } }}
+                    sx={{ display: "flex", alignItems: "center" }}
                   >
-                    <InputLabel id="demo-simple-select-standard-label">
-                      Sort by
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-standard-label"
-                      id="demo-simple-select-standard"
-                      value={sort}
-                      onChange={(e) => setSort(e.target.value)}
-                      label="sort"
-                    >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value="asc">Low to High</MenuItem>
-                      <MenuItem value="desc">High to Low</MenuItem>
-                    </Select>
+                    <Grid spacing={7} container alignItems="center">
+                      <div style={{ marginTop: "50px" }}>
+                        <label
+                          htmlFor="sort"
+                          style={{
+                            fontSize: "22px",
+                            transform: "translate(0, 1.5px) scale(0.75)",
+                            marginRight: "10px",
+                          }}
+                        >
+                          Sort:
+                        </label>
+
+                        <select
+                          name="sort"
+                          id="sort"
+                          value={sort}
+                          onChange={(e) => setSort(e.target.value)}
+                          style={{
+                            width: "122px",
+                            padding: "8px",
+                            fontSize: "18px", // Set default font size for selected option
+                            borderBottom: "1px solid #bdbdbd", // Add bottom border for separation
+                            borderRadius: "3px",
+                            appearance: "none",
+                            background: "transparent",
+                            cursor: "pointer",
+                          }}
+                        >
+                          <option
+                            style={{ fontSize: "15px", padding: "10px" }}
+                            value=""
+                          >
+                            None
+                          </option>
+                          <option
+                            style={{ fontSize: "15px", padding: "10px" }}
+                            value="asc"
+                          >
+                            Low to High
+                          </option>
+                          <option
+                            style={{ fontSize: "15px", padding: "10px" }}
+                            value="desc"
+                          >
+                            High to Low
+                          </option>
+                        </select>
+                      </div>
+                    </Grid>
                   </FormControl>
                 </Grid>
               </Grid>
@@ -210,6 +249,7 @@ export default function BooksIndexPage() {
         <style>{`
           .css-1obfa4e {
             background-color: #f3f5f9;
+          }
         }
         `}</style>
       </Box>

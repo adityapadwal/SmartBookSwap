@@ -185,7 +185,6 @@ const TagDetails = () => {
             style={{
               margin: "-1px 6px -6px 0px",
               color: "#2258ae",
-              fontSize: "2rem",
               fontSize: isXS ? "1.5rem" : isSM ? "1.8rem" : "2rem",
             }}
           />

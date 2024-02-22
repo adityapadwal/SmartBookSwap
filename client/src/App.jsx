@@ -14,7 +14,7 @@ import HistoryPage from './components/profile/HistoryPage';
 import ListedBooksPage from './components/profile/ListedBooksPage';
 import SoldBooksPage from './components/profile/SoldBooksPage';
 import TempPage from './components/testing/TempPage';
-import BuyBookCard from './components/buyBook/BuyBookCard/BuyBookCard';
+import BuyBookCard from './components/book/BuyBookCard';
 import { EditUserContextProvider, UserContextProvider } from './components/context/UserContext';
 import { BookDetailsContextProvider } from './components/context/BookDetailsContext';
 

@@ -11,29 +11,7 @@ function srcset(image, size, rows = 1, cols = 1) {
   };
 }
 
-const BookImages = () => {
-  const itemData = [
-    {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      title: "Breakfast",
-      rows: 2,
-      cols: 2,
-    },
-    {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-      title: "Coffee",
-      cols: 2,
-    },
-  ];
-
+const BookImages = ({book}) => {
   return (
     <div
       style={{
@@ -53,9 +31,10 @@ const BookImages = () => {
         e.currentTarget.style.boxShadow = "0 3px 3px rgba(0, 0, 0, 0.4)";
       }}
     >
+      {/* Displaying first image */}
       <img
-        {...srcset(itemData[0].img, 300, itemData[0].rows, 2)}
-        alt={itemData[0].title}
+        {...srcset(book.photos[0], 300, 2, 2)}
+        alt={"Image 1"}
         loading="lazy"
         style={{
           width: "100%",
@@ -80,10 +59,11 @@ const BookImages = () => {
           margin: "2px 0 0 0",
         }}
       >
-        {itemData.slice(1).map((item) => (
+        {/* Displaying rest of the images */}
+        {book.photos.slice(1, 4).map((item) => (
           <a
-            key={item.img}
-            href={item.img}
+            key={item}
+            href={item}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -97,7 +77,7 @@ const BookImages = () => {
             onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
           >
             <img
-              {...srcset(item.img, 150, item.rows, 1)}
+              {...srcset(item, 150, 1, 1)}
               alt={item.title}
               loading="lazy"
               style={{

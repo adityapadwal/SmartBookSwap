@@ -9,8 +9,9 @@ const router = express.Router();
 
 // All routes
 router.get("/profile", profileController.getProfile);
-router.get("/profile/:id", profileController.getProfileById);
 router.put("/update-profile", profileController.putUpdateProfile);
+
+router.get("/profile/:id", profileController.getSellerLocation);
 
 // exporting the routes
 module.exports = router;

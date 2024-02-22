@@ -35,20 +35,6 @@ exports.getProfile = (req, res) => {
     }
 };
 
-exports.getProfileById = async (req, res) => {
-  const id = req.params.id;
-  let user;
-  try {
-    user = await User.findById(id);
-  } catch (error) {
-    console.log(error);
-  }
-  if (!user) {
-    return res.status(500).json({ message: "User not found!" });
-  }
-  return res.status(200).json({ user });
-};
-
 exports.putUpdateProfile = async (req, res) => {
     try {
       const { token } = req.cookies;
@@ -92,4 +78,20 @@ exports.putUpdateProfile = async (req, res) => {
       console.error('Error updating user profile:', error);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
+  };
+
+  exports.getSellerLocation = async (req, res) => {
+    const id = req.params.id;
+    let user;
+    let sellerLocation;
+    try {
+      user = await User.findById(id);
+      sellerLocation = user.address;
+    } catch (error) {
+      console.log(error);
+    }
+    if (!user) {
+      return res.status(500).json({ message: "User not found!" });
+    }
+    return res.status(200).json(sellerLocation);
   };

@@ -99,7 +99,6 @@ export default function BooksIndexPage() {
                       subcategory={book.subcategory}
                       title={book.title}
                       publication={book.publicationOrAuthor}
-                      location={book.location}
                       price={book.mrp}
                       priceType={book.priceType}
                     />

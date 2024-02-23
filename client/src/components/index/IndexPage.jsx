@@ -8,11 +8,15 @@ import {
   InputLabel,
   FormControl,
   Typography,
+  Grid,
 } from "@mui/material";
 import BookItem from "./BookItem";
 import Footer from "../footer/Footer";
 import { Link } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
+import './bg.css';
+import buyimage from '../../assets/buybook.png'
+import sellbook from '../../assets/sellbook.png'
 
 const IndexPage = () => {
   const books = [
@@ -120,7 +124,47 @@ const IndexPage = () => {
   // Initialize state for selected category
   const [selectedCategory, setSelectedCategory] = useState("");
 
+
+
   return (
+    <Box>
+      <div className="bg">
+          <h1 className="h11" style={{color:'wheat', textAlign:'center', opacity:'0.9', paddingTop:'1rem'}}> Welcome to SmartBookSwap!!</h1>
+          <h2 style={{color:'yellow', textAlign:'center'}}>We are an Ecommerce website for smart book swap </h2>
+          <br />
+          
+          <Box>
+            <Grid container spacing={0}>
+              <Grid item xs={4} sx={{display:{xs:'none', md:'block'}}}>
+
+              </Grid>
+              <Grid item xs={6} md={2} sx={{padding:'1rem ', margin:{xs:'3rem 0 0 0', md:'1rem 2rem 0 0', }}}>
+              <Link to='//buy-book'>
+                <Box sx={{height:'8rem', backgroundColor:'#ddff99', display:'flex',flexDirection: 'column', justifyContent:'center', padding:'2rem 2rem 0rem 2rem', borderRadius:'2rem'}}>
+                  
+                  <img src={buyimage} style={{height:'60%'}} alt="" />
+                  
+                  <h3 style={{textAlign:'center', backgroundColor:'white', borderRadius:'1rem'}}>Buy Book</h3>
+                  
+                </Box>
+                </Link>
+              </Grid>
+              <Grid item xs={6} md={2} sx={{padding:'1rem 1rem', margin:{ xs:'3rem 0 0 0 ',md:'1rem 0rem'}}}>
+              <Link to='/sell-book'>
+                <Box sx={{height:'8rem', backgroundColor:'#ddff99', display:'flex',flexDirection: 'column', justifyContent:'center', padding:'2rem 2rem 0rem 2rem', borderRadius:'2rem'}}>
+            
+                  <img src={sellbook} style={{height:'60%'}} alt="" />
+                  <h3 style={{textAlign:'center', backgroundColor:'white', borderRadius:'1rem'}}>Sell Book</h3>
+  
+                </Box>
+              </Link>
+              </Grid>
+              <Grid item xs={2} >
+                
+              </Grid>
+            </Grid>
+          </Box>
+      </div>
     <Box sx={{ background: "#deeafe", paddingTop: "2px" }}>
       <Box
         display="flex"
@@ -272,6 +316,7 @@ const IndexPage = () => {
 
       {/* Footer */}
       <Footer />
+    </Box>
     </Box>
   );
 };

@@ -1,0 +1,28 @@
+.bg{
+    margin-top: 3rem;
+    background-image: url('../../assets/bgg.avif');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    backface-visibility: 0.6;
+    height: 30rem;
+}
+
+.h11 {
+    font-size: 2rem;
+  }
+  
+  /* Media query for small screens (up to 767px width) */
+  @media (max-width: 767px) {
+    .h11 {
+      font-size: 2rem; /* Adjust the desired font size for small screens */
+    }
+  }
+  
+  /* Media query for laptop screens (768px and above) */
+  @media (min-width: 768px) {
+    .h11 {
+      font-size: 4rem; /* Adjust the desired font size for laptop screens */
+    }
+  }

@@ -39,7 +39,6 @@ function App() {
               <Route path='/reset-password/:token' element={<NewPasswordPage />} /> {/* auth */}
 
               <Route path='/books' element={<BooksIndexPage />} /> {/* books */}
-
               <Route path='/books/:id' element={<BookPage />} /> {/* book */}
 
               <Route path='/sell-book' element={<SellBookPage />} /> {/* sellBook */}

@@ -14,7 +14,7 @@ import HistoryPage from './components/profile/HistoryPage';
 import ListedBooksPage from './components/profile/ListedBooksPage';
 import SoldBooksPage from './components/profile/SoldBooksPage';
 import TempPage from './components/testing/TempPage';
-import BuyBookCard from './components/book/BookPage';
+import BookPage from './components/book/BookPage';
 import { EditUserContextProvider, UserContextProvider } from './components/context/UserContext';
 import { BookDetailsContextProvider } from './components/context/BookDetailsContext';
 
@@ -40,7 +40,7 @@ function App() {
 
               <Route path='/books' element={<BooksIndexPage />} /> {/* books */}
 
-              <Route path='/buy-book-card' element={<BuyBookCard />} /> {/* buyBook */}
+              <Route path='/buy-book-card' element={<BookPage />} /> {/* buyBook */}
 
               <Route path='/sell-book' element={<SellBookPage />} /> {/* sellBook */}
 

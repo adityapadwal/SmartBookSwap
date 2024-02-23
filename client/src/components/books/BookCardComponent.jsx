@@ -19,12 +19,12 @@ const BookCardComponent = ({
   subcategory,
   title,
   publication,
-  location,
   price,
   priceType,
 }) => {
-  // console.log(owner);
-  const [user, setUser] = useState({});
+
+  // state variables
+  const [location, setLocation] = useState(null);
 
   // fetching user data
   useEffect(() => {
@@ -32,17 +32,13 @@ const BookCardComponent = ({
       axios
         .get(`/profile/${owner}`)
         .then((response) => {
-          setUser(response.data);
-          // console.log("User data:", response.data);
+          setLocation(response.data);
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
         });
     }
   }, [owner]);
-
-  // console.log("usestate user data: ", user);
-  // console.log(user.user.address);
 
   return (
     <div>
@@ -138,9 +134,9 @@ const BookCardComponent = ({
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", marginTop: "5px" }}>
             <LocationOnIcon sx={{ marginRight: "4px", color: "#1976d2" }} />
-            {user.user && user.user.address ? (
+            { location ? (
               <Typography variant="body2" color="textSecondary">
-                {user.user.address}
+                {location}
               </Typography>
             ) : (
               <Typography variant="body2" color="textSecondary">
@@ -168,7 +164,7 @@ const BookCardComponent = ({
               },
             }}
             component={Link}
-            to={`/`}
+            to={`/books/${id}`}
             size="small"
           >
             Get Book

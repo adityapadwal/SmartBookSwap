@@ -1,7 +1,7 @@
 import React from "react";
 import { useMediaQuery } from "@mui/material";
 
-const BookDetails = () => {
+const BookDetails = ({book}) => {
   const isXS = useMediaQuery("(max-width:600px)");
   const isSM = useMediaQuery("(min-width:600px) and (max-width:959px)");
   const isMD = useMediaQuery("(min-width:960px)");
@@ -33,7 +33,8 @@ const BookDetails = () => {
             margin: "10px 0px 20px 0px",
           }}
         >
-          Discrete Mathematics
+          {/* book title */}
+          {book.title}
         </h1>
         <p
           style={{
@@ -42,7 +43,8 @@ const BookDetails = () => {
           }}
         >
           {" "}
-          <i>Engineering </i> | <i> Computer</i>
+          {/* book category and subcategory */}
+          <i>{book.category} </i> | <i> {book.subcategory}</i>
         </p>
       </div>
 
@@ -67,7 +69,7 @@ const BookDetails = () => {
         }}
       >
         <h2 style={{ fontSize: isXS ? "20px" : isSM ? "25px" : "" }}>
-          Book Details
+          Book Details:
         </h2>
         <ul
           style={{
@@ -76,22 +78,26 @@ const BookDetails = () => {
           }}
         >
           <li style={{ marginBottom: "-10px" }}>
-            Publication / Author : <b> Nirali </b>{" "}
+            {/* book publication/author */}
+            Publication / Author : <b> {book.publicationOrAuthor} </b>{" "}
           </li>
           <br />
           <li style={{ marginBottom: "-10px" }}>
             {" "}
-            Edition : <b>2023 </b>{" "}
+            {/* book edition */}
+            Edition : <b> {book.editionYear} </b>{" "}
           </li>
           <br />
           <li style={{ marginBottom: "-10px" }}>
             {" "}
-            Type: <b> Text Book </b>{" "}
+            {/* book type */}
+            Type: <b> {book.typeOfBook} </b>{" "}
           </li>
           <br />
           <li style={{ marginBottom: "-10px" }}>
             {" "}
-            Condition: <b> Used </b>{" "}
+            {/* book condition */}
+            Condition: <b> {book.condition} </b>{" "}
           </li>
           <br />
         </ul>
@@ -129,10 +135,8 @@ const BookDetails = () => {
             margin: "-5px 0px 0.5rem 0px",
           }}
         >
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis,
-          sint, mollitia in ut suscipit accusamus facilis soluta assumenda
-          expedita quae modi eos nobis inventore, quasi hic laboriosam cumque
-          rem qui.{" "}
+          {/* book description */}
+          {book.description}
         </p>
       </div>
     </div>

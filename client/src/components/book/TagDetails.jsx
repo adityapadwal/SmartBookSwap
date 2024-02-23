@@ -5,7 +5,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
 import { useMediaQuery } from "@mui/material";
 
-const TagDetails = () => {
+const TagDetails = ({ book, user }) => {
   // Get today's date
   const today = new Date();
 
@@ -58,8 +58,8 @@ const TagDetails = () => {
           margin: isXS
             ? "0 0 1rem 0"
             : isSM
-            ? "0 1rem 1rem 1rem"
-            : "0 1rem 1rem 1rem",
+              ? "0 1rem 1rem 1rem"
+              : "0 1rem 1rem 1rem",
 
           backgroundColor: "white", //#deeafe
           // border: '1px solid grey',
@@ -83,10 +83,12 @@ const TagDetails = () => {
             <span
               style={{ fontSize: isXS ? "1.4rem" : isSM ? "1.6rem" : "1.8rem" }}
             >
-              ₹ 200.00{" "}
+              {/* book mrp */}
+              {book.mrp === 0 ? "Free" : "₹ " + book.mrp}{" "}
             </span>
             <span style={{ fontSize: isXS ? "14px" : isSM ? "16px" : "20px" }}>
-              ( Price on call )
+              {/* book price type */}
+              {book.priceType !== "" ? "(" + (book.priceType) + ")" : ""}
             </span>
           </h1>
           <h3 style={{ color: "green", margin: "6px 0 5px 0" }}>Available</h3>
@@ -148,13 +150,13 @@ const TagDetails = () => {
           padding: isXS
             ? "0.5rem 1rem 0 1rem"
             : isSM
-            ? "0.3rem 1rem 0.4rem 1rem"
-            : "0.3rem 1rem 0.4rem 1rem",
+              ? "0.3rem 1rem 0.4rem 1rem"
+              : "0.3rem 1rem 0.4rem 1rem",
           margin: isXS
             ? ""
             : isSM
-            ? "1.5rem 1rem 1rem 1rem"
-            : "1.5rem 1rem 1rem 1rem",
+              ? "1.5rem 1rem 1rem 1rem"
+              : "1.5rem 1rem 1rem 1rem",
           height: isXS ? "160px" : isSM ? "180px" : "180px",
           width: isXS ? "" : isSM ? "335px" : "335px",
           borderRadius: "8px",
@@ -185,10 +187,12 @@ const TagDetails = () => {
             style={{
               margin: "-1px 6px -6px 0px",
               color: "#2258ae",
+              fontSize: "2rem",
               fontSize: isXS ? "1.5rem" : isSM ? "1.8rem" : "2rem",
             }}
           />
-          <span>Ankita Ghadge</span>
+          {/* seller name */}
+          <span> {user.name} </span>
         </p>
         <p
           style={{
@@ -204,15 +208,25 @@ const TagDetails = () => {
               fontSize: isXS ? "1.5rem" : isSM ? "1.8rem" : "2rem",
             }}
           />{" "}
-          Pimple Saudagar{" "}
+          {/* seller address */}
+          {user.address} {" "}
         </p>
-        <Button
-          variant="outlined"
-          color="primary"
-          style={{ padding: "6px 8px", fontSize: "13px" }}
+        <a
+          href={'https://maps.google.com/?q='+user.address}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            textDecoration: "none",
+          }}
         >
-          Visit Profile
-        </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            style={{ padding: "6px 8px", fontSize: "13px" }}
+          >
+            Search Location on Map
+          </Button>
+        </a>
       </div>
     </div>
   );

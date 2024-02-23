@@ -31,9 +31,12 @@ exports.postRegister = async (req, res) => {
     }
 
     const userDoc = await User.create({
-      name,
-      email,
+      name: name,
+      email: email,
       password: bcrypt.hashSync(password, bcryptSalt),
+      address: "",
+      resetToken: "",
+      phone: "",
     });
 
     res.json(userDoc);

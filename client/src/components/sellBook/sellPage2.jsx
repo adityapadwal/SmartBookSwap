@@ -19,15 +19,24 @@ import PhotosUploader from "./PhotosUploader";
 export default function SellPage2({ activeStep }) {
   // context variables
   const {
-    publicationOrAuthor, setPublicationOrAuthor,
-    editionYear, setEditionYear,
-    typeOfBook, setTypeOfBook,
-    transactionType, setTransactionType,
-    condition, setCondition,
-    addedPhotos, setAddedPhotos,
-    priceType, setPriceType,
-    mrp, setMrp,
-    description, setDescription,
+    publicationOrAuthor,
+    setPublicationOrAuthor,
+    editionYear,
+    setEditionYear,
+    typeOfBook,
+    setTypeOfBook,
+    transactionType,
+    setTransactionType,
+    condition,
+    setCondition,
+    addedPhotos,
+    setAddedPhotos,
+    priceType,
+    setPriceType,
+    mrp,
+    setMrp,
+    description,
+    setDescription,
     setNextButtonDisabled,
   } = useContext(BookDetailsContext);
 
@@ -40,16 +49,28 @@ export default function SellPage2({ activeStep }) {
     setPublicationOrAuthor(publicationOrAuthor);
     // Activate next button of 2nd page when (publicationOrAuthor, typeOfBook, transactionType, condition) fields are not empty
     setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
+      !(
+        publicationOrAuthor &&
+        typeOfBook &&
+        transactionType &&
+        condition &&
+        description
+      )
     );
   };
 
   // Handle Edition Year change
   const handleEditionYearChange = (e) => {
-    const editionYear = (e.target.value);
+    const editionYear = e.target.value;
     setEditionYear(editionYear);
     setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
+      !(
+        publicationOrAuthor &&
+        typeOfBook &&
+        transactionType &&
+        condition &&
+        description
+      )
     );
   };
 
@@ -58,7 +79,13 @@ export default function SellPage2({ activeStep }) {
     const typeOfBook = e.target.value;
     setTypeOfBook(typeOfBook);
     setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
+      !(
+        publicationOrAuthor &&
+        typeOfBook &&
+        transactionType &&
+        condition &&
+        description
+      )
     );
   };
 
@@ -71,7 +98,13 @@ export default function SellPage2({ activeStep }) {
     setIsFreeTransaction(transactionType === "Free");
 
     setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
+      !(
+        publicationOrAuthor &&
+        typeOfBook &&
+        transactionType &&
+        condition &&
+        description
+      )
     );
   };
 
@@ -80,7 +113,13 @@ export default function SellPage2({ activeStep }) {
     const condition = e.target.value;
     setCondition(condition);
     setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
+      !(
+        publicationOrAuthor &&
+        typeOfBook &&
+        transactionType &&
+        condition &&
+        description
+      )
     );
   };
 
@@ -101,7 +140,13 @@ export default function SellPage2({ activeStep }) {
     const description = e.target.value;
     setDescription(description);
     setNextButtonDisabled(
-      !(publicationOrAuthor && typeOfBook && transactionType && condition && description)
+      !(
+        publicationOrAuthor &&
+        typeOfBook &&
+        transactionType &&
+        condition &&
+        description
+      )
     );
   };
 
@@ -154,7 +199,6 @@ export default function SellPage2({ activeStep }) {
             </Grid>
           </Grid>
           <Grid container spacing={{ xs: 2, md: 10 }}>
-
             <Grid item xs={12} md={6}>
               <FormControl component="fieldset" margin="normal" required>
                 <FormLabel component="legend">Type of Transaction</FormLabel>
@@ -199,11 +243,16 @@ export default function SellPage2({ activeStep }) {
               </FormControl>
             </Grid>
           </Grid>
-          <FormControl sx={{ width: "100%" }}>
-            <FormLabel>Click the box below to upload the images of your books!</FormLabel>
+          <FormControl>
+            <FormLabel>
+              Click the box below to upload the images of your books!
+            </FormLabel>
             <FormLabel>Upload at least 4 images</FormLabel>
             {/* Photos uploader component */}
-            <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
+            <PhotosUploader
+              addedPhotos={addedPhotos}
+              onChange={setAddedPhotos}
+            />
           </FormControl>
 
           <Grid container spacing={{ xs: 2, md: 10 }} marginBottom={2}>

@@ -82,7 +82,7 @@ const BookImages = ({book}) => {
               loading="lazy"
               style={{
                 width: "90%",
-                height: "auto",
+                height: "123px",
                 margin: "5px",
                 marginTop: "1rem",
                 transition: "transform 0.5s ease, opacity 0.5s ease",

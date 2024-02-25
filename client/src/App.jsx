@@ -17,6 +17,7 @@ import TempPage from './components/testing/TempPage';
 import BookPage from './components/book/BookPage';
 import { EditUserContextProvider, UserContextProvider } from './components/context/UserContext';
 import { BookDetailsContextProvider } from './components/context/BookDetailsContext';
+import Cart from './components/Cart/Cart';
 
 // configuring axios
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -40,6 +41,8 @@ function App() {
 
               <Route path='/books' element={<BooksIndexPage />} /> {/* books */}
               <Route path='/books/:id' element={<BookPage />} /> {/* book */}
+
+              <Route path='/cart' element={<Cart />} /> {/* cart */}
 
               <Route path='/sell-book' element={<SellBookPage />} /> {/* sellBook */}
 

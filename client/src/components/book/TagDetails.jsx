@@ -58,8 +58,8 @@ const TagDetails = ({ book, user }) => {
           margin: isXS
             ? "0 0 1rem 0"
             : isSM
-              ? "0 1rem 1rem 1rem"
-              : "0 1rem 1rem 1rem",
+            ? "0 1rem 1rem 1rem"
+            : "0 1rem 1rem 1rem",
 
           backgroundColor: "white", //#deeafe
           // border: '1px solid grey',
@@ -88,7 +88,7 @@ const TagDetails = ({ book, user }) => {
             </span>
             <span style={{ fontSize: isXS ? "14px" : isSM ? "16px" : "20px" }}>
               {/* book price type */}
-              {book.priceType !== "" ? "(" + (book.priceType) + ")" : ""}
+              {book.priceType !== "" ? "(" + book.priceType + ")" : ""}
             </span>
           </h1>
           <h3 style={{ color: "green", margin: "6px 0 5px 0" }}>Available</h3>
@@ -150,13 +150,13 @@ const TagDetails = ({ book, user }) => {
           padding: isXS
             ? "0.5rem 1rem 0 1rem"
             : isSM
-              ? "0.3rem 1rem 0.4rem 1rem"
-              : "0.3rem 1rem 0.4rem 1rem",
+            ? "0.3rem 1rem 0.4rem 1rem"
+            : "0.3rem 1rem 0.4rem 1rem",
           margin: isXS
             ? ""
             : isSM
-              ? "1.5rem 1rem 1rem 1rem"
-              : "1.5rem 1rem 1rem 1rem",
+            ? "1.5rem 1rem 1rem 1rem"
+            : "1.5rem 1rem 1rem 1rem",
           height: isXS ? "160px" : isSM ? "180px" : "180px",
           width: isXS ? "" : isSM ? "335px" : "335px",
           borderRadius: "8px",
@@ -187,7 +187,6 @@ const TagDetails = ({ book, user }) => {
             style={{
               margin: "-1px 6px -6px 0px",
               color: "#2258ae",
-              fontSize: "2rem",
               fontSize: isXS ? "1.5rem" : isSM ? "1.8rem" : "2rem",
             }}
           />
@@ -209,10 +208,10 @@ const TagDetails = ({ book, user }) => {
             }}
           />{" "}
           {/* seller address */}
-          {user.address} {" "}
+          {user.address}{" "}
         </p>
         <a
-          href={'https://maps.google.com/?q='+user.address}
+          href={"https://maps.google.com/?q=" + user.address}
           target="_blank"
           rel="noopener noreferrer"
           style={{

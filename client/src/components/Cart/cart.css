@@ -1,0 +1,19 @@
+/* Default styles for the heading with class 'name' */
+.name {
+    font-size: 1.3rem; /* Set your default font size */
+  }
+  
+  /* Media query for screens smaller than 600px */
+  @media (max-width: 600px) {
+    .name {
+      font-size: 1rem; /* Adjust font size for smaller screens */
+    }
+  }
+  
+  /* Media query for screens smaller than 400px */
+  @media (max-width: 400px) {
+    .name {
+      font-size: 1.1rem; /* Adjust font size for even smaller screens */
+    }
+  }
+  

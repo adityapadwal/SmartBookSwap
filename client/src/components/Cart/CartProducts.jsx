@@ -6,7 +6,8 @@ import Divider from '@mui/material/Divider';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MessageIcon from '@mui/icons-material/Message';
 import './cart.css';
-const CartCard = () => {
+
+const CartProducts = () => {
   return (
     <div>
       <Box sx={{ padding: '0.5rem', backgroundColor: "white", boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.4)", margin: '0.7rem', transition: "background-color 0.5s ease, box-shadow 0.5s ease" }} onMouseOver={(e) => {
@@ -28,12 +29,12 @@ const CartCard = () => {
           <Grid item xs={6} md={6} sx={{ padding: '0.5rem' }}>
             <h3 className='name' > Engineering Graphics And Design</h3>
             <p>Qty: 1</p>
-            <p style={{marginTop:'-0.6rem'}}> Seller: Ankita Ghadge</p>
-            <h4 style={{marginTop:'-0.2rem'}}> MRP : 200 Rs</h4>
+            <p style={{ marginTop: '-0.6rem' }}> Seller: Ankita Ghadge</p>
+            <h4 style={{ marginTop: '-0.2rem' }}> MRP : 200 Rs</h4>
           </Grid>
         </Grid>
-        <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-          
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+
           <Grid container>
 
             <Grid item xs={3.9}>
@@ -67,4 +68,4 @@ const CartCard = () => {
   )
 }
 
-export default CartCard
+export default CartProducts

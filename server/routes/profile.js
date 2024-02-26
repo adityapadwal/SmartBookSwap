@@ -12,6 +12,7 @@ router.get("/profile", profileController.getProfile);
 router.put("/update-profile", profileController.putUpdateProfile);
 
 router.get("/profile/:id", profileController.getSellerLocation);
+router.get("/getAllListedBooks", profileController.getAllListedBooks);
 
 // exporting the routes
 module.exports = router;

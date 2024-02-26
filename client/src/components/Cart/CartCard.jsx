@@ -28,7 +28,7 @@ const CartCard = () => {
           <Grid item xs={6} md={6} sx={{ padding: '0.5rem' }}>
             <h3 className='name' > Engineering Graphics And Design</h3>
             <p>Qty: 1</p>
-            <p style={{marginTop:'-0.6rem'}}> Seller: Ankita Tai Ghadge</p>
+            <p style={{marginTop:'-0.6rem'}}> Seller: Ankita Ghadge</p>
             <h4 style={{marginTop:'-0.2rem'}}> MRP : 200 Rs</h4>
           </Grid>
         </Grid>

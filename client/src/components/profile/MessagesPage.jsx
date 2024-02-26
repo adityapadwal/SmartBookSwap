@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Grid } from "@mui/material";
 import Sidebar from "../profileComponents/Sidebar";
 
-const HistoryPage = () => {
+const MessagesPage = () => {
   return (
     <div>
       <Box sx={{ flexGrow: 1, marginTop: "4rem" }}>
@@ -25,4 +25,4 @@ const HistoryPage = () => {
   );
 };
 
-export default HistoryPage;
+export default MessagesPage;

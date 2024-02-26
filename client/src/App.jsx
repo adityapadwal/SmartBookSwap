@@ -10,13 +10,13 @@ import IndexPage from './components/index/IndexPage'
 import BooksIndexPage from './components/books/BooksIndexPage';
 import SellBookPage from './components/sellBook/SellBookPage';
 import ProfilePage from './components/profile/ProfilePage';
-import HistoryPage from './components/profile/HistoryPage';
 import ListedBooksPage from './components/profile/ListedBooksPage';
 import SoldBooksPage from './components/profile/SoldBooksPage';
 import TempPage from './components/testing/TempPage';
 import BookPage from './components/book/BookPage';
 import { EditUserContextProvider, UserContextProvider } from './components/context/UserContext';
 import { BookDetailsContextProvider } from './components/context/BookDetailsContext';
+import MessagesPage from './components/profile/MessagesPage';
 import Cart from './components/Cart/Cart';
 
 // configuring axios
@@ -47,7 +47,7 @@ function App() {
               <Route path='/sell-book' element={<SellBookPage />} /> {/* sellBook */}
 
               <Route path='/profile' element={< ProfilePage />} /> {/* profile */}
-              <Route path='/history' element={< HistoryPage />} /> {/* profile */}
+              <Route path='/messages' element={< MessagesPage />} /> {/* profile */}
               <Route path='/listedbooks' element={< ListedBooksPage />} /> {/* profile */}
               <Route path='/soldbooks' element={< SoldBooksPage />} /> {/* profile */}
 

@@ -6,10 +6,10 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import HistoryIcon from "@mui/icons-material/History";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BeenhereIcon from "@mui/icons-material/Beenhere";
+import MessageIcon from "@mui/icons-material/Message";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -39,12 +39,12 @@ const Sidebar = () => {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/history">
+            <ListItemButton component={Link} to="/messages">
               <ListItemIcon>
-                <HistoryIcon />
+                <MessageIcon />
               </ListItemIcon>
               <ListItemText
-                primary="History"
+                primary="Messages"
                 sx={{ display: { xs: "none", sm: "none", md: "block" } }}
               />
             </ListItemButton>

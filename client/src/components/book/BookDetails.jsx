@@ -1,7 +1,7 @@
 import React from "react";
 import { useMediaQuery } from "@mui/material";
 
-const BookDetails = ({book}) => {
+const BookDetails = ({ book }) => {
   const isXS = useMediaQuery("(max-width:600px)");
   const isSM = useMediaQuery("(min-width:600px) and (max-width:959px)");
   const isMD = useMediaQuery("(min-width:960px)");
@@ -57,16 +57,6 @@ const BookDetails = ({book}) => {
           borderRadius: "8px",
           boxShadow: "0 3px 3px rgba(0, 0, 0, 0.4)",
         }}
-        onMouseOver={(e) => {
-          // Apply hover styles on mouse over
-          e.currentTarget.style.backgroundColor = "white";
-          e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.5)";
-        }}
-        onMouseOut={(e) => {
-          // Revert to initial styles on mouse out
-          e.currentTarget.style.backgroundColor = "white";
-          e.currentTarget.style.boxShadow = "0 3px 3px rgba(0, 0, 0, 0.4)";
-        }}
       >
         <h2 style={{ fontSize: isXS ? "20px" : isSM ? "25px" : "" }}>
           Book Details:
@@ -112,17 +102,7 @@ const BookDetails = ({book}) => {
           borderRadius: "8px",
           boxShadow: "0 3px 3px rgba(0, 0, 0, 0.4)",
           height: isXS ? "" : isSM ? "172px" : "183px",
-          width: "100",
-        }}
-        onMouseOver={(e) => {
-          // Apply hover styles on mouse over
-          e.currentTarget.style.backgroundColor = "white";
-          e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.5)";
-        }}
-        onMouseOut={(e) => {
-          // Revert to initial styles on mouse out
-          e.currentTarget.style.backgroundColor = "white";
-          e.currentTarget.style.boxShadow = "0 3px 3px rgba(0, 0, 0, 0.4)";
+          maxWidth: "100%",
         }}
       >
         <h2 style={{ fontSize: isXS ? "20px" : isSM ? "25px" : "" }}>
@@ -132,7 +112,9 @@ const BookDetails = ({book}) => {
         <p
           style={{
             fontSize: isXS ? "14px" : isSM ? "16px" : "20px",
-            margin: "-5px 0px 0.5rem 0px",
+            margin: "-10px 0px 0.5rem 0px",
+            maxHeight: isXS ? "none" : isSM ? "140px" : "125px", // Max height for description text
+            overflowY: "auto", // Add scrollbar when content exceeds height
           }}
         >
           {/* book description */}

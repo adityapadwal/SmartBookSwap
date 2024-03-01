@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Button } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import axios from "axios";
 
 import { useMediaQuery } from "@mui/material";
 
@@ -50,6 +51,16 @@ const TagDetails = ({ book, user }) => {
   const isSM = useMediaQuery("(min-width:600px) and (max-width:959px)");
   const isMD = useMediaQuery("(min-width:960px)");
 
+  // adding product to cart
+  async function addToCart() {
+    try {
+      const productId = book._id;
+      await axios.post("/cart", {productId});
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       <div
@@ -58,8 +69,8 @@ const TagDetails = ({ book, user }) => {
           margin: isXS
             ? "0 0 1rem 0"
             : isSM
-            ? "0 1rem 1rem 1rem"
-            : "0 1rem 1rem 1rem",
+              ? "0 1rem 1rem 1rem"
+              : "0 1rem 1rem 1rem",
 
           backgroundColor: "white", //#deeafe
           // border: '1px solid grey',
@@ -93,6 +104,7 @@ const TagDetails = ({ book, user }) => {
           </h1>
           <h3 style={{ color: "green", margin: "6px 0 5px 0" }}>Available</h3>
           <div>
+            {/* Chat with seller */}
             <button
               style={{ ...buttonStyles.common, ...buttonStyles.negotiate }}
               onMouseOver={(e) => {
@@ -108,7 +120,9 @@ const TagDetails = ({ book, user }) => {
             >
               chat with seller
             </button>
+            {/* Add to Cart */}
             <button
+              onClick={addToCart}
               style={{ ...buttonStyles.common, ...buttonStyles.addToCart }}
               onMouseOver={(e) => {
                 e.currentTarget.style.backgroundColor = "#16c427";
@@ -122,6 +136,7 @@ const TagDetails = ({ book, user }) => {
             >
               Add to Cart
             </button>
+            {/* Buy Now */}
             <button
               style={{ ...buttonStyles.common, ...buttonStyles.buyNow }}
               onMouseOver={(e) => {
@@ -150,13 +165,13 @@ const TagDetails = ({ book, user }) => {
           padding: isXS
             ? "0.5rem 1rem 0 1rem"
             : isSM
-            ? "0.3rem 1rem 0.4rem 1rem"
-            : "0.3rem 1rem 0.4rem 1rem",
+              ? "0.3rem 1rem 0.4rem 1rem"
+              : "0.3rem 1rem 0.4rem 1rem",
           margin: isXS
             ? ""
             : isSM
-            ? "1.5rem 1rem 1rem 1rem"
-            : "1.5rem 1rem 1rem 1rem",
+              ? "1.5rem 1rem 1rem 1rem"
+              : "1.5rem 1rem 1rem 1rem",
           height: isXS ? "160px" : isSM ? "180px" : "180px",
           width: isXS ? "" : isSM ? "335px" : "335px",
           borderRadius: "8px",

@@ -9,6 +9,9 @@ import './cart.css';
 
 const CartProducts = ({id, title, price, bookImage, quantity, sellerName, removeFromCart}) => {
 
+  function buyNow() {
+    alert("Click on \" Make Payment \" to proceed further");
+  }
   return (
     <div>
       <Box sx={{ padding: '0.5rem', backgroundColor: "white", boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.4)", margin: '0.7rem', transition: "background-color 0.5s ease, box-shadow 0.5s ease" }} onMouseOver={(e) => {
@@ -43,7 +46,7 @@ const CartProducts = ({id, title, price, bookImage, quantity, sellerName, remove
           <Grid container>
 
             <Grid item xs={3.9}>
-              <Button fullWidth size="small" startIcon={<ShoppingCartIcon />}>
+              <Button onClick={buyNow} fullWidth size="small" startIcon={<ShoppingCartIcon />}>
                 Buy Now
               </Button>
             </Grid>

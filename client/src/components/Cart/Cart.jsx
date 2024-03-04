@@ -8,6 +8,7 @@ const Cart = () => {
   // state variables
   const [cart, setCart] = useState([]);
   const [totalCartItems, setTotalCartItems] = useState(0);
+  const [totalPayable, setTotalPayable] = useState(0);
 
   useEffect(() => {
     axios
@@ -22,8 +23,9 @@ const Cart = () => {
           setCart([]);
           setTotalCartItems(0);
         }
-      })
-  }, []);
+        findPrice();
+      });
+  }, [totalCartItems]);
 
   const removeFromCart = (productId) => {
     // Send a request to remove the product from the cart
@@ -38,13 +40,23 @@ const Cart = () => {
           console.error("Failed to remove product from cart:", response.data.error);
         }
       });
+      findPrice();
   };
+
+  function findPrice() {
+    let totalAmount = 0;
+    cart.forEach(item => {
+      totalAmount += item.mrp;
+    });
+    setTotalPayable(totalAmount);
+  }
 
   return (
     <div>
       <Container>
         <Grid container>
 
+          {/* Displaying Cart Products */}
           <Grid item xs={12} md={8} sx={{ marginTop: '6rem' }}>
             <h3 style={{ background: "linear-gradient(to right, #284bfa, #98a9fa)", color: 'white', padding: '0.25rem', margin: '0.3rem', borderRadius: '5px', paddingLeft: '2rem' }}>My Cart ({totalCartItems})</h3>
             {cart.length === 0 ? (
@@ -69,11 +81,14 @@ const Cart = () => {
                 </Box>
               ))
             )}
-
           </Grid>
 
+          {/* Display Summary */}
           <Grid item xs={12} md={4} sx={{ marginTop: { xs: '0rem', md: '6rem' } }}>
-            <CartSummary />
+            <CartSummary 
+              totalPayable = {totalPayable}
+              totalCartItems = {totalCartItems}
+            />
           </Grid>
         </Grid>
       </Container>

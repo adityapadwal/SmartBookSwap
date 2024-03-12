@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
@@ -7,7 +7,7 @@ import axios from "axios";
 
 import { useMediaQuery } from "@mui/material";
 
-const TagDetails = ({ book, user }) => {
+const TagDetails = ({ book, user, id }) => {
   // Get today's date
   const today = new Date();
 
@@ -42,6 +42,10 @@ const TagDetails = ({ book, user }) => {
       backgroundColor: "#2ecc71", // Green shade
       border: "1px solid #27ae60",
     },
+    removeFromCart: {
+      backgroundColor: "#c73c3c",
+      border: "1px solid #c41616"
+    },
     buyNow: {
       backgroundColor: "#3498db", // Blue shade
       border: "1px solid #2980b9",
@@ -51,22 +55,65 @@ const TagDetails = ({ book, user }) => {
   const isXS = useMediaQuery("(max-width:600px)");
   const isSM = useMediaQuery("(min-width:600px) and (max-width:959px)");
   const isMD = useMediaQuery("(min-width:960px)");
-
+  
   // state variables
   const [redirect, setRedirect] = useState(false);
+  const [bookInCart, setBookInCart] = useState(false);
+
+  // useEffect hook
+  useEffect(() => {
+    axios.get(`/check-in-cart/${id}`)
+      .then((response)=> {
+        if(response.data.success === true) {
+          // console.log(response.data) debugging...
+          const isBookPresent = response.data.isBookInCart;
+          // console.log(response.data.isBookInCart); debugging...
+          setBookInCart(isBookPresent);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, [bookInCart]);
 
   // adding product to cart
   async function addToCart() {
     try {
       const productId = book._id;
       await axios.post("/cart", {productId});
+      setBookInCart(true);
     } catch (error) {
       console.log(error);
     }
     // redirect to cart page 
-    setRedirect(true);
+    // setRedirect(true);
   }
 
+  // removing product from cart
+  function removeFromCart() {
+    const productId = id;
+    axios
+      .post('/remove-from-cart', { productId })
+      .then((response) => {
+        if (response.data.success) {
+          setBookInCart(false);
+        } else {
+          console.error("Failed to remove product from cart:", response.data.error);
+        }
+      });
+  }
+
+  // buying product (add to cart and redirect)
+  function buyProduct() {
+    if(bookInCart) {
+      setRedirect(true);
+    } else {
+      addToCart();
+      setRedirect(true);
+    }
+  }
+
+  // redirect to the cart after adding product to cart
   if(redirect === true) {
     return <Navigate to={'/cart'} />
   } 
@@ -131,6 +178,24 @@ const TagDetails = ({ book, user }) => {
               chat with seller
             </button>
             {/* Add to Cart */}
+            {
+            bookInCart ? 
+            <button
+              onClick={removeFromCart}
+              style={{ ...buttonStyles.common, ...buttonStyles.removeFromCart }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = "#c41616";
+                // e.currentTarget.style.boxShadow = "6px 6px 6px rgb(3, 94, 12)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = "#c73c3c";
+                e.currentTarget.style.boxShadow =
+                  "0 0px 0px rgba(0, 0, 0, 0.0)";
+              }}
+            >
+              Remove From Cart
+            </button>
+            : 
             <button
               onClick={addToCart}
               style={{ ...buttonStyles.common, ...buttonStyles.addToCart }}
@@ -146,9 +211,11 @@ const TagDetails = ({ book, user }) => {
             >
               Add to Cart
             </button>
+            }
+            
             {/* Buy Now */}
             <button
-              onClick={addToCart}
+              onClick={buyProduct}
               style={{ ...buttonStyles.common, ...buttonStyles.buyNow }}
               onMouseOver={(e) => {
                 e.currentTarget.style.backgroundColor = "#2ebcf0";

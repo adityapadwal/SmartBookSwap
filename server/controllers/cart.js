@@ -109,3 +109,33 @@ exports.removeProduct = async(req, res) => {
         res.status(500).json({ success: false, error: "Unable to removing products from cart" });
     }
 }
+
+exports.checkBookInCart = async(req, res) => {
+    const {id} = req.params;
+    const { token } = req.cookies; // id of the owner of the cart
+
+    // first check if the user-cart is present
+  try {
+      const userData = jwt.verify(token, jwtSecret);
+      const userId = userData.id;
+
+      let cart = await Cart.findOne({ owner: userId });
+      if (cart) {
+        // If user-cart exists, check for product in Cart
+        let isBookInCart = false;
+        for (const item of cart.items) {
+            if (item.productId.toString() === id) {
+                isBookInCart = true;
+                break;
+            }
+        }
+        res.json({ success: true, isBookInCart: isBookInCart });
+    } else {
+          // If cart doesn't exist, product not present in cart
+          res.json({ success: true, isBookInCart: false});
+      }
+  } catch (error) {
+      console.error("Error adding product to cart:", error);
+      res.status(500).json({ success: false, error: "Unable to add product to cart" });
+  }
+}

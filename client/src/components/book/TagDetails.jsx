@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
@@ -51,6 +52,9 @@ const TagDetails = ({ book, user }) => {
   const isSM = useMediaQuery("(min-width:600px) and (max-width:959px)");
   const isMD = useMediaQuery("(min-width:960px)");
 
+  // state variables
+  const [redirect, setRedirect] = useState(false);
+
   // adding product to cart
   async function addToCart() {
     try {
@@ -59,7 +63,13 @@ const TagDetails = ({ book, user }) => {
     } catch (error) {
       console.log(error);
     }
+    // redirect to cart page 
+    setRedirect(true);
   }
+
+  if(redirect === true) {
+    return <Navigate to={'/cart'} />
+  } 
 
   return (
     <div>
@@ -138,6 +148,7 @@ const TagDetails = ({ book, user }) => {
             </button>
             {/* Buy Now */}
             <button
+              onClick={addToCart}
               style={{ ...buttonStyles.common, ...buttonStyles.buyNow }}
               onMouseOver={(e) => {
                 e.currentTarget.style.backgroundColor = "#2ebcf0";

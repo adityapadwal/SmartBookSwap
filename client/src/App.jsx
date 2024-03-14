@@ -17,7 +17,7 @@ import BookPage from './components/book/BookPage';
 import { EditUserContextProvider, UserContextProvider } from './components/context/UserContext';
 import { BookDetailsContextProvider } from './components/context/BookDetailsContext';
 import MessagesPage from './components/profile/MessagesPage';
-import Cart from './components/Cart/Cart';
+import Cart from './components/cart/Cart';
 
 // configuring axios
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE_URL;

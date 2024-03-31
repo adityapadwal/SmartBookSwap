@@ -86,6 +86,7 @@ const Cart = () => {
           {/* Display Summary */}
           <Grid item xs={12} md={4} sx={{ marginTop: { xs: '0rem', md: '6rem' } }}>
             <CartSummary 
+              cart = {cart}
               totalPayable = {totalPayable}
               totalCartItems = {totalCartItems}
             />

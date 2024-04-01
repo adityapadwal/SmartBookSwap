@@ -1,4 +1,4 @@
-// importing the books model
+// importing the models
 const SellBook = require('../models/SellBook.js');
 const User = require('../models/User.js');
 

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SellBookSchema = new Schema({
-  owner: {type: mongoose.Schema.Types.ObjectId, ref:'users'},
+  owner: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
   title: { type: String, required: true },
   category: { type: String, required: true },
   subcategory: String,

@@ -15,6 +15,7 @@ const bookRoutes = require("./routes/book.js");
 const sellBookRoutes = require("./routes/sellBook.js");
 const uploadRoutes = require("./routes/upload.js");
 const cartRoutes = require("./routes/cart.js");
+const paymentRoutes = require("./routes/payment.js");
 
 // Creating an instance of the express application
 const app = express();
@@ -39,6 +40,7 @@ app.use(bookRoutes);
 app.use(sellBookRoutes);
 app.use(uploadRoutes);
 app.use(cartRoutes);
+app.use(paymentRoutes);
 
 // Running the express application
 mongoose

@@ -62,7 +62,7 @@ const BookPage = () => {
           </Grid>
 
           <Grid item xs={12} md={3} sx={{ padding: "0px" }}>
-            {book && user && <TagDetails book={book} user={user} />}
+            {book && user && <TagDetails book={book} user={user} id={id} />}
           </Grid>
         </Grid>
       </Box>

@@ -26,6 +26,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ArrowDropUpSharpIcon from "@mui/icons-material/ArrowDropUpSharp";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export default function DenseAppBar() {
   // state variables
@@ -74,6 +75,11 @@ export default function DenseAppBar() {
 
   // manage closing of profile icon
   const handleProfileClose = () => {
+    setProfileAnchor(null);
+  };
+
+  // manage closing of Cart icon
+  const handleCartClose = () => {
     setProfileAnchor(null);
   };
 
@@ -183,6 +189,15 @@ export default function DenseAppBar() {
                     <MenuItem onClick={handleProfileClose}>
                       <PersonIcon sx={{ marginRight: 1 }} />
                       Profile
+                    </MenuItem>
+                  </Link>
+                  <Link
+                    to={"/cart"}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <MenuItem onClick={handleCartClose}>
+                      <ShoppingCartIcon sx={{ marginRight: 1 }} />
+                      Cart
                     </MenuItem>
                   </Link>
                   <Link

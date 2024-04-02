@@ -17,6 +17,8 @@ import BookPage from './components/book/BookPage';
 import { EditUserContextProvider, UserContextProvider } from './components/context/UserContext';
 import { BookDetailsContextProvider } from './components/context/BookDetailsContext';
 import MessagesPage from './components/profile/MessagesPage';
+import Cart from './components/Cart/Cart';
+import Chat from './components/messaging/Chat';
 import Cart from './components/cart/Cart';
 import PaymentSuccess from './components/payment/PaymentSuccess';
 import PaymentCancel from './components/payment/PaymentCancel';
@@ -54,6 +56,8 @@ function App() {
               <Route path='/soldbooks' element={< SoldBooksPage />} /> {/* profile */}
 
               <Route path='/temp' element={< TempPage />} /> {/* testing */}
+              <Route path='/chat' element={< Chat />} /> {/* messaging */}
+              
 
               <Route path='/success' element={< PaymentSuccess />} /> {/* Payment temporary */}
               <Route path='/cancel' element={< PaymentCancel />} /> {/* Payment temporary */}

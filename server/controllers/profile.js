@@ -128,3 +128,32 @@ exports.getAllListedBooks = async (req, res) => {
     return res.json(null);
   }
 };
+
+// To get all profiles
+exports.getAllProfiles = async (req, res) => {
+  try {
+    // Extract the JWT token from the request cookies
+    const { token } = req.cookies;
+    
+    // Verify the JWT token
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+      if (err) {
+        console.error("JWT verification failed:", err);
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+
+      try {
+        // Retrieve all user profiles, including the '_id' and 'name' and excluding rest all
+        const profiles = await User.find({}, { '_id': 1, name: 1 }); 
+        return res.json(profiles);
+
+      } catch (error) {
+        console.error("Error fetching profiles:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching profiles:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};

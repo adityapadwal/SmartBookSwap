@@ -1,0 +1,11 @@
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+/* @import 'tailwindcss/base'; */
+
+.flexgrp {
+  height: calc(100vh - 60px); /* Adjust the height based on your navbar height */
+}
+
+.border-b {
+  border-bottom: .5px solid #ccc; 
+}

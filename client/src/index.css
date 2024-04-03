@@ -1,10 +1,10 @@
- body {
-   overflow-y:visible;   /* This allows vertical scrolling  */
+body {
+    overflow-y:visible; /* This allows vertical scrolling */
   }
   
-   /* Add the following style to prevent horizontal scrollbar  */
+  /* Add the following style to prevent horizontal scrollbar */
   html {
     overflow-x: hidden;
-  } 
+  }
   
  

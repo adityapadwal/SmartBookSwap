@@ -43,7 +43,7 @@ export default function DenseAppBar() {
   // checking if user has logged in or not
   useEffect(() => {
     if (user) {
-      // console.log(user);
+      console.log(user);
       setIsLoggedin(true);
     } else {
       setIsLoggedin(false);
@@ -55,7 +55,6 @@ export default function DenseAppBar() {
     await axios.post("/logout");
     setUser(null);
     alert("User log-out successful");
-    window.location.reload(); // Reload the page after navigation to index page
   }
 
   // manage opening of our services menu

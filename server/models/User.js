@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  name: {type: String, unique: true},
+  name: String,
   email: { type: String, unique: true },
   phone: String,
   address: String,
@@ -11,6 +11,6 @@ const UserSchema = new Schema({
   resetToken: String
 });
 
-const UserModel = mongoose.model('User', UserSchema);
+const UserModel = mongoose.model('users', UserSchema);
 
 module.exports = UserModel;

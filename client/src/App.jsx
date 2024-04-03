@@ -17,7 +17,7 @@ import BookPage from './components/book/BookPage';
 import { EditUserContextProvider, UserContextProvider } from './components/context/UserContext';
 import { BookDetailsContextProvider } from './components/context/BookDetailsContext';
 import MessagesPage from './components/profile/MessagesPage';
-import Cart from './components/cart/Cart';
+import Cart from './components/Cart/Cart';
 import PaymentSuccess from './components/payment/PaymentSuccess';
 import PaymentCancel from './components/payment/PaymentCancel';
 

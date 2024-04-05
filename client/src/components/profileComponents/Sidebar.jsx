@@ -39,7 +39,7 @@ const Sidebar = () => {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/messages">
+            <ListItemButton component={Link} to="/chat">
               <ListItemIcon>
                 <MessageIcon />
               </ListItemIcon>

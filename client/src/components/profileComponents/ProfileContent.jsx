@@ -94,6 +94,7 @@ const ProfileContent = () => {
     await axios.post('/logout');
     alert("User logout successful");
     setUser(null);
+    window.location.reload(); // Reload the page after navigation to index page
     return <Navigate to={'/'} />;
   }
 

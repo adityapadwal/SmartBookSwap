@@ -55,6 +55,7 @@ export default function DenseAppBar() {
     await axios.post("/logout");
     setUser(null);
     alert("User log-out successful");
+    window.location.reload(); // Reload the page after navigation to index page
   }
 
   // manage opening of our services menu

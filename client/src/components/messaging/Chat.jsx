@@ -22,6 +22,7 @@ export default function Chat() {
   const [messages, setMessages] = useState([]);
   const divUnderMessages = useRef();
 
+  // Storing User Id from context into id
   const id = user ? user._id : null;
 
   // Set up WebSocket connection on component mount
@@ -29,6 +30,7 @@ export default function Chat() {
     connectToWS();
   }, []);
 
+  // Establish WebSocket connection
   function connectToWS() {
     // Create a new WebSocket instance
     const ws = new WebSocket("ws://localhost:8000");
@@ -47,6 +49,7 @@ export default function Chat() {
     });
   }
 
+  // Display online users
   function showOnlinePeople(peopleArray) {
     // console.log(peopleArray);
 
@@ -59,6 +62,7 @@ export default function Chat() {
     setOnlinePeople(people);
   }
 
+  // Handle incoming messages
   function handleMessage(e) {
     // console.log('New Msg: ', e);
     // console.log(e.data);
@@ -75,7 +79,7 @@ export default function Chat() {
     }
   }
 
-  // handling user logout
+  // Handle user logout
   function logout() {
     axios.post("/logout").then(() => {
       setWs(null);
@@ -86,13 +90,15 @@ export default function Chat() {
     });
   }
 
-  async function sendMessage(e) {
-    e.preventDefault();
-    console.log("Sending msg...");
+  // Handle text msg transfer
+  async function sendMessage(e, file = null) {
+    if (e) e.preventDefault();
+    // console.log("Sending msg...");
     ws.send(
       JSON.stringify({
         recipient: selectedUserId,
         text: newMessageText,
+        file,
       })
     );
     setNewMessageText("");
@@ -116,7 +122,20 @@ export default function Chat() {
       });
   }
 
-  // automatically scroll to bottom of message container when new message is send or recieved
+  // Handle file transfer
+  function sendFile(e) {
+    // console.log(e.target.files);
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      sendMessage(null, {
+        name: e.target.files[0].name,
+        data: reader.result,
+      });
+    };
+  }
+
+  // Automatically scroll to bottom of message container when new message is send or recieved
   useEffect(() => {
     const div = divUnderMessages.current;
     if (div) {
@@ -161,24 +180,24 @@ export default function Chat() {
     }
   }, [selectedUserId]);
 
-  // make copy of online people
+  // Make copy of online people
   const onlinePeopleExclOurUser = { ...onlinePeople };
 
-  // delete our account from online people
+  // Delete our account from online people
   delete onlinePeopleExclOurUser[id];
 
   // Remove duplicate messages based on the '_id'
   // console.log(messages);
 
   const messagesWithoutDupes = uniqBy(messages, "_id");
-  console.log(messagesWithoutDupes);
+  // console.log(messagesWithoutDupes);
 
   return (
     <div
       className="flex h-screen"
       style={{ fontFamily: "Segoe UI", fontWeight: 500 }}
     >
-      {/* Left Part */}
+      {/* Left Section */}
       <div
         className="bg-white w-1/3 flex flex-col"
         style={{ paddingTop: "4rem" }}
@@ -238,7 +257,7 @@ export default function Chat() {
         </div>
       </div>
 
-      {/* Right Part */}
+      {/* Right Section */}
       <div
         className="flex flex-col bg-blue-100 w-2/3 p-2"
         style={{ paddingTop: "4rem" }}
@@ -271,6 +290,40 @@ export default function Chat() {
                       }
                     >
                       {message.text}
+                      {message.file && (
+                        <div>
+                          <a
+                            target="_blank"
+                            className={
+                              "flex items-center gap-1" +
+                              (message.sender === id
+                                ? " text-white"
+                                : " text-gray-500")
+                            }
+                            href={
+                              axios.defaults.baseURL +
+                              "/uploads/" +
+                              message.file
+                            }
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-4 h-4"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"
+                              />
+                            </svg>
+                            {message.file}
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -282,6 +335,7 @@ export default function Chat() {
 
         {!!selectedUserId && (
           <form className="flex gap-2" onSubmit={sendMessage}>
+            {/* Text input bar */}
             <input
               type="text"
               value={newMessageText}
@@ -289,6 +343,27 @@ export default function Chat() {
               placeholder="Type your message here"
               className="bg-white flex-grow border-gray-100 p-2 rounded-sm"
             />
+
+            {/* Attachment button */}
+            <label className="cursor-pointer bg-gray-50 p-2 text-gray-600 rounded-sm border border-gray-300">
+              <input type="file" className="hidden" onChange={sendFile} />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"
+                />
+              </svg>
+            </label>
+
+            {/* Send message button */}
             <button
               type="submit"
               className="cursor-pointer bg-blue-500 p-2 text-white rounded-sm border border-blue-400"

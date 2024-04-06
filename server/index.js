@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser"); // parsing cookies
 const mongoose = require("mongoose"); // ODM
 const ws = require("ws"); // Importing 'ws' module for WebSocket
 const jwt = require("jsonwebtoken"); // Import the 'jsonwebtoken' module
+const fs = require("fs"); // File system module
 
 // Importing the jwt secret token
 const jwtSecret = process.env.JWT_SECRET;
@@ -51,12 +52,13 @@ app.use(uploadRoutes);
 app.use(cartRoutes);
 app.use(paymentRoutes);
 app.use(messageRoutes);
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
-// Running the express application
+// Connect to MongoDB and start the server
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
-    console.log("Server running on port 8000");
+    console.log("Server running on port 8000!");
   })
   .catch((err) => {
     console.log(err);
@@ -68,6 +70,7 @@ const server = app.listen(8000);
 // Create a WebSocket server wss using library 'ws'
 const wss = new ws.WebSocketServer({ server });
 
+// WebSocket connection handler
 wss.on("connection", (connection, req) => {
   // console.log(req.headers);    //...contains token
 
@@ -89,7 +92,7 @@ wss.on("connection", (connection, req) => {
 
   connection.isAlive = true;
 
-  // Set up a timer that sends a ping to the client every 3 sec
+  // Ping client every 3 seconds
   connection.timer = setInterval(() => {
     connection.ping();
 
@@ -110,6 +113,7 @@ wss.on("connection", (connection, req) => {
     clearTimeout(connection.deathTimer);
   });
 
+  // Extract JWT token from cookies and verify
   const cookies = req.headers.cookie;
   if (cookies) {
     const tokenCookieString = cookies
@@ -125,7 +129,7 @@ wss.on("connection", (connection, req) => {
         // console.log(token);
         jwt.verify(tokenValue, jwtSecret, {}, (err, userData) => {
           if (err) throw err;
-          console.log(userData); // { email: 'ankitaghadge03@gmail.com', id: '65bcd1cdfa0632bb2d002654', name: 'Ankita', iat: 1710041643 }
+          // console.log(userData); // { email: 'ankitaghadge03@gmail.com', id: '65bcd1cdfa0632bb2d002654', name: 'Ankita', iat: 1710041643 }
 
           // Extract id & name from the decoded JWT
           const { id, name } = userData;
@@ -139,21 +143,42 @@ wss.on("connection", (connection, req) => {
     }
   }
 
+  // Event handler for receiving messages from clients
   connection.on("message", async (message) => {
     // console.log(typeof message);   //...Object
     // console.log(message.toString());   //...sent msg
 
     const messageData = JSON.parse(message.toString());
     // console.log(messageData);
-    const { recipient, text } = messageData;
-    if (recipient && text) {
+    const { recipient, text, file } = messageData;
+
+    let filename = null;
+    if (file) {
+      // console.log({file});
+      // Split the file name into an array of parts using '.' as the separator
+      const parts = file.name.split(".");
+
+      // Extract the file extension by accessing the last element of the parts array
+      const ext = parts[parts.length - 1];
+      // Generate a file name
+      filename = Date.now() + "." + ext;
+      // console.log(filename);
+      const path = __dirname + "/uploads/" + filename;
+      const bufferData = new Buffer(file.data.split(",")[1], "base64");
+      fs.writeFile(path, bufferData, () => {
+        // console.log("File saved: " + path);
+      });
+    }
+    if (recipient && (text || file)) {
       const messageDoc = await Message.create({
         sender: connection.userId,
         recipient,
         text,
+        file: file ? filename : null,
       });
       // console.log("Created message!");
 
+      // Send the message to the recipient
       [...wss.clients]
         .filter((c) => c.userId === recipient)
         .forEach((c) =>
@@ -162,6 +187,7 @@ wss.on("connection", (connection, req) => {
               text,
               sender: connection.userId,
               recipient,
+              file: file ? filename : null,
               _id: messageDoc._id,
             })
           )
@@ -175,9 +201,6 @@ wss.on("connection", (connection, req) => {
   // extracting the username from each WebSocket client in the array.
   // console.log([...wss.clients].map((c) => c.username));
 
+  // Notify clients about online users when a new client connects
   notifyAboutOnlinePeople();
 });
-
-// wss.on("close", (data) => {
-//   console.log("Disconnected!", data);
-// });

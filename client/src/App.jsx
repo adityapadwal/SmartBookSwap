@@ -16,10 +16,7 @@ import TempPage from './components/testing/TempPage';
 import BookPage from './components/book/BookPage';
 import { EditUserContextProvider, UserContextProvider } from './components/context/UserContext';
 import { BookDetailsContextProvider } from './components/context/BookDetailsContext';
-import MessagesPage from './components/profile/MessagesPage';
 import Cart from './components/cart/Cart';
-import PaymentSuccess from './components/payment/PaymentSuccess';
-import PaymentCancel from './components/payment/PaymentCancel';
 import Chat from './components/messaging/Chat';
 import PurchaseHistoryPage from './components/profile/PurchaseHistoryPage';
 
@@ -51,16 +48,13 @@ function App() {
               <Route path='/sell-book' element={<SellBookPage />} /> {/* sellBook */}
 
               <Route path='/profile' element={< ProfilePage />} /> {/* profile */}
-              <Route path='/messages' element={< MessagesPage />} /> {/* profile */}
               <Route path='/listedbooks' element={< ListedBooksPage />} /> {/* profile */}
               <Route path='/soldbooks' element={< SoldBooksPage />} /> {/* profile */}
               <Route path='/history' element={< PurchaseHistoryPage />} /> {/* profile */}
 
-              <Route path='/temp' element={< TempPage />} /> {/* testing */}
-              <Route path='/chat' element={< Chat />} /> {/* testing */}
+              <Route path='/chat' element={< Chat />} /> {/* messaging */}
 
-              <Route path='/success' element={< PaymentSuccess />} /> {/* Payment temporary */}
-              <Route path='/cancel' element={< PaymentCancel />} /> {/* Payment temporary */}
+              <Route path='/temp' element={< TempPage />} /> {/* testing */}
 
             </Route>
           </Routes>

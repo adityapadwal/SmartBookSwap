@@ -21,6 +21,7 @@ import Cart from './components/cart/Cart';
 import PaymentSuccess from './components/payment/PaymentSuccess';
 import PaymentCancel from './components/payment/PaymentCancel';
 import Chat from './components/messaging/Chat';
+import PurchaseHistoryPage from './components/profile/PurchaseHistoryPage';
 
 // configuring axios
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -53,6 +54,7 @@ function App() {
               <Route path='/messages' element={< MessagesPage />} /> {/* profile */}
               <Route path='/listedbooks' element={< ListedBooksPage />} /> {/* profile */}
               <Route path='/soldbooks' element={< SoldBooksPage />} /> {/* profile */}
+              <Route path='/history' element={< PurchaseHistoryPage />} /> {/* profile */}
 
               <Route path='/temp' element={< TempPage />} /> {/* testing */}
               <Route path='/chat' element={< Chat />} /> {/* testing */}

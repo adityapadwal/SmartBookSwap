@@ -30,7 +30,7 @@ exports.postCreatePayment = async (req, res) => {
         payment_method_types:["card"],
         line_items:lineItems,
         mode:"payment",
-        success_url:"http://localhost:5173/success",
+        success_url:"http://localhost:5173/history",
         cancel_url:"http://localhost:5173/cart",
     });
 

@@ -10,6 +10,7 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BeenhereIcon from "@mui/icons-material/Beenhere";
 import MessageIcon from "@mui/icons-material/Message";
+import HistoryIcon from '@mui/icons-material/History';
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -26,6 +27,7 @@ const Sidebar = () => {
     >
       <nav aria-label="main mailbox folders">
         <List sx={{ flexGrow: 1 }}>
+          {/* User Profile */}
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/profile">
               <ListItemIcon>
@@ -38,6 +40,7 @@ const Sidebar = () => {
             </ListItemButton>
           </ListItem>
           <Divider />
+          {/* Messages */}
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/chat">
               <ListItemIcon>
@@ -50,25 +53,40 @@ const Sidebar = () => {
             </ListItemButton>
           </ListItem>
           <Divider />
+          {/* Listed Books */}
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/listedbooks">
               <ListItemIcon>
                 <LibraryBooksIcon />
               </ListItemIcon>
               <ListItemText
-                primary="Listed Book's"
+                primary="Listed Books"
                 sx={{ display: { xs: "none", sm: "none", md: "block" } }}
               />
             </ListItemButton>
           </ListItem>
           <Divider />
+          {/* Sold Books */}
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/soldbooks">
               <ListItemIcon>
                 <BeenhereIcon />
               </ListItemIcon>
               <ListItemText
-                primary="Sold Book's"
+                primary="Sold Books"
+                sx={{ display: { xs: "none", sm: "none", md: "block" } }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          {/* Purchase History */}
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/history">
+              <ListItemIcon>
+                <HistoryIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Purchase History"
                 sx={{ display: { xs: "none", sm: "none", md: "block" } }}
               />
             </ListItemButton>

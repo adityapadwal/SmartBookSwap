@@ -26,6 +26,7 @@ export const CartSummary = ({ cart, totalPayable, totalCartItems }) => {
 
         try {
             // sending a POST request to the server to create a checkout session
+            console.log("Sending request to create checkout session...");
             const response = await axios.post("/create-checkout-session", {finalProductList});
 
             // parsing the response from the server

@@ -17,3 +17,12 @@ exports.getBookById = async(req, res) => {
 
     res.json({bookInfo, bookOwner});
 };
+
+exports.getFeaturedBooks = async(req, res) => {
+    const allBooks = await SellBook.find().limit(8);
+    if(allBooks) {
+        res.json({success: true, featuredBooks: allBooks});
+    } else {
+        res.json({success: false, featuredBooks: []});
+    }
+};

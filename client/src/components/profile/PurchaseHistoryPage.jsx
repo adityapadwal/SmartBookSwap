@@ -7,10 +7,10 @@ import axios from 'axios'
 
 const PurchaseHistoryPage = () => {
   // state variables
-  const [cart, setCart] = useState([]);
   const [purchasedProducts, setPurchasedProducts] = useState([]);
   const [totalPurcasedProducts, setTotalPurcasedProducts] = useState(0);
 
+  // for getting purchase history
   useEffect(() => {
     axios
       .get('/history')

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   TextField,
@@ -11,7 +11,7 @@ import {
   Grid,
   Container,
 } from "@mui/material";
-import BookItem from "./BookItem";
+import BookCardComponent from "../books/BookCardComponent";
 import Footer from "../footer/Footer";
 import { Link } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
@@ -22,114 +22,26 @@ import click from '../../assets/click.gif'
 import Login from '../../assets/login.png'
 import paid from '../../assets/paid.png'
 import adduser from '../../assets/add.png'
+import axios from "axios";
 
 const IndexPage = () => {
-  const books = [
-    {
-      category: "Medical",
-      name: "Book Title",
-      location: "Pune",
-      price: "200",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-      type: "fixed",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://bookcover4u.com/pro/Fantasy-3D-book-cover-design-heart-illustration-valentine-book-covers-with-hearts-sparkle-vintage-fantasy-romantic-chain-moon-rose-curtain-drape-blue-N1553578257B.jpg",
-    },
-    {
-      category: "Engineering",
-      name: "Book Title",
-      location: "Pune",
-      price: "300",
-      type: "fixed",
-      image:
-        "https://d1ysvut1l4lkly.cloudfront.net/B092HQ3WFN/13/image-0-0.jpg",
-    },
-  ];
-
+  //state-variables
+  const [featuredBooks, setFeaturedBooks] = useState([]);
   // Initialize state for selected category
   const [selectedCategory, setSelectedCategory] = useState("");
   const [activeNav, setActiveNav] = useState('#');
 
+  // to fetch the featured books
+  useEffect(() => {
+    axios.get('/featured-books')
+      .then((response) => {
+        if(response.data.success) {
+          setFeaturedBooks(response.data.featuredBooks);
+        } else {
+          console.log("Unable to fetch featured books");
+        }
+      })
+  });
 
   return (
     <Box>
@@ -321,28 +233,27 @@ const IndexPage = () => {
             alignItems="center"
             padding={"13px"}
           >
-            {books &&
-              books.slice(0, 8).map((book, index) => (
+            {featuredBooks &&
+              featuredBooks.slice(0, 8).map((book, index) => (
                 <Box margin={"auto"} key={index} padding="10px">
-                  <BookItem
-                    image={book.image}
+                  <BookCardComponent
+                    id={book._id}
+                    owner={book.owner}
+                    image={book.photos[0]}
                     category={book.category}
-                    name={book.name}
-                    location={book.location}
-                    price={book.price}
-                    type={book.type}
+                    subcategory={book.subcategory}
+                    title={book.title}
+                    publication={book.publicationOrAuthor}
+                    price={book.mrp}
+                    priceType={book.priceType}
                   />
                 </Box>
               ))}
           </Box>
         </Box>
-
         {/* Footer */}
         <Footer />
       </div>
-
-
-
     </Box>
   );
 };

@@ -11,5 +11,7 @@ const router = express.Router();
 router.get('/books', bookController.getAllBooks);
 router.get('/books/:id', bookController.getBookById);
 
+router.get('/featured-books', bookController.getFeaturedBooks);
+
 // exporting the routes
 module.exports = router;

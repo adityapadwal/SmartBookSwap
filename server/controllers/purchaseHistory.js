@@ -3,9 +3,6 @@ const Order = require('../models/Order');
 const SoldBook = require('../models/SoldBook');
 const User = require('../models/User');
 
-// importing the mongoose model
-const mongoose = require("mongoose");
-
 // importing the jwt package
 const jwt = require("jsonwebtoken");
 

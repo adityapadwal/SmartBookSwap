@@ -27,6 +27,7 @@ const cartRoutes = require("./routes/cart.js");
 const paymentRoutes = require("./routes/payment.js");
 const messageRoutes = require("./routes/message.js");
 const purchaseHistoryRoutes = require("./routes/purchaseHistory.js");
+const soldBookRoutes = require("./routes/soldBook.js");
 
 // Creating an instance of the express application
 const app = express();
@@ -54,6 +55,8 @@ app.use(cartRoutes);
 app.use(paymentRoutes);
 app.use(messageRoutes);
 app.use(purchaseHistoryRoutes);
+app.use(soldBookRoutes);
+
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
 // Connect to MongoDB and start the server

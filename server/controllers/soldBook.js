@@ -85,9 +85,9 @@ exports.getSoldBooks = async(req, res) => {
                     }));
 
 
-                    res.json({success: true, data: soldProductsDetails});
+                    res.json({success: true, soldProductsDetails: soldProductsDetails});
                 } else {
-                    res.json({success: false, data: []});
+                    res.json({success: false, soldProductsDetails : []});
                 }
             } else {
                 throw "UserId not present...";

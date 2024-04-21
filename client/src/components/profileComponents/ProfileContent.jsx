@@ -141,7 +141,7 @@ const ProfileContent = () => {
                 </Grid>
 
                 <Grid item xs={2} sm={4} md={4} >
-                  <Link to={'/buy-book'}>
+                  <Link to={'/books'}>
                     <Button variant="contained" endIcon={<StorefrontOutlinedIcon />} sx={{ padding: { xs: '0.3rem', sm: '1rem' }, margin: { xs: '1rem', md: '0rem' } }}>
                       <Typography >Buy Book</Typography>
                     </Button>

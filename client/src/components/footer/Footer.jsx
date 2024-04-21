@@ -48,7 +48,7 @@ const Footer = () => {
             Keep Your Books Flowing!
           </Typography>
           <Box display="flex" marginTop={3}>
-            <Link to="/facebook-page" style={{ textDecoration: "none" }}>
+            <Link to="/" style={{ textDecoration: "none" }}>
               <FacebookOutlined
                 style={{
                   color: "white",
@@ -58,7 +58,7 @@ const Footer = () => {
                 }}
               />
             </Link>
-            <Link to="/instagram-page" style={{ textDecoration: "none" }}>
+            <Link to="/" style={{ textDecoration: "none" }}>
               <InstagramIcon
                 style={{
                   color: "white",
@@ -68,7 +68,7 @@ const Footer = () => {
                 }}
               />
             </Link>
-            <Link to="/twitter-page" style={{ textDecoration: "none" }}>
+            <Link to="/" style={{ textDecoration: "none" }}>
               <TwitterIcon
                 style={{
                   color: "white",
@@ -112,7 +112,7 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="/services" style={{ textDecoration: "none" }}>
+              <Link to="/" style={{ textDecoration: "none" }}>
                 <Typography
                   fontSize={{ xs: "14px", sm: "20px" }}
                   style={{ textAlign: "left" }}

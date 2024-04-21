@@ -6,7 +6,7 @@ import { UserContext } from "../context/UserContext";
 import { uniqBy } from "lodash";
 import axios from "axios";
 import Contact from "./Contact";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Chat() {
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ export default function Chat() {
   const [newMessageText, setNewMessageText] = useState("");
   const [messages, setMessages] = useState([]);
   const divUnderMessages = useRef();
+  const [redirect, setRedirect] = useState(false);
 
   // Storing User Id from context into id
   const id = user ? user._id : null;
@@ -88,6 +89,11 @@ export default function Chat() {
       navigate("/");
       window.location.reload(); // Reload the page after navigation to index page
     });
+  }
+
+  // Handle Redirection to profile page
+  function redirectToProfilePage () {
+    setRedirect(true);
   }
 
   // Handle text msg transfer
@@ -192,6 +198,10 @@ export default function Chat() {
   const messagesWithoutDupes = uniqBy(messages, "_id");
   // console.log(messagesWithoutDupes);
 
+  if(redirect === true) {
+    return <Navigate to={'/profile'}/>
+  }
+
   return (
     <div
       className="flex h-screen"
@@ -229,8 +239,9 @@ export default function Chat() {
           ))}
         </div>
 
-        {/* User name and logout button */}
+        {/* User name diaplay, logout and back buttons */}
         <div className="p-2 text-center flex items-center justify-center">
+          {/* Displaying user name */}
           {user && (
             <span className="mr-2 text-gray-500 flex items-center">
               <svg
@@ -248,11 +259,18 @@ export default function Chat() {
               {user.name}
             </span>
           )}
+          {/* Logout */}
           <button
             onClick={logout}
             className="text-sm cursor-pointer bg-blue-100 py-1 px-2 text-gray-500 border border-gray-100 rounded-sm transition-colors duration-300 hover:bg-blue-200"
           >
             Logout
+          </button>
+          <button
+            onClick={redirectToProfilePage}
+            className="text-sm cursor-pointer ml-1 bg-blue-100 py-1 px-2 text-gray-500 border border-gray-100 rounded-sm transition-colors duration-300 hover:bg-blue-200"
+          >
+            Back
           </button>
         </div>
       </div>

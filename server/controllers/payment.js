@@ -27,7 +27,6 @@ function getDate() {
     // Format date as ddmmyyyy
     const formattedDate = `${day}/${month}/${year}`;
 
-    console.log(formattedDate); // Output: for example, if today is April 15, 2024: 15042024
     return formattedDate;
 };
 
@@ -49,17 +48,13 @@ const handleSuccessfulPayment = async (req, res) => {
             throw "Token not found in cookies";
         }
         const userId = user.id;
-        console.log("USER ID IS => ", userId);
 
         // 2. get the product ids of cart items
         let cartProductIds = [];
         const userCart = await Cart.findOne({ owner: userId });
-        console.log("USER CART IS => ", userCart);
         userCart.items.forEach((item) => {
             cartProductIds.push(item.productId);
         });
-        console.log("CartProductIds ARRAY => ", cartProductIds);
-        console.log("CartProductIds ARRAY LENGTH => ", cartProductIds.length);
 
         // 3. creating the order in the order db
         try {
@@ -68,9 +63,7 @@ const handleSuccessfulPayment = async (req, res) => {
             for (const item of userCart.items) {
                 // process for getting the seller of the product
                 const productId = item.productId;
-                console.log("productId => ", productId);
                 const productDetails = await SellBook.findOne({_id: productId});
-                console.log("productDetails are ", productDetails);
                 const sellerId = productDetails.owner;
                 // Add the product ID and quantity to the orderProducts array
                 orderProducts.push({
@@ -91,7 +84,6 @@ const handleSuccessfulPayment = async (req, res) => {
             });
             //saving the order
             await order.save();
-            console.log("Order created in db successfully");
 
         } catch(error) {
             console.error("Error creating order:", error);
@@ -127,7 +119,6 @@ const handleSuccessfulPayment = async (req, res) => {
                 await SellBook.deleteOne({ _id: productId })
             }
 
-            console.log("PRODUCT MIGRATION SUCCESSFULL");
         } catch (error) {
             console.error("Error moving products to SoldBook:", error);
             throw error;
@@ -144,7 +135,6 @@ const handleSuccessfulPayment = async (req, res) => {
             // save the updated cart
             await userCart.save();
 
-            console.log(`Cart items deleted successfully for user with ID ${userId}`);
         } catch (error) {
             console.error("Error deleting user cart items:", error);
             throw error;

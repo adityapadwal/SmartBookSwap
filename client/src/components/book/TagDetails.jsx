@@ -57,8 +57,9 @@ const TagDetails = ({ book, user, id }) => {
   const isMD = useMediaQuery("(min-width:960px)");
   
   // state variables
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(false); // for redirection to cart
   const [bookInCart, setBookInCart] = useState(false);
+  const [chatRedirect, setChatRedirect] = useState(false);
 
   // useEffect hook
   useEffect(() => {
@@ -118,6 +119,11 @@ const TagDetails = ({ book, user, id }) => {
     return <Navigate to={'/cart'} />
   } 
 
+  // function to redirect user to messaging system
+  if(chatRedirect === true) {
+    return <Navigate to={'/chat'} />
+  }
+
   return (
     <div>
       <div
@@ -163,6 +169,7 @@ const TagDetails = ({ book, user, id }) => {
           <div>
             {/* Chat with seller */}
             <button
+              onClick={() => {setChatRedirect(true)}}
               style={{ ...buttonStyles.common, ...buttonStyles.negotiate }}
               onMouseOver={(e) => {
                 e.currentTarget.style.backgroundColor = "#f2bb22";
